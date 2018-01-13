@@ -1,9 +1,20 @@
 package cz.kulicka.services;
 
-public interface WebApiService<T> {
+import cz.kulicka.entities.BookTicker;
+import cz.kulicka.entities.Candlestick;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
-    T getExchangeCurrencies();
+import java.util.List;
 
-    String pingExchange();
+public interface WebApiService {
+
+    @GET("/api/v1/ticker/allBookTickers")
+    Call<List<BookTicker>> getBookTickers();
+
+    @GET("/api/v1/klines")
+    Call<List<Candlestick>> getCandlestickBars(@Query("symbol") String symbol, @Query("interval") String interval, @Query("limit") Integer limit,
+                                               @Query("startTime") Long startTime, @Query("endTime") Long endTime);
 
 }

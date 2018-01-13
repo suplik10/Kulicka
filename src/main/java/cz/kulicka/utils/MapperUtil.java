@@ -6,9 +6,9 @@ import org.junit.Assert;
 
 import java.util.ArrayList;
 
-public final class Mapper {
+public final class MapperUtil {
 
-    static Logger log = Logger.getLogger(Mapper.class);
+    static Logger log = Logger.getLogger(MapperUtil.class);
 
     public static ArrayList<Kline> klinesJsonArrayToKlinesObjectArray(ArrayList<ArrayList<String>> klinesJson) {
         log.info("Map klines json array to klines object Array - START ");

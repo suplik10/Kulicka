@@ -18,7 +18,7 @@ import java.util.Map;
         "askPrice",
         "askQty"
 })
-public class AllPrice {
+public class BookTicker {
 
     @JsonProperty("symbol")
     private String symbol;

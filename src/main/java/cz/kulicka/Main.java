@@ -1,12 +1,9 @@
 package cz.kulicka;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.kulicka.rest.connectors.AbstractRestApiConnector;
-import cz.kulicka.utils.Mapper;
 import org.apache.log4j.Logger;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.io.File;
 import java.io.IOException;
 
 
@@ -15,6 +12,10 @@ public class Main {
     static Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
+
+        Retrofit builder = new Retrofit.Builder()
+                .baseUrl("https://www.binance.com") ///api/v1/klines?symbol=BTCUSDT&interval=1d&limit=5
+                .addConverterFactory(JacksonConverterFactory.create()).build();
 
 
 //        try {
