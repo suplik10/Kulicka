@@ -20,10 +20,11 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     static Logger log = Logger.getLogger(CurrencyServiceImpl.class);
 
+    BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
+    BinanceApiRestClient client = factory.newRestClient();
+
     @Override
     public ArrayList<String> checkActualCurrencies(ArrayList newCurrencies) {
-        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-        BinanceApiRestClient client = factory.newRestClient();
 
         List<BookTicker> bookTickers = client.getBookTickers();
 
@@ -68,25 +69,16 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Override
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit, Long startTime, Long endTime) {
-        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-        BinanceApiRestClient client = factory.newRestClient();
-
         return client.getCandlestickBars(symbol, interval, limit, startTime, endTime);
     }
 
     @Override
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval) {
-        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-        BinanceApiRestClient client = factory.newRestClient();
-
         return client.getCandlestickBars(symbol, interval);
     }
 
     @Override
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit) {
-        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-        BinanceApiRestClient client = factory.newRestClient();
-
         return client.getCandlestickBars(symbol, interval, limit);
     }
 }

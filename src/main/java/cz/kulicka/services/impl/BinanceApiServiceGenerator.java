@@ -1,9 +1,11 @@
 package cz.kulicka.services.impl;
 
+import cz.kulicka.CoreEngine;
 import cz.kulicka.constant.BinanceApiConstants;
 import cz.kulicka.security.security.AuthenticationInterceptor;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -12,6 +14,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 
 public class BinanceApiServiceGenerator {
+
+    static Logger log = Logger.getLogger(BinanceApiServiceGenerator.class);
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -48,6 +52,7 @@ public class BinanceApiServiceGenerator {
                 return response.body();
             } else {
                 //BinanceApiError apiError = getBinanceApiError(response);
+                log.error("api response error> " + response.code() + " message> " + response.message());
                 throw new NullPointerException("HOHOHOHOHOHOHOHOHOHO");
             }
         } catch (IOException e) {
