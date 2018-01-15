@@ -3,6 +3,7 @@ package cz.kulicka.rest.connectors.impl;
 import cz.kulicka.entities.BookTicker;
 import cz.kulicka.entities.Candlestick;
 import cz.kulicka.entities.CandlestickInterval;
+import cz.kulicka.entities.TickerPrice;
 import cz.kulicka.rest.connectors.BinanceApiRestClient;
 import cz.kulicka.services.WebApiService;
 import org.apache.log4j.Logger;
@@ -42,5 +43,10 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     @Override
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit) {
         return getCandlestickBars(symbol, interval, limit, null, null);
+    }
+
+    @Override
+    public List<TickerPrice> getAllPrices() {
+        return executeSync(binanceApiService.getLatestPrices());
     }
 }
