@@ -2,6 +2,7 @@ package cz.kulicka.services.impl;
 
 import cz.kulicka.CoreEngine;
 import cz.kulicka.constant.BinanceApiConstants;
+import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.security.security.AuthenticationInterceptor;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
@@ -53,12 +54,12 @@ public class BinanceApiServiceGenerator {
             } else {
                 //BinanceApiError apiError = getBinanceApiError(response);
                 log.error("api response error> " + response.code() + " message> " + response.message());
-                throw new NullPointerException("HOHOHOHOHOHOHOHOHOHO");
+                throw new BinanceApiException(response.message());
             }
         } catch (IOException e) {
-            new NullPointerException("HOHOHOHOHOHOHOHOHOHO");
+            log.error("Binance rest call api exception!");
+            throw new BinanceApiException(e.getMessage());
         }
-        return null;
     }
 
     /**
