@@ -2,7 +2,8 @@ package cz.kulicka;
 
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.CandlestickInterval;
+import cz.kulicka.entities.TickerPrice;
+import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.impl.BinanceApiServiceImpl;
 import org.apache.log4j.Logger;
@@ -52,6 +53,9 @@ public class CoreEngine {
 
 
                 }
+
+                TickerPrice tickerPrice = binanceApiService.getLastPrice(currencies.get(i).concat(CurrenciesConstants.BTC));
+
 
                 if(createOrder){
                     log.info("Currency " + currencies.get(i).concat(CurrenciesConstants.BTC) + " [[[[MAKE ORDER " + createOrder + " ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");

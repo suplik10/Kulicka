@@ -2,8 +2,14 @@ package cz.kulicka.rest.connectors;
 
 import cz.kulicka.entities.BookTicker;
 import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.CandlestickInterval;
+import cz.kulicka.enums.CandlestickInterval;
+import cz.kulicka.entities.NewOrder;
+import cz.kulicka.entities.NewOrderResponse;
+import cz.kulicka.entities.Order;
+import cz.kulicka.entities.OrderRequest;
 import cz.kulicka.entities.TickerPrice;
+import cz.kulicka.entities.request.CancelOrderRequest;
+import cz.kulicka.entities.request.OrderStatusRequest;
 
 import java.util.List;
 
@@ -17,5 +23,17 @@ public interface BinanceApiRestClient {
 
     List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit);
 
-    List<TickerPrice> getAllPrices();
+    TickerPrice getLastPrice(String symbol);
+
+    List<TickerPrice> getLastPrices();
+
+    NewOrderResponse newOrder(NewOrder order);
+
+    void newOrderTest(NewOrder order);
+
+    Order getOrderStatus(OrderStatusRequest orderStatusRequest);
+
+    void cancelOrder(CancelOrderRequest cancelOrderRequest);
+
+    List<Order> getOpenOrders(OrderRequest orderRequest);
 }

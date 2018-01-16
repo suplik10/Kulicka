@@ -1,4 +1,4 @@
-package cz.kulicka.entities;
+package cz.kulicka.enums;
 
 /**
  * Kline/Candlestick intervals.

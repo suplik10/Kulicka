@@ -5,8 +5,14 @@ import cz.kulicka.constant.AppConstants;
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entities.BookTicker;
 import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.CandlestickInterval;
+import cz.kulicka.enums.CandlestickInterval;
+import cz.kulicka.entities.NewOrder;
+import cz.kulicka.entities.NewOrderResponse;
+import cz.kulicka.entities.Order;
+import cz.kulicka.entities.OrderRequest;
 import cz.kulicka.entities.TickerPrice;
+import cz.kulicka.entities.request.CancelOrderRequest;
+import cz.kulicka.entities.request.OrderStatusRequest;
 import cz.kulicka.rest.connectors.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
 import org.apache.log4j.Logger;
@@ -84,7 +90,39 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     }
 
     @Override
-    public List<TickerPrice> getAllPrices() {
-        return client.getAllPrices();
+    public TickerPrice getLastPrice(String symbol) {
+        return client.getLastPrice(symbol);
     }
+
+    @Override
+    public List<TickerPrice> getLastPrices() {
+        return client.getLastPrices();
+    }
+
+    @Override
+    public NewOrderResponse newOrder(NewOrder order) {
+        return client.newOrder(order);
+    }
+
+    @Override
+    public void newOrderTest(NewOrder order) {
+        client.newOrderTest(order);
+    }
+
+    @Override
+    public Order getOrderStatus(OrderStatusRequest orderStatusRequest) {
+        return client.getOrderStatus(orderStatusRequest);
+    }
+
+    @Override
+    public void cancelOrder(CancelOrderRequest cancelOrderRequest) {
+        client.cancelOrder(cancelOrderRequest);
+    }
+
+    @Override
+    public List<Order> getOpenOrders(OrderRequest orderRequest) {
+        return client.getOpenOrders(orderRequest);
+    }
+
+
 }
