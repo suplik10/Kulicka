@@ -2,24 +2,40 @@ package cz.kulicka;
 
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entities.Candlestick;
+import cz.kulicka.entities.Order;
 import cz.kulicka.entities.TickerPrice;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
+import cz.kulicka.services.OrderService;
 import cz.kulicka.services.impl.BinanceApiServiceImpl;
+import cz.kulicka.services.impl.OrderServiceImpl;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Component
 public class CoreEngine {
 
+    @Autowired
+    OrderService orderService;
 
     static Logger log = Logger.getLogger(CoreEngine.class);
 
     BinanceApiService binanceApiService = new BinanceApiServiceImpl();
 
+    public void run() {
+        Order order = new Order("joohohoo", 2222.5);
 
+        orderService.create(order);
+
+        Order order1 = orderService.getOrderById(1);
+    }
 
     public void runIt(){
         ArrayList<String> newCurrencies = new ArrayList<>();
@@ -73,4 +89,6 @@ public class CoreEngine {
 
 
     }
+
+
 }
