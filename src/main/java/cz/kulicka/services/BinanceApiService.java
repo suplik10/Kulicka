@@ -1,6 +1,7 @@
 package cz.kulicka.services;
 
 import cz.kulicka.entities.Candlestick;
+import cz.kulicka.entities.Ticker;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.entities.NewOrder;
 import cz.kulicka.entities.NewOrderResponse;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public interface BinanceApiService {
 
-    ArrayList<String> checkActualCurrencies(ArrayList newCurrencies);
+    ArrayList<Ticker> checkActualCurrencies(ArrayList newCurrencies);
 
     List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit, Long startTime, Long endTime);
 

@@ -1,77 +1,71 @@
 package cz.kulicka.services.impl;
 
 import cz.kulicka.BinanceApiClientFactory;
-import cz.kulicka.constant.AppConstants;
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entities.BookTicker;
 import cz.kulicka.entities.Candlestick;
-import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.entities.NewOrder;
 import cz.kulicka.entities.NewOrderResponse;
 import cz.kulicka.entities.Order;
 import cz.kulicka.entities.OrderRequest;
+import cz.kulicka.entities.Ticker;
 import cz.kulicka.entities.TickerPrice;
 import cz.kulicka.entities.request.CancelOrderRequest;
 import cz.kulicka.entities.request.OrderStatusRequest;
+import cz.kulicka.enums.CandlestickInterval;
+import cz.kulicka.repository.TickerRepository;
 import cz.kulicka.rest.connectors.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
+import cz.kulicka.utils.CommonUtil;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static cz.kulicka.utils.IOUtil.loadListOfStringsToFile;
-import static cz.kulicka.utils.IOUtil.saveListOfStringsToFile;
-
+@Service
 public class BinanceApiServiceImpl implements BinanceApiService {
 
     static Logger log = Logger.getLogger(BinanceApiServiceImpl.class);
 
+    @Autowired
+    TickerRepository tickerRepository;
+
+    //TODO refactor to spring
     BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
     BinanceApiRestClient client = factory.newRestClient();
 
     @Override
-    public ArrayList<String> checkActualCurrencies(ArrayList newCurrencies) {
+    public ArrayList<Ticker> checkActualCurrencies(ArrayList newCurrencies) {
 
-        List<BookTicker> bookTickers = client.getBookTickers();
+        List<BookTicker> newBookTickers = client.getBookTickers();
 
-        ArrayList<String> apiList = new ArrayList<>();
-        ArrayList<String> fileList = loadListOfStringsToFile(AppConstants.CURRENCY_LIST_FILE_PATH);
+        ArrayList<Ticker> tickersDB = (ArrayList<Ticker>) tickerRepository.findAll();
 
-        if (bookTickers != null) {
-            for (int i = 0; i < bookTickers.size(); i++) {
-                if (bookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    apiList.add(bookTickers.get(i).getSymbol().replace(CurrenciesConstants.BTC, ""));
+        if (newBookTickers != null) {
+            tickerRepository.deleteAll();
+            for (int i = 0; i < newBookTickers.size(); i++) {
+                if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
+                    if(CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol())){
+                        Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
+                        newCurrencies.add(ticker);
+                        tickersDB.add(ticker);
+                    }
                 }
             }
-        }
-
-        if (apiList == null) {
+        }else{
             log.warn("Api /api/v1/ticker/allBookTickers returned null list!");
-            if (fileList == null) {
-                log.warn("Saved fileList is null too! - returning null list of currencies");
-            }
-            return fileList;
+            return tickersDB;
         }
 
-        //remove blacklist currencies
-        apiList.removeAll(CurrenciesConstants.BLACK_LIST);
-        log.info("Currencies to save: " + apiList.toString());
+        log.info("Currencies to save: " + tickersDB.toString());
 
-        if (fileList == null) {
-            saveListOfStringsToFile(apiList, AppConstants.CURRENCY_LIST_FILE_PATH);
-            return apiList;
-        }
-
-        saveListOfStringsToFile(apiList, AppConstants.CURRENCY_LIST_FILE_PATH);
-
-        ArrayList<String> copyOfApiList = (ArrayList<String>) apiList.clone();
-        copyOfApiList.removeAll(fileList);
-        newCurrencies.addAll(copyOfApiList);
+        tickerRepository.save(tickersDB);
 
         log.info("New currencies on exchange! : " + newCurrencies.toString());
 
-        return apiList;
+        return tickersDB;
     }
 
     @Override
