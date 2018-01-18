@@ -31,13 +31,13 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 
     @Override
     public List<BookTicker> getBookTickers() {
-        log.info("getBookTickers");
+        log.debug("getBookTickers");
         return executeSync(binanceApiService.getBookTickers());
     }
 
     @Override
     public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit, Long startTime, Long endTime) {
-        log.info("getCandlestickBars( " + symbol + " " + interval.getIntervalId() + " " + limit + " " + startTime + " " + endTime + " )");
+        log.debug("getCandlestickBars( " + symbol + " " + interval.getIntervalId() + " " + limit + " " + startTime + " " + endTime + " )");
         return executeSync(binanceApiService.getCandlestickBars(symbol, interval.getIntervalId(), limit, startTime, endTime));
     }
 

@@ -43,6 +43,8 @@ public class BinanceApiServiceImpl implements BinanceApiService {
 
         ArrayList<Ticker> tickersDB = (ArrayList<Ticker>) tickerRepository.findAll();
 
+        ArrayList<Ticker> newTickersDB = new ArrayList<>();
+
         if (newBookTickers != null) {
             tickerRepository.deleteAll();
             for (int i = 0; i < newBookTickers.size(); i++) {
@@ -59,7 +61,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
             return tickersDB;
         }
 
-        log.info("Currencies to save: " + tickersDB.toString());
+        log.debug("Currencies to save: " + tickersDB.toString());
 
         tickerRepository.save(tickersDB);
 

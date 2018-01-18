@@ -21,7 +21,7 @@ public class Order {
     @Column(nullable = true)
     private double sellPrice;
     @Column(nullable = true)
-    private boolean isActive;
+    private boolean active;
     @Column(nullable = true)
     private int riskValue;
 
@@ -59,11 +59,11 @@ public class Order {
     }
 
     public boolean isActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     public int getRiskValue() {
@@ -74,13 +74,17 @@ public class Order {
         this.riskValue = riskValue;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "symbol='" + symbol + '\'' +
                 ", buyPrice=" + buyPrice +
                 ", sellPrice=" + sellPrice +
-                ", isActive=" + isActive +
+                ", isActive=" + active +
                 ", riskValue=" + riskValue +
                 '}';
     }
