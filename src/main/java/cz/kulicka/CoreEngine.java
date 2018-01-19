@@ -30,10 +30,12 @@ public class CoreEngine {
     @Autowired
     BinanceApiService binanceApiService;
 
+    @Autowired
+    PropertyPlacehoder propertyPlacehoder;
+
 
     public void run() {
         runIt();
-
     }
 
     public void runIt() {
@@ -59,7 +61,7 @@ public class CoreEngine {
 
     private void sleep(){
         try {
-            Thread.sleep(300000);
+            Thread.sleep(propertyPlacehoder.getThreadSleepBetweenRequestsMiliseconds());
         } catch (InterruptedException e) {
             log.error("THREAD SLEEP ERROR " + e.getMessage());
         }
