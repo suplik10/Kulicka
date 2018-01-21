@@ -1,13 +1,7 @@
 package cz.kulicka.entities;
 
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_tb")
@@ -18,20 +12,44 @@ public class Order {
     private Long id;
     private String symbol;
     private double buyPrice;
-    @Column(nullable = true)
     private double sellPrice;
-    @Column(nullable = true)
     private boolean active;
-    @Column(nullable = true)
     private int riskValue;
+    private double profit;
+    private long buyTime;
+    private long sellTime;
 
 
     public Order() {
     }
 
-    public Order(String symbol, double buyPrice) {
+    public Order(String symbol, double buyPrice, long buyTime) {
         this.symbol = symbol;
         this.buyPrice = buyPrice;
+    }
+
+    public double getProfit() {
+        return profit;
+    }
+
+    public long getBuyTime() {
+        return buyTime;
+    }
+
+    public void setBuyTime(long buyTime) {
+        this.buyTime = buyTime;
+    }
+
+    public long getSellTime() {
+        return sellTime;
+    }
+
+    public void setSellTime(long sellTime) {
+        this.sellTime = sellTime;
+    }
+
+    public void setProfit(double profit) {
+        this.profit = profit;
     }
 
     public String getSymbol() {
@@ -78,14 +96,4 @@ public class Order {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "symbol='" + symbol + '\'' +
-                ", buyPrice=" + buyPrice +
-                ", sellPrice=" + sellPrice +
-                ", isActive=" + active +
-                ", riskValue=" + riskValue +
-                '}';
-    }
 }

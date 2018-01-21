@@ -1,13 +1,9 @@
 package cz.kulicka.services;
 
 import cz.kulicka.constant.BinanceApiConstants;
-import cz.kulicka.entities.BookTicker;
-import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.NewOrderResponse;
-import cz.kulicka.entities.Order;
+import cz.kulicka.entities.*;
 import cz.kulicka.enums.OrderSide;
 import cz.kulicka.enums.OrderType;
-import cz.kulicka.entities.TickerPrice;
 import cz.kulicka.enums.TimeInForce;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -62,4 +58,7 @@ public interface WebApiService {
     @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @GET("/api/v3/openOrders")
     Call<List<Order>> getOpenOrders(@Query("symbol") String symbol, @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+
+    @GET("/api/v1/ticker/24hr")
+    Call<TickerStatistics> get24HrPriceStatistics(@Query("symbol") String symbol);
 }

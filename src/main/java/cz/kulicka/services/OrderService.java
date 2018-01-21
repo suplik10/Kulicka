@@ -14,6 +14,8 @@ public interface OrderService {
 
     List<Order> getAllActive();
 
+    List<Order> getAllInActive();
+
     void update(Order order);
 
     Order getOrderById(long id);

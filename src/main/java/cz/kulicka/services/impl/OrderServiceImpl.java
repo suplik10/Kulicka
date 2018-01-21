@@ -1,7 +1,6 @@
 package cz.kulicka.services.impl;
 
 
-import cz.kulicka.CoreEngine;
 import cz.kulicka.entities.Order;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.OrderService;
@@ -22,11 +21,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void create(Order order) {
         orderRepository.save(order);
-        log.info("Currency " + order.getSymbol() + " [[[[MAKE ORDER for " + order.getBuyPrice() + "BTC ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]");
-
-
-
-
+        log.info("Currency " + order.getSymbol() + "[MAKE ORDER for " + String.format("%.9f", order.getBuyPrice()) + " BTC]");
     }
 
     @Override
@@ -43,6 +38,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAllActive() {
         return (List<Order>) orderRepository.findAllByActiveTrue();
+    }
+
+    @Override
+    public List<Order> getAllInActive() {
+        return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
     }
 
     @Override

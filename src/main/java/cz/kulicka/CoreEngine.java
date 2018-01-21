@@ -1,13 +1,13 @@
 package cz.kulicka;
 
-import cz.kulicka.entities.Candlestick;
 import cz.kulicka.entities.Order;
 import cz.kulicka.entities.Ticker;
-import cz.kulicka.enums.CandlestickInterval;
+import cz.kulicka.entities.TickerStatistics;
 import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
+import cz.kulicka.services.OrderStrategyService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,33 +33,47 @@ public class CoreEngine {
     @Autowired
     PropertyPlacehoder propertyPlacehoder;
 
+    @Autowired
+    OrderStrategyService orderStrategyService;
+
 
     public void run() {
-        runIt();
+        //checkProfits();
+        //runIt();
+
+        TickerStatistics tickerStatistics = binanceApiService.get24HrPriceStatistics("LTCBTC");
+    }
+
+    private void checkProfits() {
+        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
+
+        double profit = 0;
+
+        for (Order order : finishedOrders) {
+            profit += order.getProfit();
+        }
+
+        log.info("FINAL PROFIT: " + String.format("%.9f", (profit)));
     }
 
     public void runIt() {
 
-        while(true) {
+        while (true) {
 
-            try{
+            try {
                 handleActiveOrders();
-
                 scanCurrenciesAndMakeNewOrders();
-            }catch (BinanceApiException e){
+            } catch (BinanceApiException e) {
                 log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
                 sleep();
             }
 
             log.info("Going sleep :-))))");
             sleep();
-
         }
-
-
     }
 
-    private void sleep(){
+    private void sleep() {
         try {
             Thread.sleep(propertyPlacehoder.getThreadSleepBetweenRequestsMiliseconds());
         } catch (InterruptedException e) {
@@ -70,28 +84,15 @@ public class CoreEngine {
     private void scanCurrenciesAndMakeNewOrders() {
         ArrayList<Ticker> newCurrencies = new ArrayList<>();
         ArrayList<Ticker> currencies;
-        boolean createOrder = false;
         log.info("SCAN START!");
 
         currencies = binanceApiService.checkActualCurrencies(newCurrencies);
 
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
-                //TODO create method
-                List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(currencies.get(i).getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);
-                log.debug("Currency " + currencies.get(i).getSymbol());
-                for (int y = 0; y < candlestickList.size() - 1; y++) {
-                    log.debug(new Date(candlestickList.get(y).getOpenTime()) + " open value " + candlestickList.get(y).getOpen() + " close value: " + candlestickList.get(y).getClose());
 
-                    if (Double.parseDouble(candlestickList.get(y).getClose()) > Double.parseDouble(candlestickList.get(y).getOpen())) {
-                        createOrder = true;
-                    } else {
-                        createOrder = false;
-                        break;
-                    }
-                }
-                if (createOrder) {
-                    Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()));
+                if (orderStrategyService.firstTestingBuyStrategy(currencies.get(i))) {
+                    Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()), new Date().getTime());
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
                     orderService.create(newOrder);
@@ -108,18 +109,15 @@ public class CoreEngine {
         log.info("Handle orders start> " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
-            if (order.getRiskValue() > 1) {
-                order.setRiskValue(order.getRiskValue() - 1);
-                log.info("Order resuming id: " + order.getId());
-            } else {
+            if (orderStrategyService.firstTestingSellStrategy(order)) {
                 order.setActive(false);
                 order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()));
-                log.info("Order stoped id: " + order.getId() + "Profit: " + String.format("%.9f", (order.getSellPrice() - order.getBuyPrice())));
+                order.setProfit(order.getSellPrice() - order.getBuyPrice());
+                order.setSellTime(new Date().getTime());
+                log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfit()));
             }
         }
 
         orderService.saveAll(activeOrders);
     }
-
-
 }

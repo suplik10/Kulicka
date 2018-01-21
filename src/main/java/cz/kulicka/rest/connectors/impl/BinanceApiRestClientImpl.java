@@ -1,13 +1,7 @@
 package cz.kulicka.rest.connectors.impl;
 
-import cz.kulicka.entities.BookTicker;
-import cz.kulicka.entities.Candlestick;
+import cz.kulicka.entities.*;
 import cz.kulicka.enums.CandlestickInterval;
-import cz.kulicka.entities.NewOrder;
-import cz.kulicka.entities.NewOrderResponse;
-import cz.kulicka.entities.Order;
-import cz.kulicka.entities.OrderRequest;
-import cz.kulicka.entities.TickerPrice;
 import cz.kulicka.entities.request.CancelOrderRequest;
 import cz.kulicka.entities.request.OrderStatusRequest;
 import cz.kulicka.rest.connectors.BinanceApiRestClient;
@@ -94,5 +88,10 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     @Override
     public List<Order> getOpenOrders(OrderRequest orderRequest) {
         return executeSync(binanceApiService.getOpenOrders(orderRequest.getSymbol(), orderRequest.getRecvWindow(), orderRequest.getTimestamp()));
+    }
+
+    @Override
+    public TickerStatistics get24HrPriceStatistics(String symbol) {
+        return executeSync(binanceApiService.get24HrPriceStatistics(symbol));
     }
 }

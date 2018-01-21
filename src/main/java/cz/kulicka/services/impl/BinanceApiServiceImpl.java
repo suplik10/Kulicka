@@ -2,14 +2,7 @@ package cz.kulicka.services.impl;
 
 import cz.kulicka.BinanceApiClientFactory;
 import cz.kulicka.constant.CurrenciesConstants;
-import cz.kulicka.entities.BookTicker;
-import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.NewOrder;
-import cz.kulicka.entities.NewOrderResponse;
-import cz.kulicka.entities.Order;
-import cz.kulicka.entities.OrderRequest;
-import cz.kulicka.entities.Ticker;
-import cz.kulicka.entities.TickerPrice;
+import cz.kulicka.entities.*;
 import cz.kulicka.entities.request.CancelOrderRequest;
 import cz.kulicka.entities.request.OrderStatusRequest;
 import cz.kulicka.enums.CandlestickInterval;
@@ -118,6 +111,11 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     @Override
     public List<Order> getOpenOrders(OrderRequest orderRequest) {
         return client.getOpenOrders(orderRequest);
+    }
+
+    @Override
+    public TickerStatistics get24HrPriceStatistics(String symbol) {
+        return client.get24HrPriceStatistics(symbol);
     }
 
 
