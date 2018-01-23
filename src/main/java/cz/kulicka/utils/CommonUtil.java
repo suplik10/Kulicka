@@ -1,7 +1,7 @@
 package cz.kulicka.utils;
 
 import cz.kulicka.constant.CurrenciesConstants;
-import cz.kulicka.entities.Ticker;
+import cz.kulicka.entity.Ticker;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;

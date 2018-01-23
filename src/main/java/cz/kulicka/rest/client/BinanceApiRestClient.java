@@ -1,9 +1,9 @@
-package cz.kulicka.rest.connectors;
+package cz.kulicka.rest.client;
 
-import cz.kulicka.entities.*;
+import cz.kulicka.entity.*;
 import cz.kulicka.enums.CandlestickInterval;
-import cz.kulicka.entities.request.CancelOrderRequest;
-import cz.kulicka.entities.request.OrderStatusRequest;
+import cz.kulicka.entity.request.CancelOrderRequest;
+import cz.kulicka.entity.request.OrderStatusRequest;
 
 import java.util.List;
 

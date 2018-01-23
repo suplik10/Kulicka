@@ -1,6 +1,6 @@
 package cz.kulicka.test.service;
 
-import cz.kulicka.entities.Candlestick;
+import cz.kulicka.entity.Candlestick;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.impl.BinanceApiServiceImpl;

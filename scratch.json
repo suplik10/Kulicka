@@ -1,6 +1,6 @@
 {
   "timezone": "UTC",
-  "serverTime": 1515950314203,
+  "serverTime": 1516715637837,
   "rateLimits": [
     {
       "rateLimitType": "REQUESTS",
@@ -8184,6 +8184,176 @@
       "symbol": "RLCBNB",
       "status": "TRADING",
       "baseAsset": "RLC",
+      "baseAssetPrecision": 8,
+      "quoteAsset": "BNB",
+      "quotePrecision": 8,
+      "orderTypes": [
+        "LIMIT",
+        "LIMIT_MAKER",
+        "MARKET",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT_LIMIT"
+      ],
+      "icebergAllowed": true,
+      "filters": [
+        {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.00001000",
+          "maxPrice": "10000.00000000",
+          "tickSize": "0.00001000"
+        },
+        {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.01000000",
+          "maxQty": "10000000.00000000",
+          "stepSize": "0.01000000"
+        },
+        {
+          "filterType": "MIN_NOTIONAL",
+          "minNotional": "1.00000000"
+        }
+      ]
+    },
+    {
+      "symbol": "INSBTC",
+      "status": "TRADING",
+      "baseAsset": "INS",
+      "baseAssetPrecision": 8,
+      "quoteAsset": "BTC",
+      "quotePrecision": 8,
+      "orderTypes": [
+        "LIMIT",
+        "LIMIT_MAKER",
+        "MARKET",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT_LIMIT"
+      ],
+      "icebergAllowed": true,
+      "filters": [
+        {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.00000010",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00000010"
+        },
+        {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.01000000",
+          "maxQty": "90000000.00000000",
+          "stepSize": "0.01000000"
+        },
+        {
+          "filterType": "MIN_NOTIONAL",
+          "minNotional": "0.00200000"
+        }
+      ]
+    },
+    {
+      "symbol": "INSETH",
+      "status": "TRADING",
+      "baseAsset": "INS",
+      "baseAssetPrecision": 8,
+      "quoteAsset": "ETH",
+      "quotePrecision": 8,
+      "orderTypes": [
+        "LIMIT",
+        "LIMIT_MAKER",
+        "MARKET",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT_LIMIT"
+      ],
+      "icebergAllowed": true,
+      "filters": [
+        {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.00000100",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00000100"
+        },
+        {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.01000000",
+          "maxQty": "90000000.00000000",
+          "stepSize": "0.01000000"
+        },
+        {
+          "filterType": "MIN_NOTIONAL",
+          "minNotional": "0.02000000"
+        }
+      ]
+    },
+    {
+      "symbol": "PIVXBTC",
+      "status": "TRADING",
+      "baseAsset": "PIVX",
+      "baseAssetPrecision": 8,
+      "quoteAsset": "BTC",
+      "quotePrecision": 8,
+      "orderTypes": [
+        "LIMIT",
+        "LIMIT_MAKER",
+        "MARKET",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT_LIMIT"
+      ],
+      "icebergAllowed": true,
+      "filters": [
+        {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.00000010",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00000010"
+        },
+        {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.01000000",
+          "maxQty": "90000000.00000000",
+          "stepSize": "0.01000000"
+        },
+        {
+          "filterType": "MIN_NOTIONAL",
+          "minNotional": "0.00200000"
+        }
+      ]
+    },
+    {
+      "symbol": "PIVXETH",
+      "status": "TRADING",
+      "baseAsset": "PIVX",
+      "baseAssetPrecision": 8,
+      "quoteAsset": "ETH",
+      "quotePrecision": 8,
+      "orderTypes": [
+        "LIMIT",
+        "LIMIT_MAKER",
+        "MARKET",
+        "STOP_LOSS_LIMIT",
+        "TAKE_PROFIT_LIMIT"
+      ],
+      "icebergAllowed": true,
+      "filters": [
+        {
+          "filterType": "PRICE_FILTER",
+          "minPrice": "0.00000100",
+          "maxPrice": "100000.00000000",
+          "tickSize": "0.00000100"
+        },
+        {
+          "filterType": "LOT_SIZE",
+          "minQty": "0.01000000",
+          "maxQty": "90000000.00000000",
+          "stepSize": "0.01000000"
+        },
+        {
+          "filterType": "MIN_NOTIONAL",
+          "minNotional": "0.02000000"
+        }
+      ]
+    },
+    {
+      "symbol": "PIVXBNB",
+      "status": "TRADING",
+      "baseAsset": "PIVX",
       "baseAssetPrecision": 8,
       "quoteAsset": "BNB",
       "quotePrecision": 8,

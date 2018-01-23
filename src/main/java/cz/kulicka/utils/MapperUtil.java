@@ -1,6 +1,6 @@
 package cz.kulicka.utils;
 
-import cz.kulicka.entities.Kline;
+import cz.kulicka.entity.Kline;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 

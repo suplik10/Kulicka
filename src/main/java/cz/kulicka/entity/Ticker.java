@@ -1,4 +1,4 @@
-package cz.kulicka.entities;
+package cz.kulicka.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

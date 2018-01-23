@@ -1,13 +1,13 @@
 package cz.kulicka;
 
-import cz.kulicka.entities.Order;
-import cz.kulicka.entities.Ticker;
-import cz.kulicka.entities.TickerStatistics;
+import cz.kulicka.entity.Order;
+import cz.kulicka.entity.Ticker;
 import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.repository.OrderRepository;
+import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
-import cz.kulicka.services.OrderStrategyService;
+import cz.kulicka.strategy.OrderStrategyContext;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,30 +31,20 @@ public class CoreEngine {
     BinanceApiService binanceApiService;
 
     @Autowired
-    PropertyPlacehoder propertyPlacehoder;
+    PropertyPlaceholder propertyPlaceholder;
 
     @Autowired
-    OrderStrategyService orderStrategyService;
+    OrderStrategyContext orderStrategyContext;
+
+    @Autowired
+    BinanceApiRestClient binanceApiRestClient;
 
 
     public void run() {
-        //checkProfits();
-        //runIt();
-
-        TickerStatistics tickerStatistics = binanceApiService.get24HrPriceStatistics("LTCBTC");
+        orderStrategyContext.buy(new Ticker());
+        runIt();
     }
 
-    private void checkProfits() {
-        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
-
-        double profit = 0;
-
-        for (Order order : finishedOrders) {
-            profit += order.getProfit();
-        }
-
-        log.info("FINAL PROFIT: " + String.format("%.9f", (profit)));
-    }
 
     public void runIt() {
 
@@ -63,6 +53,7 @@ public class CoreEngine {
             try {
                 handleActiveOrders();
                 scanCurrenciesAndMakeNewOrders();
+                checkProfits();
             } catch (BinanceApiException e) {
                 log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
                 sleep();
@@ -75,7 +66,7 @@ public class CoreEngine {
 
     private void sleep() {
         try {
-            Thread.sleep(propertyPlacehoder.getThreadSleepBetweenRequestsMiliseconds());
+            Thread.sleep(propertyPlaceholder.getThreadSleepBetweenRequestsMiliseconds());
         } catch (InterruptedException e) {
             log.error("THREAD SLEEP ERROR " + e.getMessage());
         }
@@ -91,7 +82,7 @@ public class CoreEngine {
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
                 //Buy???
-                if (orderStrategyService.firstDumbBuyStrategy(currencies.get(i))) {
+                if (orderStrategyContext.buy(currencies.get(i))) {
                     Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()), new Date().getTime());
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
@@ -110,7 +101,7 @@ public class CoreEngine {
 
         for (Order order : activeOrders) {
             //Sell???
-            if (orderStrategyService.secondDumbSellStrategyWithStopLoss(order)) {
+            if (orderStrategyContext.sell(order)) {
                 order.setActive(false);
                 order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()));
                 order.setProfit(order.getSellPrice() - order.getBuyPrice());
@@ -120,5 +111,17 @@ public class CoreEngine {
         }
 
         orderService.saveAll(activeOrders);
+    }
+
+    private void checkProfits() {
+        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
+
+        double profit = 0;
+
+        for (Order order : finishedOrders) {
+            profit += order.getProfit();
+        }
+
+        log.info("FINAL PROFIT: " + String.format("%.9f", (profit)));
     }
 }

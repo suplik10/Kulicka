@@ -1,6 +1,6 @@
 package cz.kulicka.services;
 
-import cz.kulicka.entities.Order;
+import cz.kulicka.entity.Order;
 
 import java.util.List;
 

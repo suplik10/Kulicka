@@ -1,7 +1,7 @@
 package cz.kulicka.services.impl;
 
 
-import cz.kulicka.entities.Order;
+import cz.kulicka.entity.Order;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.OrderService;
 import org.apache.log4j.Logger;
@@ -20,8 +20,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void create(Order order) {
-        orderRepository.save(order);
         log.info("Currency " + order.getSymbol() + "[MAKE ORDER for " + String.format("%.9f", order.getBuyPrice()) + " BTC]");
+        orderRepository.save(order);
     }
 
     @Override

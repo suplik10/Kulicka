@@ -1,29 +1,29 @@
-package cz.kulicka.services.impl;
+package cz.kulicka.strategy.impl;
 
-import cz.kulicka.entities.Candlestick;
-import cz.kulicka.entities.Order;
-import cz.kulicka.entities.Ticker;
+import cz.kulicka.entity.Candlestick;
+import cz.kulicka.entity.Order;
+import cz.kulicka.entity.Ticker;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.services.OrderStrategyService;
+import cz.kulicka.strategy.OrderStrategy;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
-@Service
-public class OrderStrategyServiceImpl implements OrderStrategyService {
+public class SecondDumbStrategyImpl implements OrderStrategy {
 
-    static Logger log = Logger.getLogger(OrderStrategyServiceImpl.class);
+    static Logger log = Logger.getLogger(SecondDumbStrategyImpl.class);
 
-    @Autowired
-    BinanceApiService binanceApiService;
+    private BinanceApiService binanceApiService;
+
+    public SecondDumbStrategyImpl(BinanceApiService binanceApiService) {
+        this.binanceApiService = binanceApiService;
+    }
 
     @Override
-    public boolean firstDumbBuyStrategy(Ticker ticker) {
+    public boolean buy(Ticker ticker) {
         boolean createOrder = false;
 
         List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);
@@ -43,23 +43,7 @@ public class OrderStrategyServiceImpl implements OrderStrategyService {
     }
 
     @Override
-    public boolean firstDumbSellStrategy(Order order) {
-        if (order.getRiskValue() > 1) {
-            order.setRiskValue(order.getRiskValue() - 1);
-            log.info("Order resuming id: " + order.getId());
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public boolean secondTestingBuyStrategy(Ticker ticker) {
-        return false;
-    }
-
-    @Override
-    public boolean secondDumbSellStrategyWithStopLoss(Order order) {
+    public boolean sell(Order order) {
         double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
 
         if (MathUtil.getPercentageProfit(order.getBuyPrice(), actualPrice) > 0.5) {

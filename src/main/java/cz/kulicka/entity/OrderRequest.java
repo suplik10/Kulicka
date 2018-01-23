@@ -1,4 +1,4 @@
-package cz.kulicka.entities;
+package cz.kulicka.entity;
 
 import cz.kulicka.constant.BinanceApiConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;

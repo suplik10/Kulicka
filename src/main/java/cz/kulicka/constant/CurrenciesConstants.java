@@ -7,6 +7,6 @@ public class CurrenciesConstants {
 
     public static final String BTC = "BTC";
 
-    public static final ArrayList<String> BLACK_LIST = new ArrayList<>(Arrays.asList("ETH", "USDT", "LTC"));
+    public static final ArrayList<String> BLACK_LIST = new ArrayList<>(Arrays.asList("USDT"));
 
 }

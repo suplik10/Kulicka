@@ -2,7 +2,7 @@ package cz.kulicka.test;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.kulicka.entities.Market;
+import cz.kulicka.entity.Market;
 import org.junit.Assert;
 import org.junit.Test;
 

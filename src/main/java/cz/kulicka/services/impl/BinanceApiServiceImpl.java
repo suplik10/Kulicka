@@ -1,13 +1,20 @@
 package cz.kulicka.services.impl;
 
-import cz.kulicka.BinanceApiClientFactory;
 import cz.kulicka.constant.CurrenciesConstants;
-import cz.kulicka.entities.*;
-import cz.kulicka.entities.request.CancelOrderRequest;
-import cz.kulicka.entities.request.OrderStatusRequest;
+import cz.kulicka.entity.BookTicker;
+import cz.kulicka.entity.Candlestick;
+import cz.kulicka.entity.NewOrder;
+import cz.kulicka.entity.NewOrderResponse;
+import cz.kulicka.entity.Order;
+import cz.kulicka.entity.OrderRequest;
+import cz.kulicka.entity.Ticker;
+import cz.kulicka.entity.TickerPrice;
+import cz.kulicka.entity.TickerStatistics;
+import cz.kulicka.entity.request.CancelOrderRequest;
+import cz.kulicka.entity.request.OrderStatusRequest;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.repository.TickerRepository;
-import cz.kulicka.rest.connectors.BinanceApiRestClient;
+import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.utils.CommonUtil;
 import org.apache.log4j.Logger;
@@ -25,9 +32,8 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     @Autowired
     TickerRepository tickerRepository;
 
-    //TODO refactor to spring
-    BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance();
-    BinanceApiRestClient client = factory.newRestClient();
+    @Autowired
+    BinanceApiRestClient client;
 
     @Override
     public ArrayList<Ticker> checkActualCurrencies(ArrayList newCurrencies) {
@@ -36,20 +42,18 @@ public class BinanceApiServiceImpl implements BinanceApiService {
 
         ArrayList<Ticker> tickersDB = (ArrayList<Ticker>) tickerRepository.findAll();
 
-        ArrayList<Ticker> newTickersDB = new ArrayList<>();
-
         if (newBookTickers != null) {
             tickerRepository.deleteAll();
             for (int i = 0; i < newBookTickers.size(); i++) {
                 if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if(CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol())){
+                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol())) {
                         Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
                         newCurrencies.add(ticker);
                         tickersDB.add(ticker);
                     }
                 }
             }
-        }else{
+        } else {
             log.warn("Api /api/v1/ticker/allBookTickers returned null list!");
             return tickersDB;
         }

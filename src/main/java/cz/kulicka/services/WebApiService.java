@@ -1,7 +1,7 @@
 package cz.kulicka.services;
 
 import cz.kulicka.constant.BinanceApiConstants;
-import cz.kulicka.entities.*;
+import cz.kulicka.entity.*;
 import cz.kulicka.enums.OrderSide;
 import cz.kulicka.enums.OrderType;
 import cz.kulicka.enums.TimeInForce;

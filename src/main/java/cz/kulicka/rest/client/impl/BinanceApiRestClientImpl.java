@@ -1,26 +1,45 @@
-package cz.kulicka.rest.connectors.impl;
+package cz.kulicka.rest.client.impl;
 
-import cz.kulicka.entities.*;
+import cz.kulicka.PropertyPlaceholder;
+import cz.kulicka.entity.BookTicker;
+import cz.kulicka.entity.Candlestick;
+import cz.kulicka.entity.NewOrder;
+import cz.kulicka.entity.NewOrderResponse;
+import cz.kulicka.entity.Order;
+import cz.kulicka.entity.OrderRequest;
+import cz.kulicka.entity.TickerPrice;
+import cz.kulicka.entity.TickerStatistics;
+import cz.kulicka.entity.request.CancelOrderRequest;
+import cz.kulicka.entity.request.OrderStatusRequest;
 import cz.kulicka.enums.CandlestickInterval;
-import cz.kulicka.entities.request.CancelOrderRequest;
-import cz.kulicka.entities.request.OrderStatusRequest;
-import cz.kulicka.rest.connectors.BinanceApiRestClient;
+import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.services.WebApiService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static cz.kulicka.services.impl.BinanceApiServiceGenerator.createService;
 import static cz.kulicka.services.impl.BinanceApiServiceGenerator.executeSync;
 
+@Component
 public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 
     static Logger log = Logger.getLogger(BinanceApiRestClientImpl.class);
 
-    private final WebApiService binanceApiService;
+    @Autowired
+    PropertyPlaceholder propertyPlaceholder;
 
-    public BinanceApiRestClientImpl(String apiKey, String secret) {
-        binanceApiService = createService(WebApiService.class, apiKey, secret);
+    private WebApiService binanceApiService;
+
+    public BinanceApiRestClientImpl() {
+    }
+
+    @PostConstruct
+    private void initWebApiService() {
+        binanceApiService = createService(WebApiService.class, propertyPlaceholder.getApiKey(), propertyPlaceholder.getSecret());
     }
 
     @Override

@@ -3,7 +3,7 @@ package cz.kulicka.test;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.kulicka.entities.BookTicker;
+import cz.kulicka.entity.BookTicker;
 import org.junit.Assert;
 import org.junit.Test;
 

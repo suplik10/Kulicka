@@ -1,6 +1,6 @@
-package cz.kulicka.entities.request;
+package cz.kulicka.entity.request;
 
-import cz.kulicka.entities.OrderRequest;
+import cz.kulicka.entity.OrderRequest;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

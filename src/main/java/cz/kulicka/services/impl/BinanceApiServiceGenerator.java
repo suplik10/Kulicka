@@ -1,6 +1,5 @@
 package cz.kulicka.services.impl;
 
-import cz.kulicka.CoreEngine;
 import cz.kulicka.constant.BinanceApiConstants;
 import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.security.security.AuthenticationInterceptor;
