@@ -1,12 +1,9 @@
 package cz.kulicka;
 
 import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.strategy.OrderStrategy;
 import cz.kulicka.strategy.OrderStrategyContext;
-import cz.kulicka.strategy.impl.FirstDumbStrategyImpl;
 import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -58,7 +58,7 @@ public class CoreEngine {
                 sleep();
             }
 
-            log.info("Going sleep :-))))");
+            log.info("Fall into empire of dreams...");
             sleep();
         }
     }
@@ -107,6 +107,8 @@ public class CoreEngine {
                 order.setProfit(order.getSellPrice() - order.getBuyPrice());
                 order.setSellTime(new Date().getTime());
                 log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfit()));
+            } else {
+                log.info("Continuing order id: " + order.getId() + " Symbol: " + order.getSymbol() + " Actual profit: " + String.format("%.9f", order.getStepedPrice() - order.getBuyPrice()));
             }
         }
 
