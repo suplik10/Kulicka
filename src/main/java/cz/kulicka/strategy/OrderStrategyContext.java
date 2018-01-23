@@ -4,6 +4,8 @@ import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class OrderStrategyContext {
 
@@ -13,8 +15,8 @@ public class OrderStrategyContext {
         this.orderStrategy = strategy;
     }
 
-    public boolean buy(Ticker ticker) {
-        return orderStrategy.buy(ticker);
+    public boolean buy(Ticker ticker, List<Order> activeOrders) {
+        return orderStrategy.buy(ticker, activeOrders);
     }
 
     public boolean sell(Order order) {

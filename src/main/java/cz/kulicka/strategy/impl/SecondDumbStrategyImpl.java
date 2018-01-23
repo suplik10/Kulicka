@@ -23,8 +23,14 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean buy(Ticker ticker) {
+    public boolean buy(Ticker ticker, List<Order> activeOrders) {
         boolean createOrder = false;
+
+        for (Order order : activeOrders) {
+            if (ticker.getSymbol().equals(order.getSymbol())) {
+                return false;
+            }
+        }
 
         List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);
         log.debug("Currency " + ticker.getSymbol());
@@ -46,9 +52,11 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     public boolean sell(Order order) {
         double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
 
-        if (MathUtil.getPercentageProfit(order.getBuyPrice(), actualPrice) > 0.5) {
-            return true;
-        } else if (MathUtil.getPercentageProfit(order.getBuyPrice(), actualPrice) < -3) {
+        if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) > 0.5) {
+            //HODL!!!
+            order.setStepedPrice(actualPrice);
+            return false;
+        } else if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) < -2) {
             return true;
         } else {
             return false;

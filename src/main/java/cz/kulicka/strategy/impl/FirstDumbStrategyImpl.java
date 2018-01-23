@@ -24,7 +24,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean buy(Ticker ticker) {
+    public boolean buy(Ticker ticker, List<Order> activeOrders) {
         boolean createOrder = false;
 
         List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);

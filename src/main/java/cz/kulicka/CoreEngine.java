@@ -41,7 +41,6 @@ public class CoreEngine {
 
 
     public void run() {
-        orderStrategyContext.buy(new Ticker());
         runIt();
     }
 
@@ -74,6 +73,7 @@ public class CoreEngine {
 
     private void scanCurrenciesAndMakeNewOrders() {
         ArrayList<Ticker> newCurrencies = new ArrayList<>();
+        List<Order> activeOrders = (List<Order>) orderRepository.findAllByActiveTrue();
         ArrayList<Ticker> currencies;
         log.info("SCAN START!");
 
@@ -82,7 +82,7 @@ public class CoreEngine {
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
                 //Buy???
-                if (orderStrategyContext.buy(currencies.get(i))) {
+                if (orderStrategyContext.buy(currencies.get(i), activeOrders)) {
                     Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()), new Date().getTime());
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);

@@ -32,7 +32,7 @@ public class Main extends JFrame implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        orderStrategyContext.setOrderStrategy(new FirstDumbStrategyImpl(binanceApiService));
+        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
         coreEngine.run();
     }
 }
