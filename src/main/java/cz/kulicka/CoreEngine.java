@@ -51,8 +51,8 @@ public class CoreEngine {
 
             try {
                 handleActiveOrders();
-                scanCurrenciesAndMakeNewOrders();
                 checkProfits();
+                scanCurrenciesAndMakeNewOrders();
             } catch (BinanceApiException e) {
                 log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
                 sleep();
@@ -78,12 +78,14 @@ public class CoreEngine {
         log.info("SCAN START!");
 
         currencies = binanceApiService.checkActualCurrencies(newCurrencies);
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
 
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
                 //Buy???
                 if (orderStrategyContext.buy(currencies.get(i), activeOrders)) {
-                    Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()), new Date().getTime());
+                    Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT,
+                            new Date().getTime(), 30 / (Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT));
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
                     orderService.create(newOrder);
@@ -96,6 +98,7 @@ public class CoreEngine {
 
     private void handleActiveOrders() {
         List<Order> activeOrders = orderService.getAllActive();
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
 
         log.info("Handle orders start> " + activeOrders.size() + " active orders");
 
@@ -103,8 +106,8 @@ public class CoreEngine {
             //Sell???
             if (orderStrategyContext.sell(order)) {
                 order.setActive(false);
-                order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()));
-                order.setProfit(order.getSellPrice() - order.getBuyPrice());
+                order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT);
+                order.setProfit(order.getSellPrice() * order.getAmount() - order.getBuyPrice() * order.getAmount());
                 order.setSellTime(new Date().getTime());
                 log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfit()));
             } else {

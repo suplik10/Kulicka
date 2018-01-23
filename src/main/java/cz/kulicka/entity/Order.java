@@ -1,11 +1,7 @@
 package cz.kulicka.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_tb")
@@ -17,6 +13,7 @@ public class Order {
     private String symbol;
     private double buyPrice;
     private double stepedPrice;
+    private double amount;
     private double sellPrice;
     private boolean active;
     private int riskValue;
@@ -28,10 +25,19 @@ public class Order {
     public Order() {
     }
 
-    public Order(String symbol, double buyPrice, long buyTime) {
+    public Order(String symbol, double buyPrice, long buyTime, double amount) {
         this.symbol = symbol;
         this.buyPrice = buyPrice;
         this.stepedPrice = buyPrice;
+        this.amount = amount;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public double getProfit() {

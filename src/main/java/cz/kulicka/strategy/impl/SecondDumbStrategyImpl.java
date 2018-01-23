@@ -50,9 +50,10 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
 
     @Override
     public boolean sell(Order order) {
-        double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
+        double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) / actualBTCUSDT;
 
-        if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) > 0.9) {
+        if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) > 0.5) {
             //HODL!!!
             //order.setStepedPrice(actualPrice);
             return true;
