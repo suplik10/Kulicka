@@ -5,7 +5,11 @@ import cz.kulicka.entities.Ticker;
 
 public interface OrderStrategyService {
 
-    boolean firstTestingBuyStrategy(Ticker ticker);
+    boolean firstDumbBuyStrategy(Ticker ticker);
 
-    boolean firstTestingSellStrategy(Order order);
+    boolean firstDumbSellStrategy(Order order);
+
+    boolean secondTestingBuyStrategy(Ticker ticker);
+
+    boolean secondDumbSellStrategyWithStopLoss(Order order);
 }

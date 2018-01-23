@@ -90,8 +90,8 @@ public class CoreEngine {
 
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
-
-                if (orderStrategyService.firstTestingBuyStrategy(currencies.get(i))) {
+                //Buy???
+                if (orderStrategyService.firstDumbBuyStrategy(currencies.get(i))) {
                     Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()), new Date().getTime());
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
@@ -109,7 +109,8 @@ public class CoreEngine {
         log.info("Handle orders start> " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
-            if (orderStrategyService.firstTestingSellStrategy(order)) {
+            //Sell???
+            if (orderStrategyService.secondDumbSellStrategyWithStopLoss(order)) {
                 order.setActive(false);
                 order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()));
                 order.setProfit(order.getSellPrice() - order.getBuyPrice());

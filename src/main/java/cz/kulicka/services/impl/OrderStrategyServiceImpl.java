@@ -6,11 +6,11 @@ import cz.kulicka.entities.Ticker;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderStrategyService;
+import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class OrderStrategyServiceImpl implements OrderStrategyService {
     BinanceApiService binanceApiService;
 
     @Override
-    public boolean firstTestingBuyStrategy(Ticker ticker) {
+    public boolean firstDumbBuyStrategy(Ticker ticker) {
         boolean createOrder = false;
 
         List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);
@@ -43,13 +43,31 @@ public class OrderStrategyServiceImpl implements OrderStrategyService {
     }
 
     @Override
-    public boolean firstTestingSellStrategy(Order order) {
+    public boolean firstDumbSellStrategy(Order order) {
         if (order.getRiskValue() > 1) {
             order.setRiskValue(order.getRiskValue() - 1);
             log.info("Order resuming id: " + order.getId());
             return false;
         } else {
             return true;
+        }
+    }
+
+    @Override
+    public boolean secondTestingBuyStrategy(Ticker ticker) {
+        return false;
+    }
+
+    @Override
+    public boolean secondDumbSellStrategyWithStopLoss(Order order) {
+        double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
+
+        if (MathUtil.getPercentageProfit(order.getBuyPrice(), actualPrice) > 0.5) {
+            return true;
+        } else if (MathUtil.getPercentageProfit(order.getBuyPrice(), actualPrice) < -3) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -6,7 +6,7 @@ import org.junit.Assert;
 
 import java.util.ArrayList;
 
-public final class MapperUtil {
+public class MapperUtil {
 
     static Logger log = Logger.getLogger(MapperUtil.class);
 
