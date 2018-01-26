@@ -2,7 +2,7 @@ package cz.kulicka.utils;
 
 import cz.kulicka.entity.Kline;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class MapperUtil {
     public static ArrayList<Kline> klinesJsonArrayToKlinesObjectArray(ArrayList<ArrayList<String>> klinesJson) {
         log.info("Map klines json array to klines object Array - START ");
 
-        Assert.assertNotNull(klinesJson);
+        Assert.notNull(klinesJson, "Klines json cannot be null!");
 
         ArrayList<Kline> klines = new ArrayList<Kline>();
 

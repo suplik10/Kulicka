@@ -1,6 +1,6 @@
 package cz.kulicka.entity;
 
-import org.junit.Assert;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
@@ -20,8 +20,7 @@ public class Kline {
     private double canBeIgnored;
 
     public Kline(ArrayList<String> klineDataFromJson) {
-        Assert.assertNotNull(klineDataFromJson);
-        Assert.assertEquals(12, klineDataFromJson.size());
+        Assert.notNull(klineDataFromJson, "This object cannot be null!");
 
         this.openTime = Long.parseLong(klineDataFromJson.get(0));
         this.open = Double.parseDouble(klineDataFromJson.get(1));

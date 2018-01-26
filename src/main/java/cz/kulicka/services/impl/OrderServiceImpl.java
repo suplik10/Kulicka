@@ -20,7 +20,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void create(Order order) {
-        log.info("Currency " + order.getSymbol() + "[MAKE ORDER for " + String.format("%.9f", order.getBuyPrice()) + " BTC]");
+        log.info("Currency " + order.getSymbol() + "[MAKE ORDER for " + String.format("%.9f", order.getBuyPriceForUnit()) + " USDT]");
         orderRepository.save(order);
     }
 
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllInActive() {
-        return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
+        return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForUnitIsNotNull();
     }
 
     @Override

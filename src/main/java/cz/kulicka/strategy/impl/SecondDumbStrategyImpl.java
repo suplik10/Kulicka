@@ -1,5 +1,6 @@
 package cz.kulicka.strategy.impl;
 
+import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Candlestick;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
@@ -50,17 +51,18 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
 
     @Override
     public boolean sell(Order order) {
-        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
-        double actualPrice = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) / actualBTCUSDT;
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
+        double actualPriceUSDT = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) / actualBTCUSDT;
+        double actualPriceWithSellFee = actualPriceUSDT - (actualPriceUSDT * (actualPriceUSDT / 100));
 
-        if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) > 0.5) {
+        if (MathUtil.getPercentageProfit(order.getSteppedPriceForUnit(), actualPriceWithSellFee) > 0.5) {
             //HODL!!!
-            //order.setStepedPrice(actualPrice);
+            //order.setSteppedPriceForUnit(actualPrice);
             return true;
-        } else if (MathUtil.getPercentageProfit(order.getStepedPrice(), actualPrice) < -2) {
+        } else if (MathUtil.getPercentageProfit(order.getSteppedPriceForUnit(), actualPriceWithSellFee) < -2) {
             return true;
         } else {
-            order.setStepedPrice(actualPrice);
+            order.setSteppedPriceForUnit(actualPriceWithSellFee);
             return false;
         }
     }

@@ -15,6 +15,19 @@ public class PropertyPlaceholder {
     @Value("${app.binance.secret.key}")
     private String secret;
 
+    @Value("${app.exchange.buy.fee}")
+    private double tradeBuyFee;
+
+    @Value("${app.exchange.sell.fee}")
+    private double tradeSellFee;
+
+    @Value("${app.price.per.order.dolars}")
+    private double pricePerOrderDolars;
+
+    public void setThreadSleepBetweenRequestsMiliseconds(int threadSleepBetweenRequestsMiliseconds) {
+        this.threadSleepBetweenRequestsMiliseconds = threadSleepBetweenRequestsMiliseconds;
+    }
+
     public int getThreadSleepBetweenRequestsMiliseconds() {
         return threadSleepBetweenRequestsMiliseconds;
     }
@@ -25,5 +38,17 @@ public class PropertyPlaceholder {
 
     public String getSecret() {
         return secret;
+    }
+
+    public double getTradeBuyFee() {
+        return tradeBuyFee;
+    }
+
+    public double getTradeSellFee() {
+        return tradeSellFee;
+    }
+
+    public double getPricePerOrderDolars() {
+        return pricePerOrderDolars;
     }
 }

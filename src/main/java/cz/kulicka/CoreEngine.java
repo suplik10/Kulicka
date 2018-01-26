@@ -1,13 +1,14 @@
 package cz.kulicka;
 
+import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
 import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.repository.OrderRepository;
-import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
+import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,9 +37,6 @@ public class CoreEngine {
     @Autowired
     OrderStrategyContext orderStrategyContext;
 
-    @Autowired
-    BinanceApiRestClient binanceApiRestClient;
-
 
     public void run() {
         runIt();
@@ -46,6 +44,8 @@ public class CoreEngine {
 
 
     public void runIt() {
+
+        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
 
         while (true) {
 
@@ -78,14 +78,16 @@ public class CoreEngine {
         log.info("SCAN START!");
 
         currencies = binanceApiService.checkActualCurrencies(newCurrencies);
-        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
 
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
                 //Buy???
                 if (orderStrategyContext.buy(currencies.get(i), activeOrders)) {
-                    Order newOrder = new Order(currencies.get(i).getSymbol(), Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT,
-                            new Date().getTime(), 30 / (Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT));
+                    double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT;
+                    Order newOrder = new Order();
+                    newOrder.setBuyPriceForUnit(lastPriceInUSDT);
+                    newOrder.setSteppedPriceForUnit(lastPriceInUSDT);
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
                     orderService.create(newOrder);
@@ -98,7 +100,7 @@ public class CoreEngine {
 
     private void handleActiveOrders() {
         List<Order> activeOrders = orderService.getAllActive();
-        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice("BTCUSDT").getPrice());
+        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
 
         log.info("Handle orders start> " + activeOrders.size() + " active orders");
 
@@ -106,12 +108,12 @@ public class CoreEngine {
             //Sell???
             if (orderStrategyContext.sell(order)) {
                 order.setActive(false);
-                order.setSellPrice(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT);
-                order.setProfit(order.getSellPrice() * order.getAmount() - order.getBuyPrice() * order.getAmount());
+                order.setSellPriceForUnit(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT);
+                order.setProfitFeeIncluded(order.getSellPriceForUnit() * order.getBoughtAmount() - order.getBuyPriceForUnit() * order.getBoughtAmount());
                 order.setSellTime(new Date().getTime());
-                log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfit()));
+                log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfitFeeIncluded()));
             } else {
-                log.info("Continuing order id: " + order.getId() + " Symbol: " + order.getSymbol() + " Actual profit: " + String.format("%.9f", order.getStepedPrice() - order.getBuyPrice()));
+                log.info("Continuing order id: " + order.getId() + " Symbol: " + order.getSymbol() + " Actual profit: " + String.format("%.9f", order.getSteppedPriceForUnit() - order.getBuyPriceForUnit()));
             }
         }
 
@@ -119,12 +121,12 @@ public class CoreEngine {
     }
 
     private void checkProfits() {
-        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceIsNotNull();
+        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForUnitIsNotNull();
 
         double profit = 0;
 
         for (Order order : finishedOrders) {
-            profit += order.getProfit();
+            profit += order.getProfitFeeIncluded();
         }
 
         log.info("FINAL PROFIT: " + String.format("%.9f", (profit)));

@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.swing.*;
 
 @SpringBootApplication
-public class Main extends JFrame implements CommandLineRunner {
+public class Main implements CommandLineRunner {
     //https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md
     //mvn spring-boot:run
     @Autowired
@@ -20,16 +20,12 @@ public class Main extends JFrame implements CommandLineRunner {
     @Autowired
     BinanceApiService binanceApiService;
 
-    @Autowired
-    OrderStrategyContext orderStrategyContext;
-
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
     @Override
     public void run(String... strings) throws Exception {
-        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
         coreEngine.run();
     }
 }
