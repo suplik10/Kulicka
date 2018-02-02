@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class MapperUtil {
 
     static Logger log = Logger.getLogger(MapperUtil.class);

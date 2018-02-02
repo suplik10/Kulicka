@@ -29,6 +29,9 @@ public interface WebApiService {
     @GET("/api/v3/ticker/price")
     Call<TickerPrice> getLatestPrice(@Query("symbol") String symbol);
 
+    @GET("/api/v1/ticker/24hr")
+    Call<TickerStatistics> get24HrPriceStatistics(@Query("symbol") String symbol);
+
     @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
     @POST("/api/v3/order")
     Call<NewOrderResponse> newOrder(@Query("symbol") String symbol, @Query("side") OrderSide side, @Query("type") OrderType type,
@@ -59,6 +62,4 @@ public interface WebApiService {
     @GET("/api/v3/openOrders")
     Call<List<Order>> getOpenOrders(@Query("symbol") String symbol, @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
-    @GET("/api/v1/ticker/24hr")
-    Call<TickerStatistics> get24HrPriceStatistics(@Query("symbol") String symbol);
 }

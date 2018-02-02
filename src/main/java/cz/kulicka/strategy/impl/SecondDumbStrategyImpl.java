@@ -1,6 +1,5 @@
 package cz.kulicka.strategy.impl;
 
-import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Candlestick;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
@@ -50,20 +49,28 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean sell(Order order) {
-        double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
-        double actualPriceUSDT = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) / actualBTCUSDT;
-        double actualPriceWithSellFee = actualPriceUSDT - (actualPriceUSDT * (actualPriceUSDT / 100));
+    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
 
-        if (MathUtil.getPercentageProfit(order.getSteppedPriceForUnit(), actualPriceWithSellFee) > 0.5) {
-            //HODL!!!
-            //order.setSteppedPriceForUnit(actualPrice);
+        double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+        //double actualSteppedPercengateProfit = MathUtil.getPercentageProfit(order.getSteppedBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+
+        log.info("Sell? Symbol: " + order.getSymbol() + ", actualRealPercentageProfit from bought price: " + String.format("%.9f", actualPercentageProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ buy price " + order.getBuyPriceForOrderWithFee());
+        //log.info("Sell? Symbol: " + order.getSymbol() + ", actualSteppedPercengateProfit from stepped price: " + String.format("%.9f", actualSteppedPercengateProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getSteppedBuyPriceForOrderWithFee()) + " $ stepped price " + order.getSteppedBuyPriceForOrderWithFee());
+        //TODO handle rebuy
+
+        if (actualPercentageProfit > 0.05) {
+            log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
+            order.setSteppedBuyPriceForOrderWithFee(actualSellPriceForOrderWithFee);
             return true;
-        } else if (MathUtil.getPercentageProfit(order.getSteppedPriceForUnit(), actualPriceWithSellFee) < -2) {
+        } else if (actualPercentageProfit < -1.5) {
+            //stop-loss
+            log.info("PANIC SELL!!!");
             return true;
         } else {
-            order.setSteppedPriceForUnit(actualPriceWithSellFee);
+            //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
             return false;
         }
     }
+
+
 }

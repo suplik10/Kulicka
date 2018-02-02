@@ -9,6 +9,7 @@ import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
+import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,19 +38,14 @@ public class CoreEngine {
     @Autowired
     OrderStrategyContext orderStrategyContext;
 
-
-    public void run() {
-        runIt();
-    }
-
-
     public void runIt() {
 
-        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
+        setOrderStrategy();
 
         while (true) {
 
             try {
+                setOrderStrategy();
                 handleActiveOrders();
                 checkProfits();
                 scanCurrenciesAndMakeNewOrders();
@@ -58,9 +54,13 @@ public class CoreEngine {
                 sleep();
             }
 
-            log.info("Fall into empire of dreams...");
+            log.info("Fall into wonderland...");
             sleep();
         }
+    }
+
+    private void setOrderStrategy() {
+        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
     }
 
     private void sleep() {
@@ -85,9 +85,8 @@ public class CoreEngine {
                 //Buy???
                 if (orderStrategyContext.buy(currencies.get(i), activeOrders)) {
                     double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(currencies.get(i).getSymbol()).getPrice()) * actualBTCUSDT;
-                    Order newOrder = new Order();
-                    newOrder.setBuyPriceForUnit(lastPriceInUSDT);
-                    newOrder.setSteppedPriceForUnit(lastPriceInUSDT);
+                    Order newOrder = new Order(currencies.get(i).getSymbol(), new Date().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
+                            propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee());
                     newOrder.setActive(true);
                     newOrder.setRiskValue(2);
                     orderService.create(newOrder);
@@ -102,18 +101,20 @@ public class CoreEngine {
         List<Order> activeOrders = orderService.getAllActive();
         double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
 
-        log.info("Handle orders start> " + activeOrders.size() + " active orders");
+        log.info("Handle orders start > " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
             //Sell???
-            if (orderStrategyContext.sell(order)) {
+            double actualSellPriceForOrderWithFee = MathUtil.getSellPriceForOrderWithFee(order.getBoughtAmount(),
+                    Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT, order.getSellFeeConstant());
+            if (orderStrategyContext.sell(order, actualSellPriceForOrderWithFee)) {
                 order.setActive(false);
-                order.setSellPriceForUnit(Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT);
-                order.setProfitFeeIncluded(order.getSellPriceForUnit() * order.getBoughtAmount() - order.getBuyPriceForUnit() * order.getBoughtAmount());
+                order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
+                order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
                 order.setSellTime(new Date().getTime());
-                log.info("Order stopped id: " + order.getId() + "Profit: " + String.format("%.9f", order.getProfitFeeIncluded()));
+                log.info("Order STOPPED : " + order.toString());
             } else {
-                log.info("Continuing order id: " + order.getId() + " Symbol: " + order.getSymbol() + " Actual profit: " + String.format("%.9f", order.getSteppedPriceForUnit() - order.getBuyPriceForUnit()));
+                log.info("Continuing order: " + order.toString());
             }
         }
 
@@ -121,7 +122,7 @@ public class CoreEngine {
     }
 
     private void checkProfits() {
-        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForUnitIsNotNull();
+        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
 
         double profit = 0;
 
@@ -129,6 +130,6 @@ public class CoreEngine {
             profit += order.getProfitFeeIncluded();
         }
 
-        log.info("FINAL PROFIT: " + String.format("%.9f", (profit)));
+        log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
     }
 }

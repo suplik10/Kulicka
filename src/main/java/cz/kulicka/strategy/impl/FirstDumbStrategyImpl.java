@@ -44,7 +44,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean sell(Order order) {
+    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         if (order.getRiskValue() > 1) {
             order.setRiskValue(order.getRiskValue() - 1);
             log.info("Order resuming id: " + order.getId());

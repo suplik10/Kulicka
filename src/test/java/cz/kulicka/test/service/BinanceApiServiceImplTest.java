@@ -15,7 +15,7 @@ public class BinanceApiServiceImplTest {
 
     BinanceApiService binanceApiService = new BinanceApiServiceImpl();
 
-    @Test
+    //@Test
     public void checkActualCurrenciesTest() {
 
         ArrayList<String> as = new ArrayList<>();
@@ -25,7 +25,7 @@ public class BinanceApiServiceImplTest {
 
     }
 
-    @Test
+    //@Test
     public void getCandlestickBarsTest() {
 
         List<Candlestick> as = binanceApiService.getCandlestickBars("ETHBTC", CandlestickInterval.DAILY, 10);

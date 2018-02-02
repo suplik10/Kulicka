@@ -9,5 +9,5 @@ public interface OrderStrategy {
 
     boolean buy(Ticker ticker, List<Order> activeOrders);
 
-    boolean sell(Order order);
+    boolean sell(Order order, double actualSellPriceForOrderWithFee);
 }

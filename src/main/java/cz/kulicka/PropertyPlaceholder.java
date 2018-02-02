@@ -21,12 +21,9 @@ public class PropertyPlaceholder {
     @Value("${app.exchange.sell.fee}")
     private double tradeSellFee;
 
-    @Value("${app.price.per.order.dolars}")
-    private double pricePerOrderDolars;
+    @Value("${app.price.per.order.USD}")
+    private double pricePerOrderUSD;
 
-    public void setThreadSleepBetweenRequestsMiliseconds(int threadSleepBetweenRequestsMiliseconds) {
-        this.threadSleepBetweenRequestsMiliseconds = threadSleepBetweenRequestsMiliseconds;
-    }
 
     public int getThreadSleepBetweenRequestsMiliseconds() {
         return threadSleepBetweenRequestsMiliseconds;
@@ -48,7 +45,7 @@ public class PropertyPlaceholder {
         return tradeSellFee;
     }
 
-    public double getPricePerOrderDolars() {
-        return pricePerOrderDolars;
+    public double getPricePerOrderUSD() {
+        return pricePerOrderUSD;
     }
 }

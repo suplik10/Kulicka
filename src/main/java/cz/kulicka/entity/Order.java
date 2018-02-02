@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Entity
 @Table(name = "order_tb")
@@ -17,13 +16,13 @@ public class Order {
     private Long id;
     private String symbol;
     private double buyPriceForUnit;
-    private double steppedPriceForUnit;
+    private double steppedBuyPriceForOrderWithFee;
     private double buyPriceForOrder;
     private double buyPriceForOrderWithFee;
     private double orderSumPriceInBoughtCurrencyWithFee;
     private double boughtAmount;
     private double sellAmount;
-    private double sellPriceForUnit;
+    private double sellPriceForOrderWithFee;
     private boolean active;
     private int riskValue;
     private double profitFeeIncluded;
@@ -38,7 +37,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double boughtAmount, double buyFeeConstant, double sellFeeConstant) {
+    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant) {
         this.symbol = symbol;
         this.buyPriceForOrder = buyPriceForOrder;
         this.buyFee = (buyPriceForOrder * (buyFeeConstant / 100));
@@ -48,7 +47,8 @@ public class Order {
         this.buyFeeConstant = buyFeeConstant;
         this.sellFeeConstant = sellFeeConstant;
         this.buyPriceForUnit = buyPriceForUnit;
-        this.steppedPriceForUnit = buyPriceForUnit;
+        this.steppedBuyPriceForOrderWithFee = buyPriceForOrderWithFee;
+        this.buyTime = buyTime;
     }
 
     public double getBoughtAmount() {
@@ -99,14 +99,6 @@ public class Order {
         this.buyPriceForUnit = buyPriceForUnit;
     }
 
-    public double getSellPriceForUnit() {
-        return sellPriceForUnit;
-    }
-
-    public void setSellPriceForUnit(double sellPriceForUnit) {
-        this.sellPriceForUnit = buyPriceForUnit;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -127,12 +119,12 @@ public class Order {
         return id;
     }
 
-    public double getSteppedPriceForUnit() {
-        return steppedPriceForUnit;
+    public double getSteppedBuyPriceForOrderWithFee() {
+        return steppedBuyPriceForOrderWithFee;
     }
 
-    public void setSteppedPriceForUnit(double steppedPriceForUnit) {
-        this.steppedPriceForUnit = steppedPriceForUnit;
+    public void setSteppedBuyPriceForOrderWithFee(double steppedBuyPriceForOrderWithFee) {
+        this.steppedBuyPriceForOrderWithFee = steppedBuyPriceForOrderWithFee;
     }
 
     public double getBuyPriceForOrder() {
@@ -199,22 +191,25 @@ public class Order {
         this.sellFeeConstant = sellFeeConstant;
     }
 
+    public double getSellPriceForOrderWithFee() {
+        return sellPriceForOrderWithFee;
+    }
+
+    public void setSellPriceForOrderWithFee(double sellPriceForOrderWithFee) {
+        this.sellPriceForOrderWithFee = sellPriceForOrderWithFee;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
-                "symbol='" + symbol + '\'' +
-                ", buyPriceForUnit=" + buyPriceForUnit +
-                ", buyPriceForOrder=" + buyPriceForOrder +
-                ", buyPriceForOrderWithFee=" + buyPriceForOrderWithFee +
-                ", orderSumPriceInBoughtCurrencyWithFee=" + orderSumPriceInBoughtCurrencyWithFee +
-                ", boughtAmount=" + boughtAmount +
-                ", sellPriceForUnit=" + sellPriceForUnit +
+                "id='" + id + '\'' +
+                ", symbol='" + symbol +
+                ", buyPriceForOrder=" + String.format("%.9f",buyPriceForOrder) +
+                ", buyPriceForOrderWithFee=" + String.format("%.9f",buyPriceForOrderWithFee) +
+                ", boughtAmount=" + String.format("%.9f",boughtAmount) +
+                ", sellPriceForOrderWithFee=" + String.format("%.9f",sellPriceForOrderWithFee) +
                 ", active=" + active +
-                ", profitFeeIncluded=" + profitFeeIncluded +
-                ", buyTime=" + new Date(buyTime) +
-                ", sellTime=" + new Date(sellTime) +
-                ", buyFee=" + buyFee +
-                ", sellFee=" + sellFee +
+                ", profitFeeIncluded=" + String.format("%.9f",profitFeeIncluded) +
                 '}';
     }
 }

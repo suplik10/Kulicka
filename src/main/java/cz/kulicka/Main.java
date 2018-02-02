@@ -17,15 +17,12 @@ public class Main implements CommandLineRunner {
     @Autowired
     CoreEngine coreEngine;
 
-    @Autowired
-    BinanceApiService binanceApiService;
-
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
     @Override
     public void run(String... strings) throws Exception {
-        coreEngine.run();
+        coreEngine.runIt();
     }
 }

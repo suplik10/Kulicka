@@ -19,7 +19,7 @@ public class OrderStrategyContext {
         return orderStrategy.buy(ticker, activeOrders);
     }
 
-    public boolean sell(Order order) {
-        return orderStrategy.sell(order);
+    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
+        return orderStrategy.sell(order, actualSellPriceForOrderWithFee);
     }
 }

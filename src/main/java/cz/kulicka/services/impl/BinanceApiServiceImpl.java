@@ -63,6 +63,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
         tickerRepository.save(tickersDB);
 
         log.info("New currencies on exchange! : " + newCurrencies.toString());
+        //TODO handle some notification
 
         return tickersDB;
     }

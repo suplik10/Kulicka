@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.io.*;
 import java.util.ArrayList;
 
+@Deprecated
 public class IOUtil {
 
     static Logger log = Logger.getLogger(IOUtil.class);
