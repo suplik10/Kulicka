@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class Macd {
 
@@ -53,30 +54,36 @@ public class Macd {
 //        Samotný indikátor výrazně zdokonalil Thomas Aspray v roce 1986, kdy znázornil indikátor MACD ve formě histogramu. Výpočet je jednoduchý
 //
 //        Histogram = MACD – signal
-
+//http://www.dummies.com/personal-finance/investing/stocks-trading/how-to-track-trading-momentum-with-macd/
 
         ArrayList<Float> emaShort = new ArrayList<>();
 
         ArrayList<Float> emaLong = new ArrayList<>();
 
         Macd v = new Macd();
-        v.emaCalc(emaShort, klines, 12);
+        v.emaCalc(emaShort, klines, 3);
 
-        v.emaCalc(emaLong, klines, 26);
+        v.emaCalc(emaLong, klines, 12);
 
         ArrayList<Float> macdik = new ArrayList<>();
 
         for (int i = 0; emaLong.size() > i; i++){
-            macdik.add(emaShort.get(i) - emaLong.get(i));
+            macdik.add(emaLong.get(i) - emaShort.get(i));
+
+
+            System.out.println("macd: - " + i + " - " + new Date(klines.get(i).getCloseTime()) + " " + (emaLong.get(i) - emaShort.get(i)));
         }
 
-
-        System.out.print("sdf");
     }
 
-    public float CalculateEMA(float todaysPrice, float numberOfDays, float EMAYesterday){
-        float k = 2 / (numberOfDays + 1);
-        return todaysPrice * k + EMAYesterday * (1 - k);
+    public float CalculateEMA(float closingPrice, float numberOfDays, float EMAYesterday){
+
+        // (2/(selected time period + 1) ) = (2/(10 + 1) ) = 0.1818 (18.18%)
+        float multiplier = 2 / (numberOfDays + 1);
+
+        return (closingPrice-EMAYesterday) * multiplier + EMAYesterday;
+
+        //return todaysPrice * k + EMAYesterday * (1 - k);
     }
 
     public void emaCalc(ArrayList<Float> emaList, ArrayList<Kline> klines, float days){
@@ -95,4 +102,27 @@ public class Macd {
 
         }
     }
+
+
+//    public float CalculateEMA(float todaysPrice, float numberOfDays, float EMAYesterday){
+//        float k = 2 / (numberOfDays + 1);
+//        return todaysPrice * k + EMAYesterday * (1 - k);
+//    }
+//
+//    public void emaCalc(ArrayList<Float> emaList, ArrayList<Kline> klines, float days){
+//
+//        float ema;
+//        float yesterdayEMA = 0;
+//
+//        for (Kline kline: klines){
+//            //call the EMA calculation
+//            ema = CalculateEMA((float)kline.getClose(), days, yesterdayEMA);
+//            //put the calculated ema in an array
+//            emaList.add(ema);
+//            //make sure yesterdayEMA gets filled with the EMA we used this time around
+//            yesterdayEMA = ema;
+//
+//
+//        }
+//    }
 }
