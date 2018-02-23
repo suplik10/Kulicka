@@ -30,7 +30,7 @@ public class Kline {
         this.volume = Double.parseDouble(klineDataFromJson.get(5));
         this.closeTime = Long.parseLong(klineDataFromJson.get(6));
         this.quoteAssetVolume = Double.parseDouble(klineDataFromJson.get(7));
-        this.openTime = Integer.parseInt(klineDataFromJson.get(8));
+        this.numberOfTrades = Integer.parseInt(klineDataFromJson.get(8));
         this.takerBuyBaseAssetVolume = Double.parseDouble(klineDataFromJson.get(9));
         this.takerBuyQuoteAssetVolume = Double.parseDouble(klineDataFromJson.get(10));
         this.canBeIgnored = Double.parseDouble(klineDataFromJson.get(11));

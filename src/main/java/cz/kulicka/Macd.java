@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.kulicka.entity.ChartKline;
 import cz.kulicka.entity.Kline;
 import cz.kulicka.utils.MapperUtil;
+import org.jfree.data.general.Dataset;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,11 @@ public class Macd {
 
     public static void main(String[] args) {
 
+
+
+    }
+
+    public ArrayList<ChartKline> getDataSet(){
         File jsonFile = new File("src/test/resources/klines.json");
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -40,7 +47,7 @@ public class Macd {
 
         ArrayList<Kline> klines = MapperUtil.klinesJsonArrayToKlinesObjectArray(result);
 
-        Collections.reverse(klines);
+        //Collections.reverse(klines);
 
 
 
@@ -54,26 +61,31 @@ public class Macd {
 //        Samotný indikátor výrazně zdokonalil Thomas Aspray v roce 1986, kdy znázornil indikátor MACD ve formě histogramu. Výpočet je jednoduchý
 //
 //        Histogram = MACD – signal
-//http://www.dummies.com/personal-finance/investing/stocks-trading/how-to-track-trading-momentum-with-macd/
+//        http://www.dummies.com/personal-finance/investing/stocks-trading/how-to-track-trading-momentum-with-macd/
 
         ArrayList<Float> emaShort = new ArrayList<>();
 
         ArrayList<Float> emaLong = new ArrayList<>();
 
-        Macd v = new Macd();
-        v.emaCalc(emaShort, klines, 3);
+        emaCalc(emaShort, klines, 12);
 
-        v.emaCalc(emaLong, klines, 12);
+        emaCalc(emaLong, klines, 26);
 
-        ArrayList<Float> macdik = new ArrayList<>();
+        ArrayList<ChartKline> chartKlines = new ArrayList<>();
 
         for (int i = 0; emaLong.size() > i; i++){
-            macdik.add(emaLong.get(i) - emaShort.get(i));
+            ChartKline chartKline = new ChartKline();
+            chartKline.setValue(emaShort.get(i) - emaLong.get(i));
+            chartKline.setClosedDate(new Date(klines.get(i).getCloseTime()));
+            chartKline.setClosedPrice(klines.get(i).getClose());
+            chartKlines.add(chartKline);
 
-
-            System.out.println("macd: - " + i + " - " + new Date(klines.get(i).getCloseTime()) + " " + (emaLong.get(i) - emaShort.get(i)));
+            System.out.println("macd: - " + i + " - " + new Date(klines.get(i).getCloseTime()) + " " + (emaShort.get(i) - emaLong.get(i)));
         }
 
+        chartKlines.subList(0,100).clear();
+
+        return chartKlines;
     }
 
     public float CalculateEMA(float closingPrice, float numberOfDays, float EMAYesterday){
