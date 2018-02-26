@@ -21,7 +21,7 @@ public class PropertyPlaceholder {
     @Value("${app.exchange.sell.fee}")
     private double tradeSellFee;
 
-    @Value("${app.price.per.order.USD}")
+    @Value("${app.closedPrice.per.order.USD}")
     private double pricePerOrderUSD;
 
 

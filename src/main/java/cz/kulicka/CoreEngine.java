@@ -8,6 +8,7 @@ import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
+import cz.kulicka.strategy.impl.MacdStrategy;
 import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
@@ -60,7 +61,7 @@ public class CoreEngine {
     }
 
     private void setOrderStrategy() {
-        orderStrategyContext.setOrderStrategy(new SecondDumbStrategyImpl(binanceApiService));
+        orderStrategyContext.setOrderStrategy(new MacdStrategy(binanceApiService));
     }
 
     private void sleep() {
