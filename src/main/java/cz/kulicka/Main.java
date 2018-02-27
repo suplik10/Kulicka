@@ -23,6 +23,7 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        coreEngine.runIt();
+        coreEngine.run();
+        //coreEngine.runIt();
     }
 }

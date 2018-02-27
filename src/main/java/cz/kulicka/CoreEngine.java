@@ -1,15 +1,18 @@
 package cz.kulicka;
 
 import cz.kulicka.constant.CurrenciesConstants;
+import cz.kulicka.entity.MacdOrder;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
 import cz.kulicka.exception.BinanceApiException;
+import cz.kulicka.repository.MacdOrderRepository;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.strategy.impl.MacdStrategy;
 import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
+import cz.kulicka.utils.MapperUtil;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,33 @@ public class CoreEngine {
 
     @Autowired
     OrderStrategyContext orderStrategyContext;
+
+    @Autowired
+    MacdOrderRepository macdOrderRepository;
+
+    public void run() {
+
+        ArrayList<Float> floatArrayList = new ArrayList<>();
+
+        for(int i = 0; i < 500; i++){
+            floatArrayList.add(1.454541654654f);
+            floatArrayList.add(2.5555555545455f);
+            floatArrayList.add(89.65656565112126f);
+            floatArrayList.add(150.4546554654654f);
+        }
+
+        String json = MapperUtil.listOfFloatToJson(floatArrayList);
+
+        MacdOrder macdOrder = new MacdOrder();
+        macdOrder.setMacdJsonList(json);
+
+        macdOrderRepository.save(macdOrder);
+
+        List<MacdOrder> activeOrders = (List<MacdOrder>) macdOrderRepository.findAll();
+
+
+
+    }
 
     public void runIt() {
 

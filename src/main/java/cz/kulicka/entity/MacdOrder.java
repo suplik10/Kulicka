@@ -1,6 +1,7 @@
 package cz.kulicka.entity;
 
 import javax.persistence.*;
+import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class MacdOrder {
     private Date sellTime;
     private float macdBuy;
     private float macdSell;
-    private List<Float> macdList;
+    private String macdJsonList;
 
 
     public MacdOrder() {
@@ -62,11 +63,11 @@ public class MacdOrder {
         this.macdSell = macdSell;
     }
 
-    public List<Float> getMacdList() {
-        return macdList;
+    public String getMacdJsonList() {
+        return macdJsonList;
     }
 
-    public void setMacdList(List<Float> macdList) {
-        this.macdList = macdList;
+    public void setMacdJsonList(String macdJsonList) {
+        this.macdJsonList = macdJsonList;
     }
 }
