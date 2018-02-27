@@ -1,15 +1,18 @@
 package cz.kulicka.strategy.impl;
 
-import cz.kulicka.entity.Candlestick;
-import cz.kulicka.entity.Order;
-import cz.kulicka.entity.Ticker;
+import com.google.common.collect.Iterables;
+import cz.kulicka.PropertyPlaceholder;
+import cz.kulicka.entity.*;
 import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
+import cz.kulicka.services.MacdIndicatorService;
+import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategy;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MacdStrategy implements OrderStrategy {
@@ -18,13 +21,21 @@ public class MacdStrategy implements OrderStrategy {
 
     private BinanceApiService binanceApiService;
 
-    public MacdStrategy(BinanceApiService binanceApiService) {
+    private MacdIndicatorService macdIndicatorService;
+
+    private PropertyPlaceholder propertyPlaceholder;
+
+    private OrderService orderService;
+
+    public MacdStrategy(BinanceApiService binanceApiService, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
         this.binanceApiService = binanceApiService;
+        this.macdIndicatorService = macdIndicatorService;
+        this.orderService = orderService;
+        this.propertyPlaceholder = propertyPlaceholder;
     }
 
     @Override
-    public boolean buy(Ticker ticker, List<Order> activeOrders) {
-        boolean createOrder = false;
+    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
 
         for (Order order : activeOrders) {
             if (ticker.getSymbol().equals(order.getSymbol())) {
@@ -32,10 +43,34 @@ public class MacdStrategy implements OrderStrategy {
             }
         }
 
-        List<Float> lastTwoIndicators = getMacdLastIndicator(ticker.getSymbol());
+        EmaMacd emaMacd = getMacdLastIndicator(ticker.getSymbol());
 
-        //start order
-        if(lastTwoIndicators.get(0) <= 0 && lastTwoIndicators.get(1) > 0  ){
+        // order ??
+        if(emaMacd.getPreLastMacd() <= 0 && emaMacd.getLastMacd() > 0  ){
+
+            double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice()) * actualBTCUSDT;
+            Order newOrder = new Order(ticker.getSymbol(), new Date().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
+                    propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee());
+            newOrder.setActive(true);
+            newOrder.setRiskValue(2);
+
+            Order orderWithId = orderService.create(newOrder);
+
+            ArrayList<Float> macdList = new ArrayList<>();
+            macdList.add(emaMacd.getPreLastMacd());
+            macdList.add(emaMacd.getLastMacd());
+
+            MacdIndicator macdIndicator = new MacdIndicator();
+            macdIndicator.setBuyTime(orderWithId.getBuyTime());
+            macdIndicator.setMacdList(macdList);
+            macdIndicator.setOrderId(orderWithId.getId());
+            macdIndicator.setMacdBuy(emaMacd.getLastMacd());
+            macdIndicator.setSymbol(orderWithId.getSymbol());
+            macdIndicator.setEmaLongYesterday(emaMacd.getEmaLongYesterday());
+            macdIndicator.setEmaShortYesterday(emaMacd.getEmaShortYesterday());
+
+            macdIndicatorService.create(macdIndicator);
+
             return true;
         }
 
@@ -50,10 +85,21 @@ public class MacdStrategy implements OrderStrategy {
         log.info("Sell? Symbol: " + order.getSymbol() + ", actualRealPercentageProfit from bought price: " + String.format("%.9f", actualPercentageProfit) + " %  == "
                 + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ buy price " + order.getBuyPriceForOrderWithFee());
 
+        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), CandlestickInterval.FIVE_MINUTES, 2);
 
-        List<Float> lastTwoIndicators = getMacdLastIndicator(order.getSymbol());
+        candlesticks.remove(candlesticks.size() - 1);
 
-        if(lastTwoIndicators.get(1) < 0){
+        MacdIndicator macdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(order.getId());
+
+        float emaShort = CalculateEMA(Float.parseFloat(candlesticks.get(0).getClose()), 12, macdIndicator.getEmaShortYesterday());
+        float emaLong = CalculateEMA(Float.parseFloat(candlesticks.get(0).getClose()), 26, macdIndicator.getEmaLongYesterday());
+        float macdLast = emaShort - emaLong;
+
+        macdIndicator.setEmaShortYesterday(emaShort);
+        macdIndicator.setEmaLongYesterday(emaLong);
+        macdIndicator.getMacdList().add(macdLast);
+
+        if(macdLast < 0){
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
             return true;
         }
@@ -62,11 +108,10 @@ public class MacdStrategy implements OrderStrategy {
     }
 
 
-    private List<Float> getMacdLastIndicator(String symbol) {
+    private EmaMacd getMacdLastIndicator(String symbol) {
 
         ArrayList<Float> emaShort = new ArrayList<>();
         ArrayList<Float> emaLong = new ArrayList<>();
-        List<Float> lastTwoIndicators = new ArrayList<>();
 
         List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, CandlestickInterval.FIVE_MINUTES, 300);
 
@@ -77,10 +122,9 @@ public class MacdStrategy implements OrderStrategy {
 
         emaCalc(emaLong, candlesticks, 26);
 
-        lastTwoIndicators.add(emaShort.get(emaShort.size() - 2) - emaLong.get(emaLong.size() - 2));
-        lastTwoIndicators.add(emaShort.get(emaShort.size() - 1) - emaLong.get(emaLong.size() - 1));
+        EmaMacd emaMacd = new EmaMacd(emaLong.get(emaLong.size() - 1), emaShort.get(emaShort.size() - 1),emaShort.get(emaShort.size() - 1) - emaLong.get(emaLong.size() - 1),emaShort.get(emaShort.size() - 2) - emaLong.get(emaLong.size() - 2));
 
-        return lastTwoIndicators;
+        return emaMacd;
     }
 
     private float CalculateEMA(float closingPrice, float numberOfDays, float EMAYesterday) {

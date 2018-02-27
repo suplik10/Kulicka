@@ -15,8 +15,8 @@ public class OrderStrategyContext {
         this.orderStrategy = strategy;
     }
 
-    public boolean buy(Ticker ticker, List<Order> activeOrders) {
-        return orderStrategy.buy(ticker, activeOrders);
+    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
+        return orderStrategy.buy(ticker, activeOrders, actualBTCUSDT);
     }
 
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {

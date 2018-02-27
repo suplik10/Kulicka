@@ -8,8 +8,8 @@ import java.util.List;
 
 public class OrderServiceMock implements OrderService {
     @Override
-    public void create(Order order) {
-
+    public Order create(Order order) {
+        return order;
     }
 
     @Override

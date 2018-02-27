@@ -23,7 +23,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
         this.binanceApiService = binanceApiService;
     }
 
-    @Override
+
     public boolean buy(Ticker ticker, List<Order> activeOrders) {
         boolean createOrder = false;
 
@@ -41,6 +41,11 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
         }
 
         return createOrder;
+    }
+
+    @Override
+    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
+        return false;
     }
 
     @Override

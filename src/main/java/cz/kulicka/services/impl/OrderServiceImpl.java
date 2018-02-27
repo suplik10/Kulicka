@@ -19,9 +19,9 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Override
-    public void create(Order order) {
+    public Order create(Order order) {
         log.info("Currency " + order.getSymbol() + "[MAKE ORDER for " + order.toString() + " ]");
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
 
     @Override
