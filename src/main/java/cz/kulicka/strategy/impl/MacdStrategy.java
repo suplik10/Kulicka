@@ -98,13 +98,25 @@ public class MacdStrategy implements OrderStrategy {
         macdIndicator.setEmaShortYesterday(emaShort);
         macdIndicator.setEmaLongYesterday(emaLong);
         macdIndicator.getMacdList().add(macdLast);
+        macdIndicatorService.update(macdIndicator);
 
-        if(macdLast < 0){
+        if (actualPercentageProfit > 2) {
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
             return true;
+        } else if (actualPercentageProfit < -1 || macdLast < 0) {
+
+            if(actualPercentageProfit < -1 && !(macdLast < 0)){
+                log.info("PANIC SELL!!! - STOPLOSS");
+            }else if (!(actualPercentageProfit < -5) && macdLast < 0){
+                log.info("PANIC SELL!!! - MACD");
+            }else{
+                log.info("PANIC SELL!!! - STOPLOSS and MACD");
+            }
+            return true;
+        } else {
+            //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
+            return false;
         }
-        log.info("HODL!!!");
-        return false;
     }
 
 
