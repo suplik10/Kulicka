@@ -4,14 +4,14 @@ public class EmaMacd {
 
     private float emaLongYesterday;
     private float emaShortYesterday;
-    private float lastMacd;
-    private float preLastMacd;
+    private float lastMacdHistogram;
+    private float preLastMacdHistogram;
 
-    public EmaMacd(float emaLongYesterday, float emaShortYesterday, float lastMacd, float preLastMacd) {
+    public EmaMacd(float emaLongYesterday, float emaShortYesterday, float lastMacdHistogram, float preLastMacdHistogram) {
         this.emaLongYesterday = emaLongYesterday;
         this.emaShortYesterday = emaShortYesterday;
-        this.lastMacd = lastMacd;
-        this.preLastMacd = preLastMacd;
+        this.lastMacdHistogram = lastMacdHistogram;
+        this.preLastMacdHistogram = preLastMacdHistogram;
     }
 
     public float getEmaLongYesterday() {
@@ -30,19 +30,19 @@ public class EmaMacd {
         this.emaShortYesterday = emaShortYesterday;
     }
 
-    public float getLastMacd() {
-        return lastMacd;
+    public float getLastMacdHistogram() {
+        return lastMacdHistogram;
     }
 
-    public void setLastMacd(float lastMacd) {
-        this.lastMacd = lastMacd;
+    public void setLastMacdHistogram(float lastMacdHistogram) {
+        this.lastMacdHistogram = lastMacdHistogram;
     }
 
-    public float getPreLastMacd() {
-        return preLastMacd;
+    public float getPreLastMacdHistogram() {
+        return preLastMacdHistogram;
     }
 
-    public void setPreLastMacd(float preLastMacd) {
-        this.preLastMacd = preLastMacd;
+    public void setPreLastMacdHistogram(float preLastMacdHistogram) {
+        this.preLastMacdHistogram = preLastMacdHistogram;
     }
 }

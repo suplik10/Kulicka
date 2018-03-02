@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MacdStrategy implements OrderStrategy {
 
-    static Logger log = Logger.getLogger(SecondDumbStrategyImpl.class);
+    static Logger log = Logger.getLogger(MacdStrategy.class);
 
     private BinanceApiService binanceApiService;
 
@@ -85,7 +85,7 @@ public class MacdStrategy implements OrderStrategy {
         log.info("Sell? Symbol: " + order.getSymbol() + ", actualRealPercentageProfit from bought price: " + String.format("%.9f", actualPercentageProfit) + " %  == "
                 + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ buy price " + order.getBuyPriceForOrderWithFee());
 
-        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), CandlestickInterval.FIVE_MINUTES, 2);
+        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), CandlestickInterval.HOURLY, 2);
 
         candlesticks.remove(candlesticks.size() - 1);
 
@@ -100,14 +100,14 @@ public class MacdStrategy implements OrderStrategy {
         macdIndicator.getMacdList().add(macdLast);
         macdIndicatorService.update(macdIndicator);
 
-        if (actualPercentageProfit > 2) {
+        if (actualPercentageProfit > 8) {
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
             return true;
-        } else if (actualPercentageProfit < -1 || macdLast < 0) {
+        } else if (actualPercentageProfit < -4 || macdLast < 0) {
 
-            if(actualPercentageProfit < -1 && !(macdLast < 0)){
+            if(actualPercentageProfit < -4 && !(macdLast < 0)){
                 log.info("PANIC SELL!!! - STOPLOSS");
-            }else if (!(actualPercentageProfit < -5) && macdLast < 0){
+            }else if (!(actualPercentageProfit < -4) && macdLast < 0){
                 log.info("PANIC SELL!!! - MACD");
             }else{
                 log.info("PANIC SELL!!! - STOPLOSS and MACD");
@@ -125,7 +125,7 @@ public class MacdStrategy implements OrderStrategy {
         ArrayList<Float> emaShort = new ArrayList<>();
         ArrayList<Float> emaLong = new ArrayList<>();
 
-        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, CandlestickInterval.FIVE_MINUTES, 300);
+        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, CandlestickInterval.HOURLY, 300);
 
         //remove last one because he is variable at now
         candlesticks.remove(candlesticks.size() - 1);
@@ -141,6 +141,7 @@ public class MacdStrategy implements OrderStrategy {
 
     private float CalculateEMA(float closingPrice, float numberOfDays, float EMAYesterday) {
         float multiplier = 2 / (numberOfDays + 1);
+        //return closingPrice * multiplier + EMAYesterday * (1 - multiplier);
         return (closingPrice - EMAYesterday) * multiplier + EMAYesterday;
     }
 

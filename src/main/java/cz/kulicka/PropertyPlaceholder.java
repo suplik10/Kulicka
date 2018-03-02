@@ -24,6 +24,30 @@ public class PropertyPlaceholder {
     @Value("${app.closedPrice.per.order.USD}")
     private double pricePerOrderUSD;
 
+    @Value("${app.strategy.macd.ema.long}")
+    private int emaLongConstant;
+
+    @Value("${app.strategy.macd.ema.short}")
+    private int emaShortConstant;
+
+    @Value("${app.strategy.macd.ema.signal}")
+    private int emaSignalConstant;
+
+    @Value("${app.binance.candlesticks.period}")
+    private String binanceCandlesticksPeriod;
+
+    @Value("${app.strategy.macd.ema.count.candlesticks}")
+    private int emaCountCandlesticks;
+
+    @Value("${app.strategy.macd.take.profit.percentage}")
+    private double takeProfitPercentage;
+
+    @Value("${app.strategy.macd.stop.loss.percentage}")
+    private double stopLossPercentage;
+
+    @Value("${app.csv.report.file.path}")
+    private String csvReportFilePath;
+
 
     public int getThreadSleepBetweenRequestsMiliseconds() {
         return threadSleepBetweenRequestsMiliseconds;
@@ -47,5 +71,37 @@ public class PropertyPlaceholder {
 
     public double getPricePerOrderUSD() {
         return pricePerOrderUSD;
+    }
+
+    public int getEmaLongConstant() {
+        return emaLongConstant;
+    }
+
+    public int getEmaShortConstant() {
+        return emaShortConstant;
+    }
+
+    public int getEmaSignalConstant() {
+        return emaSignalConstant;
+    }
+
+    public String getBinanceCandlesticksPeriod() {
+        return binanceCandlesticksPeriod;
+    }
+
+    public int getEmaCountCandlesticks() {
+        return emaCountCandlesticks;
+    }
+
+    public double getTakeProfitPercentage() {
+        return takeProfitPercentage;
+    }
+
+    public double getStopLossPercentage() {
+        return stopLossPercentage;
+    }
+
+    public String getCsvReportFilePath() {
+        return csvReportFilePath;
     }
 }

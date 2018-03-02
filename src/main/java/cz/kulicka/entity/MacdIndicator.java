@@ -24,6 +24,8 @@ public class MacdIndicator {
     private float macdSell;
     private float emaShortYesterday;
     private float emaLongYesterday;
+    private float emaSignalYesterday;
+
     @Lob
     @Column
     private byte[] macdBlobList;
@@ -113,4 +115,11 @@ public class MacdIndicator {
         this.macdSell = macdSell;
     }
 
+    public float getEmaSignalYesterday() {
+        return emaSignalYesterday;
+    }
+
+    public void setEmaSignalYesterday(float emaSignalYesterday) {
+        this.emaSignalYesterday = emaSignalYesterday;
+    }
 }

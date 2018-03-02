@@ -12,7 +12,6 @@ import cz.kulicka.entity.TickerPrice;
 import cz.kulicka.entity.TickerStatistics;
 import cz.kulicka.entity.request.CancelOrderRequest;
 import cz.kulicka.entity.request.OrderStatusRequest;
-import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.repository.TickerRepository;
 import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.services.BinanceApiService;
@@ -69,17 +68,17 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     }
 
     @Override
-    public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit, Long startTime, Long endTime) {
+    public List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit, Long startTime, Long endTime) {
         return client.getCandlestickBars(symbol, interval, limit, startTime, endTime);
     }
 
     @Override
-    public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval) {
+    public List<Candlestick> getCandlestickBars(String symbol, String interval) {
         return client.getCandlestickBars(symbol, interval);
     }
 
     @Override
-    public List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit) {
+    public List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit) {
         return client.getCandlestickBars(symbol, interval, limit);
     }
 

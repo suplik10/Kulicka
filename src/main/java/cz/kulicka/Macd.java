@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.kulicka.entity.ChartKline;
 import cz.kulicka.entity.Kline;
+import cz.kulicka.entity.TradingData;
 import cz.kulicka.utils.MapperUtil;
-import org.jfree.data.general.Dataset;
+import cz.kulicka.utils.MathUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 public class Macd {
@@ -20,15 +20,16 @@ public class Macd {
 //    https://github.com/sergiocormio/stock-alerts/
 //    http://www.iexplain.org/ema-how-to-calculate/.
 //    https://www.investujeme.cz/clanky/macd-temer-svaty-gral/
+    //https://www.binance.com/api/v1/klines?symbol=BNBUSDT&interval=1h&limit=500
+    //chtěl bych tam vidět sloupce: čas, coin, buy price, sell price, důvod sell, profit
 
 
     public static void main(String[] args) {
 
 
-
     }
 
-    public ArrayList<ChartKline> getDataSet(){
+    public ArrayList<ChartKline> getDataSet() {
         File jsonFile = new File("src/test/resources/klines.json");
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -47,94 +48,26 @@ public class Macd {
 
         ArrayList<Kline> klines = MapperUtil.klinesJsonArrayToKlinesObjectArray(result);
 
-        //Collections.reverse(klines);
+        ArrayList<Float> lastKlinesPrices = new ArrayList<>();
 
+        for (Kline kline: klines){
+            lastKlinesPrices.add((float) kline.getClose());
+        }
 
-
-
-//        MACD = EMA (12) – EMA (26)
-//
-//        Pro jasné znázornění nákupních a prodejních příkazů se používá ještě třetí exponenciální klouzavý průměr s délkou 9 období, který tvoří tzv. signální křivku.
-//
-//        Signal = EMA (9)
-//
-//        Samotný indikátor výrazně zdokonalil Thomas Aspray v roce 1986, kdy znázornil indikátor MACD ve formě histogramu. Výpočet je jednoduchý
-//
-//        Histogram = MACD – signal
-//        http://www.dummies.com/personal-finance/investing/stocks-trading/how-to-track-trading-momentum-with-macd/
-
-        ArrayList<Float> emaShort = new ArrayList<>();
-
-        ArrayList<Float> emaLong = new ArrayList<>();
-
-        emaCalc(emaShort, klines, 12);
-
-        emaCalc(emaLong, klines, 26);
+        TradingData tradingData = MathUtil.getTradingData(lastKlinesPrices, 12,26,9, 0, 0 ,0 );
 
         ArrayList<ChartKline> chartKlines = new ArrayList<>();
 
-        for (int i = 0; emaLong.size() > i; i++){
+        for (int i = 0; tradingData.getEmaLong().size() > i; i++) {
             ChartKline chartKline = new ChartKline();
-            chartKline.setValue(emaShort.get(i) - emaLong.get(i));
-            chartKline.setClosedDate(new Date(klines.get(i).getCloseTime()));
+            chartKline.setValue(tradingData.getMACDHistogram().get(i));
+            chartKline.setClosedDate(new Date(klines.get(i).getOpenTime()));
             chartKline.setClosedPrice(klines.get(i).getClose());
             chartKlines.add(chartKline);
-
-            System.out.println("macd: - " + i + " - " + new Date(klines.get(i).getCloseTime()) + " " + (emaShort.get(i) - emaLong.get(i)));
         }
 
-        chartKlines.subList(0,100).clear();
+        chartKlines.subList(0, 100).clear();
 
         return chartKlines;
     }
-
-    public float CalculateEMA(float closingPrice, float numberOfDays, float EMAYesterday){
-
-        // (2/(selected time period + 1) ) = (2/(10 + 1) ) = 0.1818 (18.18%)
-        float multiplier = 2 / (numberOfDays + 1);
-
-        return (closingPrice-EMAYesterday) * multiplier + EMAYesterday;
-
-        //return todaysPrice * k + EMAYesterday * (1 - k);
-    }
-
-    public void emaCalc(ArrayList<Float> emaList, ArrayList<Kline> klines, float days){
-
-        float ema;
-        float yesterdayEMA = 0;
-
-        for (Kline kline: klines){
-            //call the EMA calculation
-            ema = CalculateEMA((float)kline.getClose(), days, yesterdayEMA);
-            //put the calculated ema in an array
-            emaList.add(ema);
-            //make sure yesterdayEMA gets filled with the EMA we used this time around
-            yesterdayEMA = ema;
-
-
-        }
-    }
-
-
-//    public float CalculateEMA(float todaysPrice, float numberOfDays, float EMAYesterday){
-//        float k = 2 / (numberOfDays + 1);
-//        return todaysPrice * k + EMAYesterday * (1 - k);
-//    }
-//
-//    public void emaCalc(ArrayList<Float> emaList, ArrayList<Kline> klines, float days){
-//
-//        float ema;
-//        float yesterdayEMA = 0;
-//
-//        for (Kline kline: klines){
-//            //call the EMA calculation
-//            ema = CalculateEMA((float)kline.getClose(), days, yesterdayEMA);
-//            //put the calculated ema in an array
-//            emaList.add(ema);
-//            //make sure yesterdayEMA gets filled with the EMA we used this time around
-//            yesterdayEMA = ema;
-//
-//
-//        }
-//    }
 }

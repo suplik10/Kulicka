@@ -1,23 +1,22 @@
 package cz.kulicka;
 
 import cz.kulicka.constant.CurrenciesConstants;
-import cz.kulicka.entity.MacdIndicator;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
 import cz.kulicka.exception.BinanceApiException;
-import cz.kulicka.repository.MacdIndicatorRepository;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.MacdIndicatorService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
-import cz.kulicka.strategy.impl.MacdStrategy;
-import cz.kulicka.utils.MapperUtil;
+import cz.kulicka.strategy.impl.MacdStrategyImpl;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,12 +44,6 @@ public class CoreEngine {
     @Autowired
     MacdIndicatorService macdIndicatorService;
 
-    public void run() {
-        runIt();
-
-
-
-    }
 
     public void runIt() {
 
@@ -74,7 +67,7 @@ public class CoreEngine {
     }
 
     private void setOrderStrategy() {
-        orderStrategyContext.setOrderStrategy(new MacdStrategy(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+        orderStrategyContext.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
     }
 
     private void sleep() {
@@ -141,5 +134,29 @@ public class CoreEngine {
         }
 
         log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
+    }
+
+    private void reportToCsv() throws IOException {
+        String csvFile = "/Users/mkyong/csv/developer.csv";
+        FileWriter writer = new FileWriter(csvFile);
+
+        //for header
+        CSVUtils.writeLine(writer, Arrays.asList("Name", "Salary", "Age"));
+
+        for (Developer d : developers) {
+
+            List<String> list = new ArrayList<>();
+            list.add(d.getName());
+            list.add(d.getSalary().toString());
+            list.add(String.valueOf(d.getAge()));
+
+            CSVUtils.writeLine(writer, list);
+
+            //try custom separator and quote.
+            //CSVUtils.writeLine(writer, list, '|', '\"');
+        }
+
+        writer.flush();
+        writer.close();
     }
 }

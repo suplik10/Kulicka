@@ -32,6 +32,7 @@ public class Order {
     private double buyFeeConstant;
     private double sellFee;
     private double sellFeeConstant;
+    private int sellReason;
 
 
     public Order() {
@@ -199,6 +200,14 @@ public class Order {
         this.sellPriceForOrderWithFee = sellPriceForOrderWithFee;
     }
 
+    public int getSellReason() {
+        return sellReason;
+    }
+
+    public void setSellReason(int sellReason) {
+        this.sellReason = sellReason;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -210,6 +219,7 @@ public class Order {
                 ", sellPriceForOrderWithFee=" + String.format("%.9f",sellPriceForOrderWithFee) +
                 ", active=" + active +
                 ", profitFeeIncluded=" + String.format("%.9f",profitFeeIncluded) +
+                ", sellReason=" + sellReason +
                 '}';
     }
 }

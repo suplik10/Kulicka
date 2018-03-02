@@ -1,7 +1,6 @@
 package cz.kulicka.rest.client;
 
 import cz.kulicka.entity.*;
-import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.entity.request.CancelOrderRequest;
 import cz.kulicka.entity.request.OrderStatusRequest;
 
@@ -11,11 +10,11 @@ public interface BinanceApiRestClient {
 
     List<BookTicker> getBookTickers();
 
-    List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit, Long startTime, Long endTime);
+    List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit, Long startTime, Long endTime);
 
-    List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval);
+    List<Candlestick> getCandlestickBars(String symbol, String interval);
 
-    List<Candlestick> getCandlestickBars(String symbol, CandlestickInterval interval, Integer limit);
+    List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit);
 
     TickerPrice getLastPrice(String symbol);
 
