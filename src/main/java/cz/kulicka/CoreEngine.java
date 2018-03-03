@@ -10,13 +10,12 @@ import cz.kulicka.services.MacdIndicatorService;
 import cz.kulicka.services.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.strategy.impl.MacdStrategyImpl;
+import cz.kulicka.utils.IOUtil;
 import cz.kulicka.utils.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,41 +27,48 @@ public class CoreEngine {
 
     @Autowired
     OrderService orderService;
-
     @Autowired
     OrderRepository orderRepository;
-
     @Autowired
     BinanceApiService binanceApiService;
-
     @Autowired
     PropertyPlaceholder propertyPlaceholder;
-
     @Autowired
     OrderStrategyContext orderStrategyContext;
-
     @Autowired
     MacdIndicatorService macdIndicatorService;
+
+    boolean initCSVFile;
+    boolean activeMainSellThread;
 
 
     public void runIt() {
 
         setOrderStrategy();
+        int countMinutes = 5;
 
         while (true) {
-
             try {
-                setOrderStrategy();
-                handleActiveOrders();
-                checkProfits();
-                scanCurrenciesAndMakeNewOrders();
+                if (countMinutes < propertyPlaceholder.getThreadSleepBetweenRequestsMinutes()) {
+                    log.info("------ RUN INSTASELL ------");
+                    handleActiveOrders(true);
+                    checkProfits();
+                    countMinutes++;
+                } else {
+                    log.info("------ RUN MAIN STRATEGY ------");
+                    setOrderStrategy();
+                    handleActiveOrders(false);
+                    checkProfits();
+                    scanCurrenciesAndMakeNewOrders();
+                    countMinutes = 1;
+                }
             } catch (BinanceApiException e) {
                 log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
-                sleep();
+                sleepInstaSellThread();
             }
 
             log.info("Fall into wonderland...");
-            sleep();
+            sleepInstaSellThread();
         }
     }
 
@@ -72,9 +78,17 @@ public class CoreEngine {
 
     private void sleep() {
         try {
-            Thread.sleep(propertyPlaceholder.getThreadSleepBetweenRequestsMiliseconds());
+            Thread.sleep(propertyPlaceholder.getThreadSleepBetweenRequestsMinutes() * 60 * 1000);
         } catch (InterruptedException e) {
             log.error("THREAD SLEEP ERROR " + e.getMessage());
+        }
+    }
+
+    private void sleepInstaSellThread() {
+        try {
+            Thread.sleep(propertyPlaceholder.getThreadSleepBetweenRequestsInstaSellMiliseconds());
+        } catch (InterruptedException e) {
+            log.error("THREAD SLEEP INSTASELL ERROR " + e.getMessage());
         }
     }
 
@@ -100,17 +114,25 @@ public class CoreEngine {
         log.info("SCAN COMPLETE!");
     }
 
-    private void handleActiveOrders() {
+    private void handleActiveOrders(boolean instaSell) {
         List<Order> activeOrders = orderService.getAllActive();
         double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
+        boolean endOrder;
 
         log.info("Handle orders start > " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
-            //Sell???
+            //Sell by strategy?
             double actualSellPriceForOrderWithFee = MathUtil.getSellPriceForOrderWithFee(order.getBoughtAmount(),
                     Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice()) * actualBTCUSDT, order.getSellFeeConstant());
-            if (orderStrategyContext.sell(order, actualSellPriceForOrderWithFee)) {
+
+            if (instaSell) {
+                endOrder = orderStrategyContext.instaSellForProfit(order, actualSellPriceForOrderWithFee);
+            } else {
+                endOrder = orderStrategyContext.sell(order, actualSellPriceForOrderWithFee);
+            }
+
+            if (endOrder) {
                 order.setActive(false);
                 order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
                 order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
@@ -134,29 +156,7 @@ public class CoreEngine {
         }
 
         log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
-    }
 
-    private void reportToCsv() throws IOException {
-        String csvFile = "/Users/mkyong/csv/developer.csv";
-        FileWriter writer = new FileWriter(csvFile);
-
-        //for header
-        CSVUtils.writeLine(writer, Arrays.asList("Name", "Salary", "Age"));
-
-        for (Developer d : developers) {
-
-            List<String> list = new ArrayList<>();
-            list.add(d.getName());
-            list.add(d.getSalary().toString());
-            list.add(String.valueOf(d.getAge()));
-
-            CSVUtils.writeLine(writer, list);
-
-            //try custom separator and quote.
-            //CSVUtils.writeLine(writer, list, '|', '\"');
-        }
-
-        writer.flush();
-        writer.close();
+        IOUtil.saveOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false);
     }
 }

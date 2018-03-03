@@ -3,12 +3,9 @@ package cz.kulicka.strategy.impl;
 import cz.kulicka.entity.Candlestick;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
-import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.strategy.OrderStrategy;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -27,7 +24,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     public boolean buy(Ticker ticker, List<Order> activeOrders) {
         boolean createOrder = false;
 
-        List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), CandlestickInterval.FIVE_MINUTES, 4);
+        List<Candlestick> candlestickList = binanceApiService.getCandlestickBars(ticker.getSymbol(), "5m", 4);
         log.debug("Currency " + ticker.getSymbol());
         for (int y = 0; y < candlestickList.size() - 1; y++) {
             log.debug(new Date(candlestickList.get(y).getOpenTime()) + " open value " + candlestickList.get(y).getOpen() + " closed value: " + candlestickList.get(y).getClose());
@@ -57,6 +54,11 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
+        return false;
     }
 
 

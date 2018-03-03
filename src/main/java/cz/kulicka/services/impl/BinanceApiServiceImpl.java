@@ -1,15 +1,7 @@
 package cz.kulicka.services.impl;
 
 import cz.kulicka.constant.CurrenciesConstants;
-import cz.kulicka.entity.BookTicker;
-import cz.kulicka.entity.Candlestick;
-import cz.kulicka.entity.NewOrder;
-import cz.kulicka.entity.NewOrderResponse;
-import cz.kulicka.entity.Order;
-import cz.kulicka.entity.OrderRequest;
-import cz.kulicka.entity.Ticker;
-import cz.kulicka.entity.TickerPrice;
-import cz.kulicka.entity.TickerStatistics;
+import cz.kulicka.entity.*;
 import cz.kulicka.entity.request.CancelOrderRequest;
 import cz.kulicka.entity.request.OrderStatusRequest;
 import cz.kulicka.repository.TickerRepository;
@@ -61,7 +53,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
 
         tickerRepository.save(tickersDB);
 
-        log.info("New currencies on exchange! : " + newCurrencies.toString());
+        log.debug("New currencies on exchange! : " + newCurrencies.toString());
         //TODO handle some notification
 
         return tickersDB;

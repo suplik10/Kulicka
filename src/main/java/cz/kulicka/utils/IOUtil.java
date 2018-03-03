@@ -1,15 +1,20 @@
 package cz.kulicka.utils;
 
+import cz.kulicka.entity.Order;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
-@Deprecated
+
 public class IOUtil {
 
     static Logger log = Logger.getLogger(IOUtil.class);
 
+    @Deprecated
     public static boolean saveListOfStringsToFile(ArrayList<String> listToSave, String filePath) {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -33,6 +38,7 @@ public class IOUtil {
         return true;
     }
 
+    @Deprecated
     public static ArrayList<String> loadListOfStringsToFile(String filePath) {
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
@@ -59,5 +65,44 @@ public class IOUtil {
         }
 
         return result;
+    }
+
+    public static boolean saveOrderToCsv(ArrayList<Order> orders, String csvFile, boolean makedHeader) {
+
+        try {
+            FileWriter writer = new FileWriter(csvFile);
+
+            //čas, coin, buy price, sell price, důvod sell, profit
+            if (!makedHeader) {
+                CSVUtils.writeLine(writer, Arrays.asList("Symbol", "BuyTime", "SellTime", "BuyPriceWIthFee", "SellPriceWithFee", "SellReason", "ProfitFeeIncluded", "PercentageProfitFeeIncluded"));
+                makedHeader = true;
+            }
+
+            for (Order order : orders) {
+
+                List<String> list = new ArrayList<>();
+                list.add(order.getSymbol());
+                list.add(new Date(order.getBuyTime()).toString());
+                list.add(new Date(order.getSellTime()).toString());
+                list.add(String.format("%.9f", order.getBuyPriceForOrderWithFee()));
+                list.add(String.format("%.9f", order.getSellPriceForOrderWithFee()));
+                list.add(String.valueOf(order.getSellReason()));
+                list.add(String.format("%.9f", order.getProfitFeeIncluded()));
+                list.add(String.format("%.9f", order.getPercentageProfitFeeIncluded()));
+
+                //CSVUtils.writeLine(writer, list);
+
+                //try custom separator and quote.
+                CSVUtils.writeLine(writer, list, ';', ' ');
+            }
+
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            log.info("Exception when writing order to CSV " + e.getMessage());
+        }
+
+        return makedHeader;
     }
 }

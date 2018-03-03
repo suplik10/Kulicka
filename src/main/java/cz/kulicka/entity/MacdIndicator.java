@@ -1,12 +1,7 @@
 package cz.kulicka.entity;
 
-import com.sun.istack.internal.NotNull;
-import cz.kulicka.utils.MapperUtil;
-
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Entity
 @Table(name = "macd_tb")

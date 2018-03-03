@@ -1,5 +1,7 @@
 package cz.kulicka.test.utils;
 
+import cz.kulicka.entity.Order;
+import cz.kulicka.utils.IOUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,5 +30,26 @@ public class IOUtilTest {
         Assert.assertEquals(loadListOfStringsToFile("src/test/resources/IOTestFile").size(), 3);
 
     }
+
+    @Test
+    public void saveToCSV() throws IOException {
+
+        Order order = new Order();
+
+        order.setBuyTime(1519992000000l);
+        order.setSellTime(1519992299999l);
+        order.setSymbol("BNBBTC");
+        order.setBuyPriceForOrderWithFee(0.00030080);
+        order.setSellPriceForOrderWithFee(0.00029790);
+        order.setProfitFeeIncluded(3.3333);
+        order.setSellReason(2);
+
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        Assert.assertEquals(true, IOUtil.saveOrderToCsv(orders, "C:/APPS/JavaDev/reportTest.txt", false));
+
+    }
+
 
 }

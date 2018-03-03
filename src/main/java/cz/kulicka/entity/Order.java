@@ -1,11 +1,7 @@
 package cz.kulicka.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "order_tb")
@@ -26,6 +22,7 @@ public class Order {
     private boolean active;
     private int riskValue;
     private double profitFeeIncluded;
+    private double percentageProfitFeeIncluded;
     private long buyTime;
     private long sellTime;
     private double buyFee;
@@ -208,17 +205,23 @@ public class Order {
         this.sellReason = sellReason;
     }
 
+    public double getPercentageProfitFeeIncluded() {
+        return percentageProfitFeeIncluded;
+    }
+
+    public void setPercentageProfitFeeIncluded(double percentageProfitFeeIncluded) {
+        this.percentageProfitFeeIncluded = percentageProfitFeeIncluded;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id='" + id + '\'' +
                 ", symbol='" + symbol +
-                ", buyPriceForOrder=" + String.format("%.9f",buyPriceForOrder) +
-                ", buyPriceForOrderWithFee=" + String.format("%.9f",buyPriceForOrderWithFee) +
-                ", boughtAmount=" + String.format("%.9f",boughtAmount) +
-                ", sellPriceForOrderWithFee=" + String.format("%.9f",sellPriceForOrderWithFee) +
-                ", active=" + active +
-                ", profitFeeIncluded=" + String.format("%.9f",profitFeeIncluded) +
+                ", buyPriceOrderFee=" + String.format("%.9f", buyPriceForOrderWithFee) +
+                ", sellPriceOrderFee=" + String.format("%.9f", sellPriceForOrderWithFee) +
+                ", profitFee=" + String.format("%.9f", profitFeeIncluded) +
+                ", percentageProfitFee=" + String.format("%.9f", percentageProfitFeeIncluded) +
                 ", sellReason=" + sellReason +
                 '}';
     }

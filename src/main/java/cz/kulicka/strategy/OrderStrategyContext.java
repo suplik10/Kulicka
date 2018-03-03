@@ -22,4 +22,8 @@ public class OrderStrategyContext {
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         return orderStrategy.sell(order, actualSellPriceForOrderWithFee);
     }
+
+    public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
+        return orderStrategy.instaSellForProfit(order, actualSellPriceForOrderWithFee);
+    }
 }

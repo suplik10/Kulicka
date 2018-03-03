@@ -6,8 +6,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PropertyPlaceholder {
 
-    @Value("${app.thread.sleep.between.requests.miliseconds}")
-    private int threadSleepBetweenRequestsMiliseconds;
+    @Value("${app.thread.sleep.between.requests.minutes}")
+    private int threadSleepBetweenRequestsMinutes;
+
+    @Value("${app.thread.sleep.between.requests.insta.sell.miliseconds}")
+    private int threadSleepBetweenRequestsInstaSellMiliseconds;
 
     @Value("${app.binance.api.key}")
     private String apiKey;
@@ -21,7 +24,7 @@ public class PropertyPlaceholder {
     @Value("${app.exchange.sell.fee}")
     private double tradeSellFee;
 
-    @Value("${app.closedPrice.per.order.USD}")
+    @Value("${app.price.per.order.USD}")
     private double pricePerOrderUSD;
 
     @Value("${app.strategy.macd.ema.long}")
@@ -42,6 +45,9 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.macd.take.profit.percentage}")
     private double takeProfitPercentage;
 
+    @Value("${app.strategy.macd.take.profit.insta.sell.percentage}")
+    private double takeProfitInstaSellPercentage;
+
     @Value("${app.strategy.macd.stop.loss.percentage}")
     private double stopLossPercentage;
 
@@ -49,8 +55,8 @@ public class PropertyPlaceholder {
     private String csvReportFilePath;
 
 
-    public int getThreadSleepBetweenRequestsMiliseconds() {
-        return threadSleepBetweenRequestsMiliseconds;
+    public int getThreadSleepBetweenRequestsMinutes() {
+        return threadSleepBetweenRequestsMinutes;
     }
 
     public String getApiKey() {
@@ -103,5 +109,13 @@ public class PropertyPlaceholder {
 
     public String getCsvReportFilePath() {
         return csvReportFilePath;
+    }
+
+    public double getTakeProfitInstaSellPercentage() {
+        return takeProfitInstaSellPercentage;
+    }
+
+    public int getThreadSleepBetweenRequestsInstaSellMiliseconds() {
+        return threadSleepBetweenRequestsInstaSellMiliseconds;
     }
 }

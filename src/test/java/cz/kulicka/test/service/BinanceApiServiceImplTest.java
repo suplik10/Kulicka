@@ -1,11 +1,9 @@
 package cz.kulicka.test.service;
 
 import cz.kulicka.entity.Candlestick;
-import cz.kulicka.enums.CandlestickInterval;
 import cz.kulicka.services.BinanceApiService;
 import cz.kulicka.services.impl.BinanceApiServiceImpl;
 import org.junit.Assert;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class BinanceApiServiceImplTest {
     //@Test
     public void getCandlestickBarsTest() {
 
-        List<Candlestick> as = binanceApiService.getCandlestickBars("ETHBTC", CandlestickInterval.DAILY, 10);
+        List<Candlestick> as = binanceApiService.getCandlestickBars("ETHBTC", "1d", 10);
 
         Assert.assertNotNull(as);
         Assert.assertNotEquals(0, as.size());
