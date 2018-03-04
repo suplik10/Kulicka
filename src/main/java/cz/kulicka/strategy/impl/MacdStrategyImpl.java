@@ -45,7 +45,7 @@ public class MacdStrategyImpl implements OrderStrategy {
         TradingData tradingData = getTradingDataHistorical(ticker.getSymbol());
 
         // order ??
-        if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0) {
+        if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0 && isCoinInUpTrend(tradingData)) {
 
             double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice()) * actualBTCUSDT;
             Order newOrder = new Order(ticker.getSymbol(), new Date().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
@@ -75,6 +75,26 @@ public class MacdStrategyImpl implements OrderStrategy {
         }
         return false;
     }
+
+    private boolean isCoinInUpTrend(TradingData tradingData) {
+
+        List<Float> lastXMacdHistograms = tradingData.getMACDHistogram().subList(tradingData.getMACDHistogram().size()-20, tradingData.getMACDHistogram().size()-1);
+
+        int greenCandles = 0;
+
+        for(Float histoCandle : lastXMacdHistograms){
+            if (histoCandle >= 0) {
+                greenCandles++;
+            }
+        }
+
+        if (greenCandles > 12){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 
     @Override
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
@@ -138,6 +158,7 @@ public class MacdStrategyImpl implements OrderStrategy {
         List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, propertyPlaceholder.getBinanceCandlesticksPeriod(), propertyPlaceholder.getEmaCountCandlesticks());
 
         //remove last candle to get more stable signal!
+        //TODO time check to get best signal, if x seconds to closed date dont erase last macd
         candlesticks.remove(candlesticks.size() - 1);
 
         ArrayList<Float> lastPrices = new ArrayList<>();

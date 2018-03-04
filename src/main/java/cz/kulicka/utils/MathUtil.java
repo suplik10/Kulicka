@@ -18,7 +18,7 @@ public class MathUtil {
     //    https://github.com/sergiocormio/stock-alerts/
     //    http://www.iexplain.org/ema-how-to-calculate/.
     //    https://www.investujeme.cz/clanky/macd-temer-svaty-gral/
-    //https://www.binance.com/api/v1/klines?symbol=BNBUSDT&interval=1h&limit=500
+    //    https://www.binance.com/api/v1/klines?symbol=BNBUSDT&interval=1h&limit=500
     public static TradingData getTradingData(ArrayList<Float> candlestickData, float emaShortDays, float emaLongDays, float signalDays, float emaShortYesterday, float emaLongYesterday, float emaSignalYesterday) {
         Validate.notEmpty(candlestickData);
 

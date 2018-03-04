@@ -45,7 +45,7 @@ public class CoreEngine {
     public void runIt() {
 
         setOrderStrategy();
-        int countMinutes = 5;
+        int countMinutes = Integer.MAX_VALUE;
 
         while (true) {
             try {
@@ -139,11 +139,12 @@ public class CoreEngine {
                 order.setSellTime(new Date().getTime());
                 log.info("Order STOPPED : " + order.toString());
             } else {
-                log.info("Continuing order: " + order.toString());
+                if(!instaSell){
+                    log.info("Continuing order: " + order.toString());
+                }
             }
+            orderService.saveAll(activeOrders);
         }
-
-        orderService.saveAll(activeOrders);
     }
 
     private void checkProfits() {

@@ -60,7 +60,7 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
 
         log.info("Sell? Symbol: " + order.getSymbol() + ", actualRealPercentageProfit from bought price: " + String.format("%.9f", actualPercentageProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ buy price " + order.getBuyPriceForOrderWithFee());
         //log.info("Sell? Symbol: " + order.getSymbol() + ", actualSteppedPercengateProfit from stepped price: " + String.format("%.9f", actualSteppedPercengateProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getSteppedBuyPriceForOrderWithFee()) + " $ stepped price " + order.getSteppedBuyPriceForOrderWithFee());
-        //TODO handle rebuy
+
 
         if (actualPercentageProfit > 0.05) {
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
