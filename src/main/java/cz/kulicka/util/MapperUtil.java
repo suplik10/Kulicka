@@ -1,4 +1,4 @@
-package cz.kulicka.utils;
+package cz.kulicka.util;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;

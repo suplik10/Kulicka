@@ -1,4 +1,4 @@
-package cz.kulicka.services.impl;
+package cz.kulicka.service.impl;
 
 import cz.kulicka.constant.BinanceApiConstants;
 import cz.kulicka.exception.BinanceApiException;

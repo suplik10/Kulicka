@@ -1,15 +1,15 @@
 package cz.kulicka.test.utils;
 
 import cz.kulicka.entity.Order;
-import cz.kulicka.utils.IOUtil;
+import cz.kulicka.util.IOUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static cz.kulicka.utils.IOUtil.loadListOfStringsToFile;
-import static cz.kulicka.utils.IOUtil.saveListOfStringsToFile;
+import static cz.kulicka.util.IOUtil.loadListOfStringsToFile;
+import static cz.kulicka.util.IOUtil.saveListOfStringsToFile;
 
 public class IOUtilTest {
 

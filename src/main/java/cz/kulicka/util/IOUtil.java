@@ -1,4 +1,4 @@
-package cz.kulicka.utils;
+package cz.kulicka.util;
 
 import cz.kulicka.entity.Order;
 import org.apache.log4j.Logger;

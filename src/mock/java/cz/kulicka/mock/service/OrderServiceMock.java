@@ -1,7 +1,7 @@
 package cz.kulicka.mock.service;
 
 import cz.kulicka.entity.Order;
-import cz.kulicka.services.OrderService;
+import cz.kulicka.service.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;

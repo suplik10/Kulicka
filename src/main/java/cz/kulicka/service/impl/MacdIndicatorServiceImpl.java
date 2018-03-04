@@ -1,10 +1,10 @@
-package cz.kulicka.services.impl;
+package cz.kulicka.service.impl;
 
 import com.google.common.collect.Iterables;
 import cz.kulicka.entity.MacdIndicator;
 import cz.kulicka.repository.MacdIndicatorRepository;
-import cz.kulicka.services.MacdIndicatorService;
-import cz.kulicka.utils.MapperUtil;
+import cz.kulicka.service.MacdIndicatorService;
+import cz.kulicka.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

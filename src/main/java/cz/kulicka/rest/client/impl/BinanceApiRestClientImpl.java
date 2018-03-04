@@ -12,7 +12,7 @@ import cz.kulicka.entity.TickerStatistics;
 import cz.kulicka.entity.request.CancelOrderRequest;
 import cz.kulicka.entity.request.OrderStatusRequest;
 import cz.kulicka.rest.client.BinanceApiRestClient;
-import cz.kulicka.services.WebApiService;
+import cz.kulicka.service.WebApiService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static cz.kulicka.services.impl.BinanceApiServiceGenerator.createService;
-import static cz.kulicka.services.impl.BinanceApiServiceGenerator.executeSync;
+import static cz.kulicka.service.impl.BinanceApiServiceGenerator.createService;
+import static cz.kulicka.service.impl.BinanceApiServiceGenerator.executeSync;
 
 @Component
 public class BinanceApiRestClientImpl implements BinanceApiRestClient {

@@ -1,16 +1,11 @@
 package cz.kulicka;
 
-import cz.kulicka.repository.MacdIndicatorRepository;
-import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.services.MacdIndicatorService;
-import cz.kulicka.strategy.OrderStrategyContext;
-import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
+import cz.kulicka.service.MacdIndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.swing.*;
 import java.awt.*;
 
 @SpringBootApplication

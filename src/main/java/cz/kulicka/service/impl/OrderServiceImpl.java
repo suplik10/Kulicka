@@ -1,9 +1,9 @@
-package cz.kulicka.services.impl;
+package cz.kulicka.service.impl;
 
 
 import cz.kulicka.entity.Order;
 import cz.kulicka.repository.OrderRepository;
-import cz.kulicka.services.OrderService;
+import cz.kulicka.service.OrderService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

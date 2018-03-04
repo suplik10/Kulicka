@@ -1,13 +1,11 @@
 package cz.kulicka.test.utils;
 
-import cz.kulicka.utils.MapperUtil;
+import cz.kulicka.util.MapperUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static cz.kulicka.utils.IOUtil.saveListOfStringsToFile;
 
 public class MapperUtilTest {
 

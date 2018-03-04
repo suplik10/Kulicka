@@ -1,6 +1,6 @@
 package cz.kulicka.test.utils;
 
-import cz.kulicka.utils.MathUtil;
+import cz.kulicka.util.MathUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

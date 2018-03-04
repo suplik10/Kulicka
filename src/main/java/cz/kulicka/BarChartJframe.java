@@ -2,8 +2,7 @@ package cz.kulicka;
 
 import cz.kulicka.entity.ChartKline;
 import cz.kulicka.entity.MacdIndicator;
-import cz.kulicka.repository.MacdIndicatorRepository;
-import cz.kulicka.services.MacdIndicatorService;
+import cz.kulicka.service.MacdIndicatorService;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

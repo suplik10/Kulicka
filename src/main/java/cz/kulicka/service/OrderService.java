@@ -1,4 +1,4 @@
-package cz.kulicka.services;
+package cz.kulicka.service;
 
 import cz.kulicka.entity.Order;
 

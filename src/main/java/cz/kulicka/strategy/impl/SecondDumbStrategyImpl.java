@@ -3,9 +3,9 @@ package cz.kulicka.strategy.impl;
 import cz.kulicka.entity.Candlestick;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
-import cz.kulicka.services.BinanceApiService;
+import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.strategy.OrderStrategy;
-import cz.kulicka.utils.MathUtil;
+import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 
 import java.util.Date;

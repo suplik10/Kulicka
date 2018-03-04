@@ -1,4 +1,4 @@
-package cz.kulicka.utils;
+package cz.kulicka.util;
 
 import cz.kulicka.entity.TradingData;
 import org.apache.commons.lang3.Validate;

@@ -1,4 +1,4 @@
-package cz.kulicka.utils;
+package cz.kulicka.util;
 
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Ticker;

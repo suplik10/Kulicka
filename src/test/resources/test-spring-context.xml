@@ -16,7 +16,7 @@
     </bean>
 
     <bean id="binanceApiService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="cz.kulicka.services.BinanceApiService"/>
+        <constructor-arg value="cz.kulicka.service.BinanceApiService"/>
     </bean>
 
     <bean id="coreEngine"

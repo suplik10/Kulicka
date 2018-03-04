@@ -1,4 +1,4 @@
-package cz.kulicka.services.impl;
+package cz.kulicka.service.impl;
 
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.*;
@@ -6,8 +6,8 @@ import cz.kulicka.entity.request.CancelOrderRequest;
 import cz.kulicka.entity.request.OrderStatusRequest;
 import cz.kulicka.repository.TickerRepository;
 import cz.kulicka.rest.client.BinanceApiRestClient;
-import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.utils.CommonUtil;
+import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.util.CommonUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

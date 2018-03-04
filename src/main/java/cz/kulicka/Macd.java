@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.kulicka.entity.ChartKline;
 import cz.kulicka.entity.Kline;
 import cz.kulicka.entity.TradingData;
-import cz.kulicka.utils.MapperUtil;
-import cz.kulicka.utils.MathUtil;
+import cz.kulicka.util.MapperUtil;
+import cz.kulicka.util.MathUtil;
 
 import java.io.File;
 import java.io.IOException;

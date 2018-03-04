@@ -3,11 +3,11 @@ package cz.kulicka.strategy.impl;
 import com.google.common.collect.Lists;
 import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.entity.*;
-import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.services.MacdIndicatorService;
-import cz.kulicka.services.OrderService;
+import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.service.MacdIndicatorService;
+import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.OrderStrategy;
-import cz.kulicka.utils.MathUtil;
+import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class MacdStrategyImpl implements OrderStrategy {
             }
         }
 
-        if (greenCandles > 12){
+        if (greenCandles > 7){
             return true;
         }else {
             return false;

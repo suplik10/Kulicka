@@ -1,8 +1,8 @@
 package cz.kulicka.test.service;
 
 import cz.kulicka.entity.Candlestick;
-import cz.kulicka.services.BinanceApiService;
-import cz.kulicka.services.impl.BinanceApiServiceImpl;
+import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.service.impl.BinanceApiServiceImpl;
 import org.junit.Assert;
 
 import java.util.ArrayList;
