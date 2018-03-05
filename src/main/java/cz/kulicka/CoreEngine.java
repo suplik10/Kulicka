@@ -10,20 +10,23 @@ import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.strategy.impl.MacdStrategyImpl;
+import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.IOUtil;
 import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class CoreEngine {
 
     static Logger log = Logger.getLogger(CoreEngine.class);
+
+    public static Long DATE_DIFFERENCE_BETWEN_SERVER_AND_CLIENT;
 
     @Autowired
     OrderService orderService;
@@ -38,38 +41,61 @@ public class CoreEngine {
     @Autowired
     MacdIndicatorService macdIndicatorService;
 
-    boolean initCSVFile;
-    boolean activeMainSellThread;
-
-
     public void runIt() {
 
+        synchronizeServerTime();
         setOrderStrategy();
-        int countMinutes = Integer.MAX_VALUE;
 
-        while (true) {
+        Calendar actualDate = Calendar.getInstance();
+        actualDate.setTime(new Date());
+        int dayOfWeek = actualDate.get(Calendar.DAY_OF_WEEK);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(
+                Calendar.DAY_OF_WEEK,
+                actualDate.get(Calendar.DAY_OF_WEEK)
+        );
+        calendar.set(Calendar.HOUR_OF_DAY, actualDate.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, actualDate.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, actualDate.get(Calendar.SECOND));
+
+        Timer time = new Timer(); // Instantiate Timer Object
+
+        // Start running the task on Monday at 15:40:00, period is set to 8 hours
+        // if you want to run the task immediately, set the 2nd parameter to 0
+        time.schedule(new TimerTest(), calendar.getTime(), TimeUnit.MINUTES.toMillis(5));
+
+
+
             try {
-                if (countMinutes < propertyPlaceholder.getThreadSleepBetweenRequestsMinutes()) {
+                if (2 < propertyPlaceholder.getThreadSleepBetweenRequestsMinutes()) {
                     log.info("------ RUN INSTASELL ------");
                     handleActiveOrders(true);
                     checkProfits();
-                    countMinutes++;
+                    //countMinutes++;
                 } else {
                     log.info("------ RUN MAIN STRATEGY ------");
-                    setOrderStrategy();
                     handleActiveOrders(false);
                     checkProfits();
                     scanCurrenciesAndMakeNewOrders();
-                    countMinutes = 1;
+                    //countMinutes = 1;
                 }
             } catch (BinanceApiException e) {
                 log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
                 sleepInstaSellThread();
             }
 
-            log.info("Fall into wonderland...");
-            sleepInstaSellThread();
-        }
+    }
+
+    private void synchronizeServerTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        log.info("------ Date synch ------");
+        log.info("Date before synch: " + dateFormat.format(new Date()));
+        Date dateFromServer = new Date(binanceApiService.getServerTime());
+        log.info("Server date: " + dateFormat.format(dateFromServer));
+        DATE_DIFFERENCE_BETWEN_SERVER_AND_CLIENT = new Date().getTime() - (dateFromServer.getTime());
+        log.info("Date after synch: " + dateFormat.format(DateTimeUtils.getCurrentServerDate()));
     }
 
     private void setOrderStrategy() {
@@ -136,7 +162,7 @@ public class CoreEngine {
                 order.setActive(false);
                 order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
                 order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
-                order.setSellTime(new Date().getTime());
+                order.setSellTime(DateTimeUtils.getCurrentServerDate().getTime());
                 log.info("Order STOPPED : " + order.toString());
             } else {
                 if(!instaSell){

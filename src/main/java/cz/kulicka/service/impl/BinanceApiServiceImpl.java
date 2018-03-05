@@ -27,6 +27,11 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     BinanceApiRestClient client;
 
     @Override
+    public Long getServerTime() {
+        return client.getServerTime();
+    }
+
+    @Override
     public ArrayList<Ticker> checkActualCurrencies(ArrayList newCurrencies) {
 
         List<BookTicker> newBookTickers = client.getBookTickers();

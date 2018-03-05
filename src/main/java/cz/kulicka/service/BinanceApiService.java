@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface BinanceApiService {
 
+    Long getServerTime();
+
     ArrayList<Ticker> checkActualCurrencies(ArrayList newCurrencies);
 
     List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit, Long startTime, Long endTime);

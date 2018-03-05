@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface BinanceApiRestClient {
 
+    Long getServerTime();
+
     List<BookTicker> getBookTickers();
 
     List<Candlestick> getCandlestickBars(String symbol, String interval, Integer limit, Long startTime, Long endTime);

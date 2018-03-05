@@ -16,6 +16,9 @@ import java.util.List;
 
 public interface WebApiService {
 
+    @GET("/api/v1/time")
+    Call<ServerTime> getServerTime();
+
     @GET("/api/v1/ticker/allBookTickers")
     Call<List<BookTicker>> getBookTickers();
 

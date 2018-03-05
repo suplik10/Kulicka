@@ -7,11 +7,11 @@ import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.OrderStrategy;
+import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MacdStrategyImpl implements OrderStrategy {
@@ -45,10 +45,10 @@ public class MacdStrategyImpl implements OrderStrategy {
         TradingData tradingData = getTradingDataHistorical(ticker.getSymbol());
 
         // order ??
-        if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0 && isCoinInUpTrend(tradingData)) {
+        if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0) {
 
             double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice()) * actualBTCUSDT;
-            Order newOrder = new Order(ticker.getSymbol(), new Date().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
+            Order newOrder = new Order(ticker.getSymbol(), DateTimeUtils.getCurrentServerDate().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
                     propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee());
             newOrder.setActive(true);
             newOrder.setRiskValue(2);
@@ -76,31 +76,11 @@ public class MacdStrategyImpl implements OrderStrategy {
         return false;
     }
 
-    private boolean isCoinInUpTrend(TradingData tradingData) {
-
-        List<Float> lastXMacdHistograms = tradingData.getMACDHistogram().subList(tradingData.getMACDHistogram().size()-20, tradingData.getMACDHistogram().size()-1);
-
-        int greenCandles = 0;
-
-        for(Float histoCandle : lastXMacdHistograms){
-            if (histoCandle >= 0) {
-                greenCandles++;
-            }
-        }
-
-        if (greenCandles > 7){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-
     @Override
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
-        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2);
+        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 1);
 
         MacdIndicator macdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(order.getId());
 
@@ -159,7 +139,7 @@ public class MacdStrategyImpl implements OrderStrategy {
 
         //remove last candle to get more stable signal!
         //TODO time check to get best signal, if x seconds to closed date dont erase last macd
-        candlesticks.remove(candlesticks.size() - 1);
+        //candlesticks.remove(candlesticks.size() - 1);
 
         ArrayList<Float> lastPrices = new ArrayList<>();
 
