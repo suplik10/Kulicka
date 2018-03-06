@@ -47,7 +47,7 @@ public class IOUtilTest {
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(order);
 
-        Assert.assertEquals(true, IOUtil.saveOrderToCsv(orders, "C:/APPS/JavaDev/reportTest.txt", false));
+        Assert.assertEquals(true, IOUtil.saveOrderToCsv(orders, "C:/APPS/JavaDev/reportTest.txt", false, new ArrayList<>()));
 
     }
 

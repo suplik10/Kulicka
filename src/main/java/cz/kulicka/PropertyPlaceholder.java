@@ -3,6 +3,8 @@ package cz.kulicka;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class PropertyPlaceholder {
 
@@ -50,6 +52,9 @@ public class PropertyPlaceholder {
 
     @Value("${app.csv.report.file.path}")
     private String csvReportFilePath;
+
+    @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
+    private List<String> whiteListCoins;
 
     public int getTimeDifferenceBetweenRequestsInMinutes() {
         return timeDifferenceBetweenRequestsInMinutes;
@@ -111,4 +116,7 @@ public class PropertyPlaceholder {
         return takeProfitInstaSellPercentage;
     }
 
+    public List<String> getWhiteListCoins() {
+        return whiteListCoins;
+    }
 }

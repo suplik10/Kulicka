@@ -67,18 +67,19 @@ public class IOUtil {
         return result;
     }
 
-    public static boolean saveOrderToCsv(ArrayList<Order> orders, String csvFile, boolean makedHeader) {
+    public static boolean saveOrderToCsv(ArrayList<Order> orders, String csvFile, boolean makedHeader, List<String> whiteList) {
 
         try {
             FileWriter writer = new FileWriter(csvFile);
 
             //čas, coin, buy price, sell price, důvod sell, profit
             if (!makedHeader) {
-                CSVUtils.writeLine(writer, Arrays.asList("Symbol", "BuyTime", "SellTime", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "ProfitFeeIncluded", "PercentageProfitFeeIncluded"));
+                CSVUtils.writeLine(writer, Arrays.asList("Symbol", "BuyTime", "SellTime", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "ProfitFeeIncluded", "PercentageProfitFeeIncluded", "WhiteList"));
                 makedHeader = true;
             }
 
             for (Order order : orders) {
+                boolean foundInWhiteList=false;
 
                 List<String> list = new ArrayList<>();
                 list.add(order.getSymbol());
@@ -89,6 +90,15 @@ public class IOUtil {
                 list.add(String.valueOf(order.getSellReason()));
                 list.add(String.format("%.9f", order.getProfitFeeIncluded()));
                 list.add(String.format("%.9f", order.getPercentageProfitFeeIncluded()));
+
+                //TODO temporary solution
+                for (String symbol : whiteList){
+                    if(symbol.equals(order.getSymbol())){
+                        foundInWhiteList = true;
+                        break;
+                    }
+                }
+                list.add(String.valueOf(foundInWhiteList));
 
                 //CSVUtils.writeLine(writer, list);
 
