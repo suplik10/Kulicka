@@ -47,9 +47,10 @@ public class MacdStrategyImpl implements OrderStrategy {
         // order ??
         if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0) {
 
-            double lastPriceInUSDT = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice()) * actualBTCUSDT;
+            double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice());
+            double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
             Order newOrder = new Order(ticker.getSymbol(), DateTimeUtils.getCurrentServerDate().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
-                    propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee());
+                    propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC);
             newOrder.setActive(true);
             newOrder.setRiskValue(2);
 
@@ -80,7 +81,7 @@ public class MacdStrategyImpl implements OrderStrategy {
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
-        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 1);
+        List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2);
 
         MacdIndicator macdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(order.getId());
 
@@ -124,11 +125,16 @@ public class MacdStrategyImpl implements OrderStrategy {
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
         if (actualPercentageProfit > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
-            log.info("INSTA SELL TAKE PROFIT!!!");
+            log.info("INSTA SELL!!! - TAKE PROFIT");
             order.setPercentageProfitFeeIncluded(actualPercentageProfit);
             order.setSellReason(3);
             return true;
-        } else {
+        } else if(actualPercentageProfit < propertyPlaceholder.getStopLossPercentage()) {
+            log.info("INSTA SELL!!! - STOPLOSS");
+            order.setPercentageProfitFeeIncluded(actualPercentageProfit);
+            order.setSellReason(4);
+            return true;
+        }else{
             return false;
         }
     }

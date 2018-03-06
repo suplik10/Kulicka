@@ -74,7 +74,7 @@ public class IOUtil {
 
             //čas, coin, buy price, sell price, důvod sell, profit
             if (!makedHeader) {
-                CSVUtils.writeLine(writer, Arrays.asList("Symbol", "BuyTime", "SellTime", "BuyPriceWIthFee", "SellPriceWithFee", "SellReason", "ProfitFeeIncluded", "PercentageProfitFeeIncluded"));
+                CSVUtils.writeLine(writer, Arrays.asList("Symbol", "BuyTime", "SellTime", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "ProfitFeeIncluded", "PercentageProfitFeeIncluded"));
                 makedHeader = true;
             }
 
@@ -84,8 +84,8 @@ public class IOUtil {
                 list.add(order.getSymbol());
                 list.add(new Date(order.getBuyTime()).toString());
                 list.add(new Date(order.getSellTime()).toString());
-                list.add(String.format("%.9f", order.getBuyPriceForOrderWithFee()));
-                list.add(String.format("%.9f", order.getSellPriceForOrderWithFee()));
+                list.add(String.format("%.9f", order.getBuyPriceBTCForUnit()));
+                list.add(String.format("%.9f", order.getSellPriceBTCForUnit()));
                 list.add(String.valueOf(order.getSellReason()));
                 list.add(String.format("%.9f", order.getProfitFeeIncluded()));
                 list.add(String.format("%.9f", order.getPercentageProfitFeeIncluded()));

@@ -6,11 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PropertyPlaceholder {
 
-    @Value("${app.thread.sleep.between.requests.minutes}")
-    private int threadSleepBetweenRequestsMinutes;
-
-    @Value("${app.thread.sleep.between.requests.insta.sell.miliseconds}")
-    private int threadSleepBetweenRequestsInstaSellMiliseconds;
+    @Value("${app.time.difference.between.requests.minutes}")
+    private int timeDifferenceBetweenRequestsInMinutes;
 
     @Value("${app.binance.api.key}")
     private String apiKey;
@@ -54,9 +51,8 @@ public class PropertyPlaceholder {
     @Value("${app.csv.report.file.path}")
     private String csvReportFilePath;
 
-
-    public int getThreadSleepBetweenRequestsMinutes() {
-        return threadSleepBetweenRequestsMinutes;
+    public int getTimeDifferenceBetweenRequestsInMinutes() {
+        return timeDifferenceBetweenRequestsInMinutes;
     }
 
     public String getApiKey() {
@@ -115,7 +111,4 @@ public class PropertyPlaceholder {
         return takeProfitInstaSellPercentage;
     }
 
-    public int getThreadSleepBetweenRequestsInstaSellMiliseconds() {
-        return threadSleepBetweenRequestsInstaSellMiliseconds;
-    }
 }

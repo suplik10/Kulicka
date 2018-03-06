@@ -2,11 +2,15 @@ package cz.kulicka.util;
 
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Ticker;
+import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import org.apache.commons.lang3.Validate;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 
 public class CommonUtil {
+
+    static Logger log = Logger.getLogger(CommonUtil.class);
 
     public static boolean addTickerToDBList(ArrayList<Ticker> DBList, String symbolToFind) {
         Validate.notNull(symbolToFind);
@@ -51,4 +55,5 @@ public class CommonUtil {
         return -1;
 
     }
+
 }

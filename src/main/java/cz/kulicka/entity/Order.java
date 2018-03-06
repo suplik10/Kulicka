@@ -12,6 +12,8 @@ public class Order {
     private Long id;
     private String symbol;
     private double buyPriceForUnit;
+    private double buyPriceBTCForUnit;
+    private double sellPriceBTCForUnit;
     private double steppedBuyPriceForOrderWithFee;
     private double buyPriceForOrder;
     private double buyPriceForOrderWithFee;
@@ -35,7 +37,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant) {
+    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant, double buyPriceBTCForUnit) {
         this.symbol = symbol;
         this.buyPriceForOrder = buyPriceForOrder;
         this.buyFee = (buyPriceForOrder * (buyFeeConstant / 100));
@@ -47,6 +49,7 @@ public class Order {
         this.buyPriceForUnit = buyPriceForUnit;
         this.steppedBuyPriceForOrderWithFee = buyPriceForOrderWithFee;
         this.buyTime = buyTime;
+        this.buyPriceBTCForUnit = buyPriceBTCForUnit;
     }
 
     public double getBoughtAmount() {
@@ -211,6 +214,22 @@ public class Order {
 
     public void setPercentageProfitFeeIncluded(double percentageProfitFeeIncluded) {
         this.percentageProfitFeeIncluded = percentageProfitFeeIncluded;
+    }
+
+    public double getBuyPriceBTCForUnit() {
+        return buyPriceBTCForUnit;
+    }
+
+    public void setBuyPriceBTCForUnit(double buyPriceBTCForUnit) {
+        this.buyPriceBTCForUnit = buyPriceBTCForUnit;
+    }
+
+    public double getSellPriceBTCForUnit() {
+        return sellPriceBTCForUnit;
+    }
+
+    public void setSellPriceBTCForUnit(double sellPriceBTCForUnit) {
+        this.sellPriceBTCForUnit = sellPriceBTCForUnit;
     }
 
     @Override
