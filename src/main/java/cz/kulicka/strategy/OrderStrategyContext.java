@@ -15,8 +15,8 @@ public class OrderStrategyContext {
         this.orderStrategy = strategy;
     }
 
-    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
-        return orderStrategy.buy(ticker, activeOrders, actualBTCUSDT);
+    public boolean buy(Ticker ticker, double actualBTCUSDT) {
+        return orderStrategy.buy(ticker, actualBTCUSDT);
     }
 
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
@@ -24,6 +24,6 @@ public class OrderStrategyContext {
     }
 
     public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
-        return orderStrategy.instaSellForProfit(order, actualSellPriceForOrderWithFee);
+        return orderStrategy.instaSell(order, actualSellPriceForOrderWithFee);
     }
 }

@@ -1,31 +1,31 @@
 [
   {
     "symbol": "ETHBTC",
-    "bidPrice": "0.08820400",
-    "bidQty": "22.15700000",
-    "askPrice": "0.08828000",
-    "askQty": "0.88500000"
+    "bidPrice": "0.07442100",
+    "bidQty": "0.14700000",
+    "askPrice": "0.07451100",
+    "askQty": "0.03000000"
   },
   {
     "symbol": "LTCBTC",
-    "bidPrice": "0.01697000",
-    "bidQty": "14.31000000",
-    "askPrice": "0.01699900",
-    "askQty": "5.30000000"
+    "bidPrice": "0.01804900",
+    "bidQty": "5.54000000",
+    "askPrice": "0.01806500",
+    "askQty": "2.20000000"
   },
   {
     "symbol": "BNBBTC",
-    "bidPrice": "0.00161000",
-    "bidQty": "2067.61000000",
-    "askPrice": "0.00161030",
-    "askQty": "26.14000000"
+    "bidPrice": "0.00089180",
+    "bidQty": "63.02000000",
+    "askPrice": "0.00089250",
+    "askQty": "8.99000000"
   },
   {
     "symbol": "NEOBTC",
-    "bidPrice": "0.00864900",
-    "bidQty": "18.56000000",
-    "askPrice": "0.00865300",
-    "askQty": "14.99000000"
+    "bidPrice": "0.01000500",
+    "bidQty": "1.32000000",
+    "askPrice": "0.01000800",
+    "askQty": "0.21000000"
   },
   {
     "symbol": "123456",
@@ -36,1654 +36,1906 @@
   },
   {
     "symbol": "QTUMETH",
-    "bidPrice": "0.04000200",
-    "bidQty": "0.30000000",
-    "askPrice": "0.04009700",
-    "askQty": "33.24000000"
+    "bidPrice": "0.02961900",
+    "bidQty": "15.07000000",
+    "askPrice": "0.02975100",
+    "askQty": "10.12000000"
   },
   {
     "symbol": "EOSETH",
-    "bidPrice": "0.01100000",
-    "bidQty": "1163.70000000",
-    "askPrice": "0.01101000",
-    "askQty": "422.63000000"
+    "bidPrice": "0.00875400",
+    "bidQty": "0.20000000",
+    "askPrice": "0.00876000",
+    "askQty": "795.74000000"
   },
   {
     "symbol": "SNTETH",
-    "bidPrice": "0.00035000",
-    "bidQty": "3798.00000000",
-    "askPrice": "0.00035010",
-    "askQty": "19762.00000000"
+    "bidPrice": "0.00020197",
+    "bidQty": "720.00000000",
+    "askPrice": "0.00020333",
+    "askQty": "247.00000000"
   },
   {
     "symbol": "BNTETH",
-    "bidPrice": "0.00731300",
-    "bidQty": "67.00000000",
-    "askPrice": "0.00735100",
-    "askQty": "33.00000000"
+    "bidPrice": "0.00571200",
+    "bidQty": "0.16000000",
+    "askPrice": "0.00571600",
+    "askQty": "12.99000000"
   },
   {
     "symbol": "BCCBTC",
-    "bidPrice": "0.18255900",
-    "bidQty": "1.08900000",
-    "askPrice": "0.18346800",
-    "askQty": "0.63000000"
+    "bidPrice": "0.10974200",
+    "bidQty": "0.06100000",
+    "askPrice": "0.10996600",
+    "askQty": "0.47900000"
   },
   {
     "symbol": "GASBTC",
-    "bidPrice": "0.00376100",
-    "bidQty": "6.51000000",
-    "askPrice": "0.00376300",
-    "askQty": "6.51000000"
+    "bidPrice": "0.00300100",
+    "bidQty": "97.93000000",
+    "askPrice": "0.00301600",
+    "askQty": "6.52000000"
   },
   {
     "symbol": "BNBETH",
-    "bidPrice": "0.01813700",
-    "bidQty": "60.60000000",
-    "askPrice": "0.01821900",
-    "askQty": "25.93000000"
+    "bidPrice": "0.01197000",
+    "bidQty": "1908.33000000",
+    "askPrice": "0.01199200",
+    "askQty": "3.98000000"
   },
   {
     "symbol": "BTCUSDT",
-    "bidPrice": "13621.00000000",
-    "bidQty": "0.00179100",
-    "askPrice": "13625.00000000",
-    "askQty": "0.02354200"
+    "bidPrice": "10495.46000000",
+    "bidQty": "1.00000000",
+    "askPrice": "10498.89000000",
+    "askQty": "2.09775400"
   },
   {
     "symbol": "ETHUSDT",
-    "bidPrice": "1204.19000000",
-    "bidQty": "18.29835000",
-    "askPrice": "1205.00000000",
-    "askQty": "0.93077000"
+    "bidPrice": "781.78000000",
+    "bidQty": "0.14000000",
+    "askPrice": "782.53000000",
+    "askQty": "0.03100000"
   },
   {
     "symbol": "HSRBTC",
-    "bidPrice": "0.00139700",
-    "bidQty": "2.38000000",
-    "askPrice": "0.00140000",
-    "askQty": "245.30000000"
+    "bidPrice": "0.00072500",
+    "bidQty": "227.52000000",
+    "askPrice": "0.00072600",
+    "askQty": "198.15000000"
   },
   {
     "symbol": "OAXETH",
-    "bidPrice": "0.00135860",
-    "bidQty": "265.00000000",
-    "askPrice": "0.00136610",
-    "askQty": "225.00000000"
+    "bidPrice": "0.00103810",
+    "bidQty": "280.00000000",
+    "askPrice": "0.00104080",
+    "askQty": "61.00000000"
   },
   {
     "symbol": "DNTETH",
-    "bidPrice": "0.00018855",
-    "bidQty": "1991.00000000",
-    "askPrice": "0.00018999",
-    "askQty": "484.00000000"
+    "bidPrice": "0.00010223",
+    "bidQty": "15564.00000000",
+    "askPrice": "0.00010299",
+    "askQty": "380.00000000"
   },
   {
     "symbol": "MCOETH",
-    "bidPrice": "0.01277300",
-    "bidQty": "1.73000000",
-    "askPrice": "0.01285400",
-    "askQty": "18.70000000"
+    "bidPrice": "0.01089600",
+    "bidQty": "123.86000000",
+    "askPrice": "0.01094800",
+    "askQty": "15.38000000"
   },
   {
     "symbol": "ICNETH",
-    "bidPrice": "0.00323930",
-    "bidQty": "796.00000000",
-    "askPrice": "0.00326780",
-    "askQty": "36.00000000"
+    "bidPrice": "0.00272000",
+    "bidQty": "813.00000000",
+    "askPrice": "0.00273300",
+    "askQty": "32.00000000"
   },
   {
     "symbol": "MCOBTC",
-    "bidPrice": "0.00112600",
-    "bidQty": "9.41000000",
-    "askPrice": "0.00113100",
-    "askQty": "71.09000000"
+    "bidPrice": "0.00081100",
+    "bidQty": "210.67000000",
+    "askPrice": "0.00081300",
+    "askQty": "20.46000000"
   },
   {
     "symbol": "WTCBTC",
-    "bidPrice": "0.00119200",
-    "bidQty": "252.01000000",
-    "askPrice": "0.00119350",
-    "askQty": "90.09000000"
+    "bidPrice": "0.00206840",
+    "bidQty": "20.57000000",
+    "askPrice": "0.00207250",
+    "askQty": "17.79000000"
   },
   {
     "symbol": "WTCETH",
-    "bidPrice": "0.01341700",
-    "bidQty": "44.72000000",
-    "askPrice": "0.01348300",
-    "askQty": "12.50000000"
+    "bidPrice": "0.02783800",
+    "bidQty": "7.18000000",
+    "askPrice": "0.02794900",
+    "askQty": "20.60000000"
   },
   {
     "symbol": "LRCBTC",
-    "bidPrice": "0.00010699",
-    "bidQty": "206.00000000",
-    "askPrice": "0.00010715",
-    "askQty": "266.00000000"
+    "bidPrice": "0.00004208",
+    "bidQty": "2061.00000000",
+    "askPrice": "0.00004224",
+    "askQty": "25.00000000"
   },
   {
     "symbol": "LRCETH",
-    "bidPrice": "0.00120499",
-    "bidQty": "504.00000000",
-    "askPrice": "0.00121155",
-    "askQty": "839.00000000"
+    "bidPrice": "0.00056491",
+    "bidQty": "1760.00000000",
+    "askPrice": "0.00056515",
+    "askQty": "9895.00000000"
   },
   {
     "symbol": "QTUMBTC",
-    "bidPrice": "0.00352700",
-    "bidQty": "13.50000000",
-    "askPrice": "0.00353400",
-    "askQty": "11.95000000"
+    "bidPrice": "0.00220400",
+    "bidQty": "25.70000000",
+    "askPrice": "0.00220700",
+    "askQty": "0.94000000"
   },
   {
     "symbol": "YOYOBTC",
-    "bidPrice": "0.00002547",
-    "bidQty": "1.00000000",
-    "askPrice": "0.00002548",
-    "askQty": "453.00000000"
-  },
-  {
-    "symbol": "OMGBTC",
-    "bidPrice": "0.00158900",
-    "bidQty": "46.00000000",
-    "askPrice": "0.00159300",
-    "askQty": "57.39000000"
-  },
-  {
-    "symbol": "OMGETH",
-    "bidPrice": "0.01803000",
-    "bidQty": "394.59000000",
-    "askPrice": "0.01803100",
-    "askQty": "203.17000000"
-  },
-  {
-    "symbol": "ZRXBTC",
-    "bidPrice": "0.00014055",
-    "bidQty": "330.00000000",
-    "askPrice": "0.00014126",
-    "askQty": "163.00000000"
-  },
-  {
-    "symbol": "ZRXETH",
-    "bidPrice": "0.00159022",
-    "bidQty": "171.00000000",
-    "askPrice": "0.00159612",
-    "askQty": "923.00000000"
-  },
-  {
-    "symbol": "STRATBTC",
-    "bidPrice": "0.00124900",
-    "bidQty": "2.01000000",
-    "askPrice": "0.00125000",
-    "askQty": "75.10000000"
-  },
-  {
-    "symbol": "STRATETH",
-    "bidPrice": "0.01412300",
-    "bidQty": "17.07000000",
-    "askPrice": "0.01417200",
-    "askQty": "54.87000000"
-  },
-  {
-    "symbol": "SNGLSBTC",
-    "bidPrice": "0.00002353",
-    "bidQty": "3828.00000000",
-    "askPrice": "0.00002400",
-    "askQty": "90.00000000"
-  },
-  {
-    "symbol": "SNGLSETH",
-    "bidPrice": "0.00026666",
-    "bidQty": "300.00000000",
-    "askPrice": "0.00026774",
-    "askQty": "340.00000000"
-  },
-  {
-    "symbol": "BQXBTC",
-    "bidPrice": "0.00059552",
-    "bidQty": "356.00000000",
-    "askPrice": "0.00060060",
-    "askQty": "90.00000000"
-  },
-  {
-    "symbol": "BQXETH",
-    "bidPrice": "0.00678000",
-    "bidQty": "4.00000000",
-    "askPrice": "0.00681760",
-    "askQty": "10.00000000"
-  },
-  {
-    "symbol": "KNCBTC",
-    "bidPrice": "0.00031918",
-    "bidQty": "484.00000000",
-    "askPrice": "0.00031920",
-    "askQty": "440.00000000"
-  },
-  {
-    "symbol": "KNCETH",
-    "bidPrice": "0.00359610",
-    "bidQty": "1174.00000000",
-    "askPrice": "0.00361810",
-    "askQty": "75.00000000"
-  },
-  {
-    "symbol": "FUNBTC",
-    "bidPrice": "0.00001003",
-    "bidQty": "58529.00000000",
-    "askPrice": "0.00001008",
-    "askQty": "787.00000000"
-  },
-  {
-    "symbol": "FUNETH",
-    "bidPrice": "0.00011432",
-    "bidQty": "1184405.00000000",
-    "askPrice": "0.00011450",
-    "askQty": "60238.00000000"
-  },
-  {
-    "symbol": "SNMBTC",
-    "bidPrice": "0.00003627",
-    "bidQty": "23436.00000000",
-    "askPrice": "0.00003637",
-    "askQty": "1123.00000000"
-  },
-  {
-    "symbol": "SNMETH",
-    "bidPrice": "0.00041047",
-    "bidQty": "157.00000000",
-    "askPrice": "0.00041396",
-    "askQty": "110.00000000"
-  },
-  {
-    "symbol": "NEOETH",
-    "bidPrice": "0.09811700",
-    "bidQty": "250.00000000",
-    "askPrice": "0.09819800",
-    "askQty": "5.55000000"
-  },
-  {
-    "symbol": "IOTABTC",
-    "bidPrice": "0.00025400",
-    "bidQty": "49.00000000",
-    "askPrice": "0.00025499",
-    "askQty": "1018.00000000"
-  },
-  {
-    "symbol": "IOTAETH",
-    "bidPrice": "0.00288306",
-    "bidQty": "73.00000000",
-    "askPrice": "0.00288348",
-    "askQty": "6.00000000"
-  },
-  {
-    "symbol": "LINKBTC",
-    "bidPrice": "0.00007503",
-    "bidQty": "199.00000000",
-    "askPrice": "0.00007512",
-    "askQty": "63.00000000"
-  },
-  {
-    "symbol": "LINKETH",
-    "bidPrice": "0.00085088",
-    "bidQty": "491.00000000",
-    "askPrice": "0.00085369",
-    "askQty": "143.00000000"
-  },
-  {
-    "symbol": "XVGBTC",
-    "bidPrice": "0.00001096",
-    "bidQty": "76644.00000000",
-    "askPrice": "0.00001097",
-    "askQty": "106935.00000000"
-  },
-  {
-    "symbol": "XVGETH",
-    "bidPrice": "0.00012433",
-    "bidQty": "1093.00000000",
-    "askPrice": "0.00012434",
-    "askQty": "261.00000000"
-  },
-  {
-    "symbol": "CTRBTC",
-    "bidPrice": "0.00020621",
-    "bidQty": "986.00000000",
-    "askPrice": "0.00020754",
-    "askQty": "48.00000000"
-  },
-  {
-    "symbol": "CTRETH",
-    "bidPrice": "0.00235120",
-    "bidQty": "53.00000000",
-    "askPrice": "0.00236740",
-    "askQty": "10.00000000"
-  },
-  {
-    "symbol": "SALTBTC",
-    "bidPrice": "0.00090600",
-    "bidQty": "93.59000000",
-    "askPrice": "0.00090900",
-    "askQty": "89.06000000"
-  },
-  {
-    "symbol": "SALTETH",
-    "bidPrice": "0.01024000",
-    "bidQty": "82.00000000",
-    "askPrice": "0.01033000",
-    "askQty": "1888.53000000"
-  },
-  {
-    "symbol": "MDABTC",
-    "bidPrice": "0.00020018",
-    "bidQty": "43.00000000",
-    "askPrice": "0.00020153",
-    "askQty": "112.00000000"
-  },
-  {
-    "symbol": "MDAETH",
-    "bidPrice": "0.00227290",
-    "bidQty": "116.00000000",
-    "askPrice": "0.00229320",
-    "askQty": "1218.00000000"
-  },
-  {
-    "symbol": "MTLBTC",
-    "bidPrice": "0.00040600",
-    "bidQty": "633.40000000",
-    "askPrice": "0.00040700",
-    "askQty": "604.57000000"
-  },
-  {
-    "symbol": "MTLETH",
-    "bidPrice": "0.00460900",
-    "bidQty": "9.60000000",
-    "askPrice": "0.00463200",
-    "askQty": "49.00000000"
-  },
-  {
-    "symbol": "SUBBTC",
-    "bidPrice": "0.00014776",
-    "bidQty": "597.00000000",
-    "askPrice": "0.00014869",
-    "askQty": "20.00000000"
-  },
-  {
-    "symbol": "SUBETH",
-    "bidPrice": "0.00168765",
-    "bidQty": "60.00000000",
-    "askPrice": "0.00169731",
-    "askQty": "152.00000000"
-  },
-  {
-    "symbol": "EOSBTC",
-    "bidPrice": "0.00097026",
-    "bidQty": "276.00000000",
-    "askPrice": "0.00097288",
-    "askQty": "45.00000000"
-  },
-  {
-    "symbol": "SNTBTC",
-    "bidPrice": "0.00003093",
-    "bidQty": "18589.00000000",
-    "askPrice": "0.00003095",
-    "askQty": "5761.00000000"
-  },
-  {
-    "symbol": "ETCETH",
-    "bidPrice": "0.02748000",
-    "bidQty": "50.12000000",
-    "askPrice": "0.02758900",
-    "askQty": "0.01000000"
-  },
-  {
-    "symbol": "ETCBTC",
-    "bidPrice": "0.00243300",
-    "bidQty": "14.00000000",
-    "askPrice": "0.00244100",
-    "askQty": "0.82000000"
-  },
-  {
-    "symbol": "MTHBTC",
-    "bidPrice": "0.00003804",
-    "bidQty": "86.00000000",
-    "askPrice": "0.00003829",
-    "askQty": "110.00000000"
-  },
-  {
-    "symbol": "MTHETH",
-    "bidPrice": "0.00043369",
-    "bidQty": "2171.00000000",
-    "askPrice": "0.00043375",
-    "askQty": "1365.00000000"
-  },
-  {
-    "symbol": "ENGBTC",
-    "bidPrice": "0.00047009",
-    "bidQty": "20.00000000",
-    "askPrice": "0.00047193",
-    "askQty": "312.00000000"
-  },
-  {
-    "symbol": "ENGETH",
-    "bidPrice": "0.00535750",
-    "bidQty": "9.00000000",
-    "askPrice": "0.00540430",
-    "askQty": "124.00000000"
-  },
-  {
-    "symbol": "DNTBTC",
-    "bidPrice": "0.00001673",
-    "bidQty": "2367.00000000",
-    "askPrice": "0.00001680",
-    "askQty": "5896.00000000"
-  },
-  {
-    "symbol": "ZECBTC",
-    "bidPrice": "0.04867100",
-    "bidQty": "0.51000000",
-    "askPrice": "0.04898700",
-    "askQty": "0.22500000"
-  },
-  {
-    "symbol": "ZECETH",
-    "bidPrice": "0.55300000",
-    "bidQty": "0.05100000",
-    "askPrice": "0.55381000",
-    "askQty": "12.01200000"
-  },
-  {
-    "symbol": "BNTBTC",
-    "bidPrice": "0.00064858",
-    "bidQty": "23.00000000",
-    "askPrice": "0.00064995",
-    "askQty": "31.00000000"
-  },
-  {
-    "symbol": "ASTBTC",
-    "bidPrice": "0.00012428",
-    "bidQty": "140.00000000",
-    "askPrice": "0.00012480",
-    "askQty": "887.00000000"
-  },
-  {
-    "symbol": "ASTETH",
-    "bidPrice": "0.00141400",
-    "bidQty": "141.00000000",
-    "askPrice": "0.00141840",
-    "askQty": "342.00000000"
-  },
-  {
-    "symbol": "DASHBTC",
-    "bidPrice": "0.07431900",
-    "bidQty": "6.02800000",
-    "askPrice": "0.07432000",
-    "askQty": "10.77200000"
-  },
-  {
-    "symbol": "DASHETH",
-    "bidPrice": "0.84010000",
-    "bidQty": "1.52700000",
-    "askPrice": "0.84263000",
-    "askQty": "10.80400000"
-  },
-  {
-    "symbol": "OAXBTC",
-    "bidPrice": "0.00011945",
-    "bidQty": "21.00000000",
-    "askPrice": "0.00012011",
-    "askQty": "20.00000000"
-  },
-  {
-    "symbol": "ICNBTC",
-    "bidPrice": "0.00028490",
-    "bidQty": "9.00000000",
-    "askPrice": "0.00028720",
-    "askQty": "85.00000000"
-  },
-  {
-    "symbol": "BTGBTC",
-    "bidPrice": "0.01575000",
-    "bidQty": "4.28000000",
-    "askPrice": "0.01575100",
-    "askQty": "7.06000000"
-  },
-  {
-    "symbol": "BTGETH",
-    "bidPrice": "0.17842000",
-    "bidQty": "3.25000000",
-    "askPrice": "0.17956200",
-    "askQty": "0.77000000"
-  },
-  {
-    "symbol": "EVXBTC",
-    "bidPrice": "0.00029265",
-    "bidQty": "300.00000000",
-    "askPrice": "0.00029353",
-    "askQty": "35.00000000"
-  },
-  {
-    "symbol": "EVXETH",
-    "bidPrice": "0.00328720",
-    "bidQty": "168.00000000",
-    "askPrice": "0.00331690",
-    "askQty": "7.00000000"
-  },
-  {
-    "symbol": "REQBTC",
-    "bidPrice": "0.00005643",
-    "bidQty": "90.00000000",
-    "askPrice": "0.00005654",
-    "askQty": "55.00000000"
-  },
-  {
-    "symbol": "REQETH",
-    "bidPrice": "0.00063926",
-    "bidQty": "200.00000000",
-    "askPrice": "0.00064240",
-    "askQty": "131.00000000"
-  },
-  {
-    "symbol": "VIBBTC",
-    "bidPrice": "0.00004184",
-    "bidQty": "210.00000000",
-    "askPrice": "0.00004185",
-    "askQty": "81.00000000"
-  },
-  {
-    "symbol": "VIBETH",
-    "bidPrice": "0.00047041",
-    "bidQty": "130.00000000",
-    "askPrice": "0.00047389",
-    "askQty": "717.00000000"
-  },
-  {
-    "symbol": "HSRETH",
-    "bidPrice": "0.01582000",
-    "bidQty": "292.74000000",
-    "askPrice": "0.01596000",
-    "askQty": "16.80000000"
-  },
-  {
-    "symbol": "TRXBTC",
-    "bidPrice": "0.00000802",
-    "bidQty": "402614.00000000",
-    "askPrice": "0.00000803",
-    "askQty": "5532.00000000"
-  },
-  {
-    "symbol": "TRXETH",
-    "bidPrice": "0.00009088",
-    "bidQty": "59325.00000000",
-    "askPrice": "0.00009100",
-    "askQty": "137600.00000000"
-  },
-  {
-    "symbol": "POWRBTC",
-    "bidPrice": "0.00011057",
-    "bidQty": "265.00000000",
-    "askPrice": "0.00011091",
-    "askQty": "226.00000000"
-  },
-  {
-    "symbol": "POWRETH",
-    "bidPrice": "0.00125202",
-    "bidQty": "22.00000000",
-    "askPrice": "0.00125490",
-    "askQty": "303.00000000"
-  },
-  {
-    "symbol": "ARKBTC",
-    "bidPrice": "0.00061230",
-    "bidQty": "240.00000000",
-    "askPrice": "0.00061720",
-    "askQty": "103.58000000"
-  },
-  {
-    "symbol": "ARKETH",
-    "bidPrice": "0.00687300",
-    "bidQty": "34.92000000",
-    "askPrice": "0.00695000",
-    "askQty": "149.78000000"
-  },
-  {
-    "symbol": "YOYOETH",
-    "bidPrice": "0.00028786",
-    "bidQty": "2015.00000000",
-    "askPrice": "0.00028932",
-    "askQty": "9783.00000000"
-  },
-  {
-    "symbol": "XRPBTC",
-    "bidPrice": "0.00014888",
-    "bidQty": "33.00000000",
-    "askPrice": "0.00014889",
-    "askQty": "4010.00000000"
-  },
-  {
-    "symbol": "XRPETH",
-    "bidPrice": "0.00168792",
-    "bidQty": "15.00000000",
-    "askPrice": "0.00168795",
-    "askQty": "1896.00000000"
-  },
-  {
-    "symbol": "MODBTC",
-    "bidPrice": "0.00080190",
-    "bidQty": "290.90000000",
-    "askPrice": "0.00080220",
-    "askQty": "44.84000000"
-  },
-  {
-    "symbol": "MODETH",
-    "bidPrice": "0.00906400",
-    "bidQty": "5.83000000",
-    "askPrice": "0.00912700",
-    "askQty": "66.00000000"
-  },
-  {
-    "symbol": "ENJBTC",
-    "bidPrice": "0.00002405",
-    "bidQty": "2056.00000000",
-    "askPrice": "0.00002426",
-    "askQty": "1032.00000000"
-  },
-  {
-    "symbol": "ENJETH",
-    "bidPrice": "0.00027400",
-    "bidQty": "420.00000000",
-    "askPrice": "0.00027481",
-    "askQty": "1010.00000000"
-  },
-  {
-    "symbol": "STORJBTC",
-    "bidPrice": "0.00015146",
-    "bidQty": "196.00000000",
-    "askPrice": "0.00015148",
-    "askQty": "210.00000000"
-  },
-  {
-    "symbol": "STORJETH",
-    "bidPrice": "0.00171820",
-    "bidQty": "193.00000000",
-    "askPrice": "0.00172700",
-    "askQty": "306.00000000"
-  },
-  {
-    "symbol": "BNBUSDT",
-    "bidPrice": "21.81040000",
-    "bidQty": "366.79000000",
-    "askPrice": "21.90010000",
-    "askQty": "114.00000000"
-  },
-  {
-    "symbol": "VENBNB",
-    "bidPrice": "0.27370000",
-    "bidQty": "162.27000000",
-    "askPrice": "0.27560000",
-    "askQty": "195.00000000"
-  },
-  {
-    "symbol": "YOYOBNB",
-    "bidPrice": "0.01573000",
-    "bidQty": "339.07000000",
-    "askPrice": "0.01587000",
+    "bidPrice": "0.00000963",
+    "bidQty": "11305.00000000",
+    "askPrice": "0.00000968",
     "askQty": "1320.00000000"
   },
   {
-    "symbol": "POWRBNB",
-    "bidPrice": "0.06831000",
-    "bidQty": "93.00000000",
-    "askPrice": "0.06903000",
-    "askQty": "73.65000000"
+    "symbol": "OMGBTC",
+    "bidPrice": "0.00149700",
+    "bidQty": "261.15000000",
+    "askPrice": "0.00150200",
+    "askQty": "10.37000000"
   },
   {
-    "symbol": "VENBTC",
-    "bidPrice": "0.00044216",
-    "bidQty": "1295.00000000",
-    "askPrice": "0.00044228",
-    "askQty": "869.00000000"
+    "symbol": "OMGETH",
+    "bidPrice": "0.02009000",
+    "bidQty": "6.11000000",
+    "askPrice": "0.02013800",
+    "askQty": "0.58000000"
   },
   {
-    "symbol": "VENETH",
-    "bidPrice": "0.00501521",
-    "bidQty": "441.00000000",
-    "askPrice": "0.00501597",
-    "askQty": "1063.00000000"
+    "symbol": "ZRXBTC",
+    "bidPrice": "0.00007211",
+    "bidQty": "553.00000000",
+    "askPrice": "0.00007224",
+    "askQty": "436.00000000"
   },
   {
-    "symbol": "KMDBTC",
-    "bidPrice": "0.00056830",
-    "bidQty": "89.46000000",
-    "askPrice": "0.00056990",
-    "askQty": "7.00000000"
+    "symbol": "ZRXETH",
+    "bidPrice": "0.00096853",
+    "bidQty": "26.00000000",
+    "askPrice": "0.00097318",
+    "askQty": "314.00000000"
   },
   {
-    "symbol": "KMDETH",
-    "bidPrice": "0.00641200",
-    "bidQty": "143.15000000",
-    "askPrice": "0.00644600",
-    "askQty": "69.00000000"
+    "symbol": "STRATBTC",
+    "bidPrice": "0.00066000",
+    "bidQty": "3691.78000000",
+    "askPrice": "0.00066100",
+    "askQty": "36.42000000"
   },
   {
-    "symbol": "NULSBNB",
-    "bidPrice": "0.29885000",
-    "bidQty": "20.00000000",
-    "askPrice": "0.30145000",
-    "askQty": "0.07000000"
+    "symbol": "STRATETH",
+    "bidPrice": "0.00885000",
+    "bidQty": "250.28000000",
+    "askPrice": "0.00888900",
+    "askQty": "136.86000000"
   },
   {
-    "symbol": "RCNBTC",
-    "bidPrice": "0.00002905",
-    "bidQty": "523.00000000",
-    "askPrice": "0.00002910",
-    "askQty": "4698.00000000"
+    "symbol": "SNGLSBTC",
+    "bidPrice": "0.00000943",
+    "bidQty": "3365.00000000",
+    "askPrice": "0.00000947",
+    "askQty": "223.00000000"
   },
   {
-    "symbol": "RCNETH",
-    "bidPrice": "0.00032643",
-    "bidQty": "7052.00000000",
-    "askPrice": "0.00032952",
-    "askQty": "15456.00000000"
+    "symbol": "SNGLSETH",
+    "bidPrice": "0.00012650",
+    "bidQty": "83.00000000",
+    "askPrice": "0.00012732",
+    "askQty": "3698.00000000"
   },
   {
-    "symbol": "RCNBNB",
-    "bidPrice": "0.01794000",
-    "bidQty": "299.07000000",
-    "askPrice": "0.01809000",
-    "askQty": "300.00000000"
+    "symbol": "BQXBTC",
+    "bidPrice": "0.00039383",
+    "bidQty": "1348.00000000",
+    "askPrice": "0.00039440",
+    "askQty": "617.00000000"
   },
   {
-    "symbol": "NULSBTC",
-    "bidPrice": "0.00048600",
-    "bidQty": "200.00000000",
-    "askPrice": "0.00048946",
-    "askQty": "180.00000000"
+    "symbol": "BQXETH",
+    "bidPrice": "0.00529280",
+    "bidQty": "487.00000000",
+    "askPrice": "0.00529700",
+    "askQty": "257.00000000"
   },
   {
-    "symbol": "NULSETH",
-    "bidPrice": "0.00545012",
-    "bidQty": "105.00000000",
-    "askPrice": "0.00555806",
-    "askQty": "16.00000000"
+    "symbol": "KNCBTC",
+    "bidPrice": "0.00015904",
+    "bidQty": "944.00000000",
+    "askPrice": "0.00015959",
+    "askQty": "24.00000000"
   },
   {
-    "symbol": "RDNBTC",
-    "bidPrice": "0.00048661",
-    "bidQty": "45.00000000",
-    "askPrice": "0.00049217",
-    "askQty": "17.00000000"
+    "symbol": "KNCETH",
+    "bidPrice": "0.00213820",
+    "bidQty": "30.00000000",
+    "askPrice": "0.00214460",
+    "askQty": "30.00000000"
   },
   {
-    "symbol": "RDNETH",
-    "bidPrice": "0.00552050",
-    "bidQty": "84.00000000",
-    "askPrice": "0.00554430",
-    "askQty": "150.00000000"
+    "symbol": "FUNBTC",
+    "bidPrice": "0.00000508",
+    "bidQty": "1320.00000000",
+    "askPrice": "0.00000510",
+    "askQty": "5947.00000000"
   },
   {
-    "symbol": "RDNBNB",
-    "bidPrice": "0.29558000",
-    "bidQty": "38.88000000",
-    "askPrice": "0.30423000",
-    "askQty": "20.00000000"
+    "symbol": "FUNETH",
+    "bidPrice": "0.00006819",
+    "bidQty": "294.00000000",
+    "askPrice": "0.00006845",
+    "askQty": "1337.00000000"
   },
   {
-    "symbol": "XMRBTC",
-    "bidPrice": "0.02674700",
-    "bidQty": "0.63900000",
-    "askPrice": "0.02681000",
-    "askQty": "0.70000000"
+    "symbol": "SNMBTC",
+    "bidPrice": "0.00001612",
+    "bidQty": "252.00000000",
+    "askPrice": "0.00001618",
+    "askQty": "3534.00000000"
   },
   {
-    "symbol": "XMRETH",
-    "bidPrice": "0.30359000",
-    "bidQty": "0.91600000",
-    "askPrice": "0.30365000",
-    "askQty": "132.01800000"
+    "symbol": "SNMETH",
+    "bidPrice": "0.00021714",
+    "bidQty": "367.00000000",
+    "askPrice": "0.00021902",
+    "askQty": "370.00000000"
   },
   {
-    "symbol": "DLTBNB",
-    "bidPrice": "0.05346000",
-    "bidQty": "1.11000000",
-    "askPrice": "0.05385000",
-    "askQty": "388.12000000"
+    "symbol": "NEOETH",
+    "bidPrice": "0.13438400",
+    "bidQty": "1.13000000",
+    "askPrice": "0.13469700",
+    "askQty": "4.00000000"
   },
   {
-    "symbol": "WTCBNB",
-    "bidPrice": "0.72830000",
-    "bidQty": "24.00000000",
-    "askPrice": "0.74270000",
-    "askQty": "8.00000000"
+    "symbol": "IOTABTC",
+    "bidPrice": "0.00015678",
+    "bidQty": "80.00000000",
+    "askPrice": "0.00015687",
+    "askQty": "15.00000000"
   },
   {
-    "symbol": "DLTBTC",
-    "bidPrice": "0.00008650",
-    "bidQty": "229.00000000",
-    "askPrice": "0.00008700",
-    "askQty": "1596.00000000"
+    "symbol": "IOTAETH",
+    "bidPrice": "0.00210059",
+    "bidQty": "262.00000000",
+    "askPrice": "0.00211612",
+    "askQty": "987.00000000"
   },
   {
-    "symbol": "DLTETH",
-    "bidPrice": "0.00098075",
-    "bidQty": "153.00000000",
-    "askPrice": "0.00098608",
-    "askQty": "1105.00000000"
+    "symbol": "LINKBTC",
+    "bidPrice": "0.00005100",
+    "bidQty": "904.00000000",
+    "askPrice": "0.00005101",
+    "askQty": "28.00000000"
   },
   {
-    "symbol": "AMBBTC",
-    "bidPrice": "0.00006825",
-    "bidQty": "707.00000000",
-    "askPrice": "0.00006847",
-    "askQty": "116.00000000"
+    "symbol": "LINKETH",
+    "bidPrice": "0.00068111",
+    "bidQty": "903.00000000",
+    "askPrice": "0.00068500",
+    "askQty": "35.00000000"
   },
   {
-    "symbol": "AMBETH",
-    "bidPrice": "0.00077304",
-    "bidQty": "905.00000000",
-    "askPrice": "0.00077629",
-    "askQty": "6207.00000000"
+    "symbol": "XVGBTC",
+    "bidPrice": "0.00000444",
+    "bidQty": "24250.00000000",
+    "askPrice": "0.00000445",
+    "askQty": "790468.00000000"
   },
   {
-    "symbol": "AMBBNB",
-    "bidPrice": "0.04201000",
-    "bidQty": "329.06000000",
-    "askPrice": "0.04241000",
-    "askQty": "129.82000000"
+    "symbol": "XVGETH",
+    "bidPrice": "0.00005960",
+    "bidQty": "955.00000000",
+    "askPrice": "0.00005965",
+    "askQty": "2534.00000000"
   },
   {
-    "symbol": "BCCETH",
-    "bidPrice": "2.07152000",
-    "bidQty": "0.12600000",
-    "askPrice": "2.07500000",
-    "askQty": "0.05000000"
+    "symbol": "CTRBTC",
+    "bidPrice": "0.00005374",
+    "bidQty": "186.00000000",
+    "askPrice": "0.00005412",
+    "askQty": "64.00000000"
   },
   {
-    "symbol": "BCCUSDT",
-    "bidPrice": "2494.74000000",
-    "bidQty": "0.48240000",
-    "askPrice": "2495.80000000",
-    "askQty": "0.30000000"
+    "symbol": "CTRETH",
+    "bidPrice": "0.00072440",
+    "bidQty": "2226.00000000",
+    "askPrice": "0.00072750",
+    "askQty": "2182.00000000"
   },
   {
-    "symbol": "BCCBNB",
-    "bidPrice": "113.13000000",
-    "bidQty": "0.09750000",
-    "askPrice": "114.85000000",
-    "askQty": "3.09314000"
+    "symbol": "SALTBTC",
+    "bidPrice": "0.00035800",
+    "bidQty": "1137.13000000",
+    "askPrice": "0.00036100",
+    "askQty": "108.47000000"
   },
   {
-    "symbol": "BATBTC",
-    "bidPrice": "0.00005461",
-    "bidQty": "183.00000000",
-    "askPrice": "0.00005497",
-    "askQty": "3251.00000000"
+    "symbol": "SALTETH",
+    "bidPrice": "0.00481300",
+    "bidQty": "8.14000000",
+    "askPrice": "0.00485600",
+    "askQty": "50.16000000"
   },
   {
-    "symbol": "BATETH",
-    "bidPrice": "0.00061884",
-    "bidQty": "1518.00000000",
-    "askPrice": "0.00062497",
-    "askQty": "651.00000000"
+    "symbol": "MDABTC",
+    "bidPrice": "0.00010702",
+    "bidQty": "27.00000000",
+    "askPrice": "0.00010749",
+    "askQty": "448.00000000"
   },
   {
-    "symbol": "BATBNB",
-    "bidPrice": "0.03354000",
-    "bidQty": "1430.00000000",
-    "askPrice": "0.03389000",
-    "askQty": "0.16000000"
+    "symbol": "MDAETH",
+    "bidPrice": "0.00143430",
+    "bidQty": "954.00000000",
+    "askPrice": "0.00144160",
+    "askQty": "1030.00000000"
   },
   {
-    "symbol": "BCPTBTC",
-    "bidPrice": "0.00009456",
-    "bidQty": "97.00000000",
-    "askPrice": "0.00009497",
-    "askQty": "630.00000000"
+    "symbol": "MTLBTC",
+    "bidPrice": "0.00048400",
+    "bidQty": "133.16000000",
+    "askPrice": "0.00048600",
+    "askQty": "81.23000000"
   },
   {
-    "symbol": "BCPTETH",
-    "bidPrice": "0.00107026",
-    "bidQty": "319.00000000",
-    "askPrice": "0.00107997",
-    "askQty": "211.00000000"
+    "symbol": "MTLETH",
+    "bidPrice": "0.00650000",
+    "bidQty": "3.85000000",
+    "askPrice": "0.00652300",
+    "askQty": "68.43000000"
   },
   {
-    "symbol": "BCPTBNB",
-    "bidPrice": "0.05806000",
-    "bidQty": "78.66000000",
-    "askPrice": "0.05907000",
-    "askQty": "287.90000000"
+    "symbol": "SUBBTC",
+    "bidPrice": "0.00003976",
+    "bidQty": "1169.00000000",
+    "askPrice": "0.00004006",
+    "askQty": "234.00000000"
   },
   {
-    "symbol": "ARNBTC",
-    "bidPrice": "0.00031376",
-    "bidQty": "350.00000000",
-    "askPrice": "0.00031688",
-    "askQty": "140.00000000"
+    "symbol": "SUBETH",
+    "bidPrice": "0.00053506",
+    "bidQty": "47.00000000",
+    "askPrice": "0.00053769",
+    "askQty": "1566.00000000"
   },
   {
-    "symbol": "ARNETH",
-    "bidPrice": "0.00356539",
-    "bidQty": "38.00000000",
-    "askPrice": "0.00360094",
-    "askQty": "239.00000000"
+    "symbol": "EOSBTC",
+    "bidPrice": "0.00065150",
+    "bidQty": "4.00000000",
+    "askPrice": "0.00065255",
+    "askQty": "75.00000000"
   },
   {
-    "symbol": "GVTBTC",
-    "bidPrice": "0.00188540",
-    "bidQty": "5.53000000",
-    "askPrice": "0.00188550",
-    "askQty": "1976.42000000"
+    "symbol": "SNTBTC",
+    "bidPrice": "0.00001509",
+    "bidQty": "2668.00000000",
+    "askPrice": "0.00001515",
+    "askQty": "2664.00000000"
   },
   {
-    "symbol": "GVTETH",
-    "bidPrice": "0.02124300",
-    "bidQty": "29.66000000",
-    "askPrice": "0.02143000",
-    "askQty": "11.00000000"
+    "symbol": "ETCETH",
+    "bidPrice": "0.02992000",
+    "bidQty": "72.61000000",
+    "askPrice": "0.02999700",
+    "askQty": "4.00000000"
   },
   {
-    "symbol": "CDTBTC",
-    "bidPrice": "0.00001238",
-    "bidQty": "9818.00000000",
-    "askPrice": "0.00001239",
-    "askQty": "13450.00000000"
+    "symbol": "ETCBTC",
+    "bidPrice": "0.00223100",
+    "bidQty": "3717.09000000",
+    "askPrice": "0.00223200",
+    "askQty": "2.24000000"
   },
   {
-    "symbol": "CDTETH",
-    "bidPrice": "0.00014012",
-    "bidQty": "970.00000000",
-    "askPrice": "0.00014074",
-    "askQty": "640.00000000"
+    "symbol": "MTHBTC",
+    "bidPrice": "0.00001170",
+    "bidQty": "422.00000000",
+    "askPrice": "0.00001174",
+    "askQty": "1328.00000000"
   },
   {
-    "symbol": "GXSBTC",
-    "bidPrice": "0.00062150",
-    "bidQty": "320.18000000",
-    "askPrice": "0.00062420",
-    "askQty": "7.33000000"
+    "symbol": "MTHETH",
+    "bidPrice": "0.00015689",
+    "bidQty": "1270.00000000",
+    "askPrice": "0.00015726",
+    "askQty": "5172.00000000"
   },
   {
-    "symbol": "GXSETH",
-    "bidPrice": "0.00703000",
-    "bidQty": "203.19000000",
-    "askPrice": "0.00704100",
-    "askQty": "723.04000000"
+    "symbol": "ENGBTC",
+    "bidPrice": "0.00020747",
+    "bidQty": "750.00000000",
+    "askPrice": "0.00020800",
+    "askQty": "13.00000000"
   },
   {
-    "symbol": "NEOUSDT",
-    "bidPrice": "117.90000000",
-    "bidQty": "2.99600000",
-    "askPrice": "118.38900000",
-    "askQty": "0.17500000"
+    "symbol": "ENGETH",
+    "bidPrice": "0.00277360",
+    "bidQty": "672.00000000",
+    "askPrice": "0.00278700",
+    "askQty": "60.00000000"
   },
   {
-    "symbol": "NEOBNB",
-    "bidPrice": "5.37000000",
-    "bidQty": "67.91600000",
-    "askPrice": "5.47800000",
-    "askQty": "1.63000000"
+    "symbol": "DNTBTC",
+    "bidPrice": "0.00000766",
+    "bidQty": "13382.00000000",
+    "askPrice": "0.00000767",
+    "askQty": "6820.00000000"
   },
   {
-    "symbol": "POEBTC",
-    "bidPrice": "0.00001087",
-    "bidQty": "80139.00000000",
-    "askPrice": "0.00001091",
-    "askQty": "9855.00000000"
+    "symbol": "ZECBTC",
+    "bidPrice": "0.03449200",
+    "bidQty": "5.51200000",
+    "askPrice": "0.03450000",
+    "askQty": "1.92900000"
   },
   {
-    "symbol": "POEETH",
-    "bidPrice": "0.00012301",
-    "bidQty": "2602.00000000",
-    "askPrice": "0.00012495",
-    "askQty": "53260.00000000"
+    "symbol": "ZECETH",
+    "bidPrice": "0.46121000",
+    "bidQty": "4.77000000",
+    "askPrice": "0.46277000",
+    "askQty": "0.03000000"
   },
   {
-    "symbol": "QSPBTC",
-    "bidPrice": "0.00004161",
-    "bidQty": "2130.00000000",
-    "askPrice": "0.00004170",
-    "askQty": "666.00000000"
+    "symbol": "BNTBTC",
+    "bidPrice": "0.00042367",
+    "bidQty": "6.00000000",
+    "askPrice": "0.00042555",
+    "askQty": "111.00000000"
   },
   {
-    "symbol": "QSPETH",
-    "bidPrice": "0.00047001",
-    "bidQty": "17043.00000000",
-    "askPrice": "0.00047237",
-    "askQty": "404.00000000"
+    "symbol": "ASTBTC",
+    "bidPrice": "0.00003316",
+    "bidQty": "150.00000000",
+    "askPrice": "0.00003342",
+    "askQty": "163.00000000"
   },
   {
-    "symbol": "QSPBNB",
-    "bidPrice": "0.02560000",
-    "bidQty": "935.00000000",
-    "askPrice": "0.02594000",
-    "askQty": "5564.22000000"
+    "symbol": "ASTETH",
+    "bidPrice": "0.00044520",
+    "bidQty": "392.00000000",
+    "askPrice": "0.00044900",
+    "askQty": "292.00000000"
   },
   {
-    "symbol": "BTSBTC",
-    "bidPrice": "0.00004274",
-    "bidQty": "584.00000000",
-    "askPrice": "0.00004288",
-    "askQty": "13626.00000000"
+    "symbol": "DASHBTC",
+    "bidPrice": "0.05289100",
+    "bidQty": "2.31600000",
+    "askPrice": "0.05307700",
+    "askQty": "0.10000000"
   },
   {
-    "symbol": "BTSETH",
-    "bidPrice": "0.00048450",
-    "bidQty": "165.00000000",
-    "askPrice": "0.00048710",
-    "askQty": "1626.00000000"
-  },
-  {
-    "symbol": "BTSBNB",
-    "bidPrice": "0.02607000",
-    "bidQty": "290.00000000",
-    "askPrice": "0.02679000",
-    "askQty": "127.58000000"
-  },
-  {
-    "symbol": "XZCBTC",
-    "bidPrice": "0.00664200",
-    "bidQty": "5.81000000",
-    "askPrice": "0.00668900",
-    "askQty": "1.20000000"
-  },
-  {
-    "symbol": "XZCETH",
-    "bidPrice": "0.07494900",
-    "bidQty": "6.55000000",
-    "askPrice": "0.07542900",
+    "symbol": "DASHETH",
+    "bidPrice": "0.71024000",
+    "bidQty": "0.98400000",
+    "askPrice": "0.71430000",
     "askQty": "1.00000000"
   },
   {
-    "symbol": "XZCBNB",
-    "bidPrice": "4.09200000",
-    "bidQty": "0.29100000",
-    "askPrice": "4.11200000",
-    "askQty": "0.00700000"
+    "symbol": "OAXBTC",
+    "bidPrice": "0.00007729",
+    "bidQty": "734.00000000",
+    "askPrice": "0.00007759",
+    "askQty": "101.00000000"
   },
   {
-    "symbol": "LSKBTC",
-    "bidPrice": "0.00214830",
-    "bidQty": "63.28000000",
-    "askPrice": "0.00215000",
-    "askQty": "146.80000000"
+    "symbol": "ICNBTC",
+    "bidPrice": "0.00020223",
+    "bidQty": "210.00000000",
+    "askPrice": "0.00020293",
+    "askQty": "18.00000000"
   },
   {
-    "symbol": "LSKETH",
-    "bidPrice": "0.02433000",
-    "bidQty": "33.42000000",
-    "askPrice": "0.02444600",
-    "askQty": "3.55000000"
+    "symbol": "BTGBTC",
+    "bidPrice": "0.00910000",
+    "bidQty": "2.07000000",
+    "askPrice": "0.00911700",
+    "askQty": "6.11000000"
   },
   {
-    "symbol": "LSKBNB",
-    "bidPrice": "1.33430000",
-    "bidQty": "27.80000000",
-    "askPrice": "1.38970000",
-    "askQty": "4.38000000"
+    "symbol": "BTGETH",
+    "bidPrice": "0.12206100",
+    "bidQty": "17.54000000",
+    "askPrice": "0.12286400",
+    "askQty": "1.65000000"
   },
   {
-    "symbol": "TNTBTC",
-    "bidPrice": "0.00001851",
-    "bidQty": "6179.00000000",
-    "askPrice": "0.00001854",
-    "askQty": "7406.00000000"
-  },
-  {
-    "symbol": "TNTETH",
-    "bidPrice": "0.00020900",
-    "bidQty": "259.00000000",
-    "askPrice": "0.00021110",
-    "askQty": "5674.00000000"
-  },
-  {
-    "symbol": "FUELBTC",
-    "bidPrice": "0.00002586",
-    "bidQty": "146.00000000",
-    "askPrice": "0.00002589",
-    "askQty": "1878.00000000"
-  },
-  {
-    "symbol": "FUELETH",
-    "bidPrice": "0.00029390",
-    "bidQty": "984.00000000",
-    "askPrice": "0.00029584",
-    "askQty": "953.00000000"
-  },
-  {
-    "symbol": "MANABTC",
-    "bidPrice": "0.00001319",
-    "bidQty": "8800.00000000",
-    "askPrice": "0.00001323",
-    "askQty": "3715.00000000"
-  },
-  {
-    "symbol": "MANAETH",
-    "bidPrice": "0.00014860",
-    "bidQty": "7300.00000000",
-    "askPrice": "0.00015000",
-    "askQty": "8471.00000000"
-  },
-  {
-    "symbol": "BCDBTC",
-    "bidPrice": "0.00212200",
-    "bidQty": "39.91300000",
-    "askPrice": "0.00214500",
-    "askQty": "60.87900000"
-  },
-  {
-    "symbol": "BCDETH",
-    "bidPrice": "0.02393000",
-    "bidQty": "18.41900000",
-    "askPrice": "0.02404000",
-    "askQty": "0.19100000"
-  },
-  {
-    "symbol": "DGDBTC",
-    "bidPrice": "0.01520000",
-    "bidQty": "0.34100000",
-    "askPrice": "0.01520100",
-    "askQty": "0.09900000"
-  },
-  {
-    "symbol": "DGDETH",
-    "bidPrice": "0.17102000",
-    "bidQty": "3.01000000",
-    "askPrice": "0.17247000",
-    "askQty": "4.89600000"
-  },
-  {
-    "symbol": "IOTABNB",
-    "bidPrice": "0.15800000",
-    "bidQty": "27.88000000",
-    "askPrice": "0.15853000",
-    "askQty": "17.30000000"
-  },
-  {
-    "symbol": "ADXBTC",
-    "bidPrice": "0.00020050",
-    "bidQty": "382.00000000",
-    "askPrice": "0.00020131",
-    "askQty": "159.00000000"
-  },
-  {
-    "symbol": "ADXETH",
-    "bidPrice": "0.00226690",
-    "bidQty": "815.00000000",
-    "askPrice": "0.00227970",
-    "askQty": "50.00000000"
-  },
-  {
-    "symbol": "ADXBNB",
-    "bidPrice": "0.12422000",
-    "bidQty": "3.74000000",
-    "askPrice": "0.12448000",
-    "askQty": "5.90000000"
-  },
-  {
-    "symbol": "ADABTC",
-    "bidPrice": "0.00005323",
-    "bidQty": "472.00000000",
-    "askPrice": "0.00005343",
-    "askQty": "694.00000000"
-  },
-  {
-    "symbol": "ADAETH",
-    "bidPrice": "0.00060453",
-    "bidQty": "4838.00000000",
-    "askPrice": "0.00060493",
-    "askQty": "288.00000000"
-  },
-  {
-    "symbol": "PPTBTC",
-    "bidPrice": "0.00369320",
-    "bidQty": "152.36000000",
-    "askPrice": "0.00371300",
-    "askQty": "20.00000000"
-  },
-  {
-    "symbol": "PPTETH",
-    "bidPrice": "0.04205000",
-    "bidQty": "133.39000000",
-    "askPrice": "0.04205900",
-    "askQty": "32.68000000"
-  },
-  {
-    "symbol": "CMTBTC",
-    "bidPrice": "0.00002950",
-    "bidQty": "1138.00000000",
-    "askPrice": "0.00002954",
-    "askQty": "102.00000000"
-  },
-  {
-    "symbol": "CMTETH",
-    "bidPrice": "0.00033251",
-    "bidQty": "702.00000000",
-    "askPrice": "0.00033513",
-    "askQty": "480.00000000"
-  },
-  {
-    "symbol": "CMTBNB",
-    "bidPrice": "0.01820000",
-    "bidQty": "383.46000000",
-    "askPrice": "0.01852000",
-    "askQty": "165.00000000"
-  },
-  {
-    "symbol": "XLMBTC",
-    "bidPrice": "0.00004861",
-    "bidQty": "12887.00000000",
-    "askPrice": "0.00004871",
-    "askQty": "1153.00000000"
-  },
-  {
-    "symbol": "XLMETH",
-    "bidPrice": "0.00055278",
-    "bidQty": "202.00000000",
-    "askPrice": "0.00055689",
-    "askQty": "2402.00000000"
-  },
-  {
-    "symbol": "XLMBNB",
-    "bidPrice": "0.03024000",
-    "bidQty": "66.17000000",
-    "askPrice": "0.03035000",
-    "askQty": "516.62000000"
-  },
-  {
-    "symbol": "CNDBTC",
-    "bidPrice": "0.00000909",
-    "bidQty": "2691.00000000",
-    "askPrice": "0.00000910",
-    "askQty": "23126.00000000"
-  },
-  {
-    "symbol": "CNDETH",
-    "bidPrice": "0.00010302",
-    "bidQty": "2000.00000000",
-    "askPrice": "0.00010335",
-    "askQty": "6951.00000000"
-  },
-  {
-    "symbol": "CNDBNB",
-    "bidPrice": "0.00560000",
-    "bidQty": "66115.14000000",
-    "askPrice": "0.00569000",
-    "askQty": "6989.28000000"
-  },
-  {
-    "symbol": "LENDBTC",
-    "bidPrice": "0.00002127",
-    "bidQty": "2227.00000000",
-    "askPrice": "0.00002130",
-    "askQty": "2288.00000000"
-  },
-  {
-    "symbol": "LENDETH",
-    "bidPrice": "0.00024027",
-    "bidQty": "639.00000000",
-    "askPrice": "0.00024088",
-    "askQty": "1106.00000000"
-  },
-  {
-    "symbol": "WABIBTC",
-    "bidPrice": "0.00030680",
-    "bidQty": "700.00000000",
-    "askPrice": "0.00031168",
-    "askQty": "22.00000000"
-  },
-  {
-    "symbol": "WABIETH",
-    "bidPrice": "0.00352988",
-    "bidQty": "666.00000000",
-    "askPrice": "0.00353002",
-    "askQty": "70.00000000"
-  },
-  {
-    "symbol": "WABIBNB",
-    "bidPrice": "0.19295000",
-    "bidQty": "665.96000000",
-    "askPrice": "0.19822000",
-    "askQty": "142.10000000"
-  },
-  {
-    "symbol": "LTCETH",
-    "bidPrice": "0.19174000",
-    "bidQty": "1.70700000",
-    "askPrice": "0.19236000",
-    "askQty": "4.82000000"
-  },
-  {
-    "symbol": "LTCUSDT",
-    "bidPrice": "230.95000000",
-    "bidQty": "19.87000000",
-    "askPrice": "231.29000000",
-    "askQty": "0.09889000"
-  },
-  {
-    "symbol": "LTCBNB",
-    "bidPrice": "10.54000000",
-    "bidQty": "2.96700000",
-    "askPrice": "10.60000000",
-    "askQty": "0.30593000"
-  },
-  {
-    "symbol": "TNBBTC",
-    "bidPrice": "0.00001242",
-    "bidQty": "15641.00000000",
-    "askPrice": "0.00001244",
-    "askQty": "313.00000000"
-  },
-  {
-    "symbol": "TNBETH",
-    "bidPrice": "0.00014104",
-    "bidQty": "20199.00000000",
-    "askPrice": "0.00014107",
-    "askQty": "322.00000000"
-  },
-  {
-    "symbol": "WAVESBTC",
-    "bidPrice": "0.00081900",
-    "bidQty": "158.40000000",
-    "askPrice": "0.00081950",
-    "askQty": "746.45000000"
-  },
-  {
-    "symbol": "WAVESETH",
-    "bidPrice": "0.00921200",
-    "bidQty": "2.30000000",
-    "askPrice": "0.00928100",
-    "askQty": "303.01000000"
-  },
-  {
-    "symbol": "WAVESBNB",
-    "bidPrice": "0.49940000",
-    "bidQty": "732.85000000",
-    "askPrice": "0.51350000",
-    "askQty": "10.19000000"
-  },
-  {
-    "symbol": "GTOBTC",
-    "bidPrice": "0.00006220",
-    "bidQty": "359.00000000",
-    "askPrice": "0.00006240",
-    "askQty": "352.00000000"
-  },
-  {
-    "symbol": "GTOETH",
-    "bidPrice": "0.00070007",
-    "bidQty": "9505.00000000",
-    "askPrice": "0.00071109",
-    "askQty": "2194.00000000"
-  },
-  {
-    "symbol": "GTOBNB",
-    "bidPrice": "0.03877000",
-    "bidQty": "523.75000000",
-    "askPrice": "0.03969000",
-    "askQty": "193.92000000"
-  },
-  {
-    "symbol": "ICXBTC",
-    "bidPrice": "0.00067050",
-    "bidQty": "604.69000000",
-    "askPrice": "0.00067100",
-    "askQty": "198.88000000"
-  },
-  {
-    "symbol": "ICXETH",
-    "bidPrice": "0.00757200",
-    "bidQty": "98.97000000",
-    "askPrice": "0.00759600",
-    "askQty": "646.45000000"
-  },
-  {
-    "symbol": "ICXBNB",
-    "bidPrice": "0.41239000",
-    "bidQty": "377.65000000",
-    "askPrice": "0.42935000",
-    "askQty": "62.02000000"
-  },
-  {
-    "symbol": "OSTBTC",
-    "bidPrice": "0.00007673",
-    "bidQty": "270.00000000",
-    "askPrice": "0.00007703",
-    "askQty": "3262.00000000"
-  },
-  {
-    "symbol": "OSTETH",
-    "bidPrice": "0.00087060",
-    "bidQty": "1201.00000000",
-    "askPrice": "0.00087752",
-    "askQty": "610.00000000"
-  },
-  {
-    "symbol": "OSTBNB",
-    "bidPrice": "0.04731000",
-    "bidQty": "7158.75000000",
-    "askPrice": "0.04799000",
-    "askQty": "52.67000000"
-  },
-  {
-    "symbol": "ELFBTC",
-    "bidPrice": "0.00015231",
-    "bidQty": "400.00000000",
-    "askPrice": "0.00015260",
-    "askQty": "299.00000000"
-  },
-  {
-    "symbol": "ELFETH",
-    "bidPrice": "0.00172334",
-    "bidQty": "232.00000000",
-    "askPrice": "0.00172840",
-    "askQty": "713.00000000"
-  },
-  {
-    "symbol": "AIONBTC",
-    "bidPrice": "0.00054700",
-    "bidQty": "2696.27000000",
-    "askPrice": "0.00055430",
-    "askQty": "150.00000000"
-  },
-  {
-    "symbol": "AIONETH",
-    "bidPrice": "0.00615000",
-    "bidQty": "1113.82000000",
-    "askPrice": "0.00637700",
-    "askQty": "28.50000000"
-  },
-  {
-    "symbol": "AIONBNB",
-    "bidPrice": "0.33799000",
-    "bidQty": "1078.86000000",
-    "askPrice": "0.34845000",
-    "askQty": "38.00000000"
-  },
-  {
-    "symbol": "NEBLBTC",
-    "bidPrice": "0.00225230",
-    "bidQty": "9.50000000",
-    "askPrice": "0.00226890",
-    "askQty": "112.23000000"
-  },
-  {
-    "symbol": "NEBLETH",
-    "bidPrice": "0.02546800",
-    "bidQty": "42.56000000",
-    "askPrice": "0.02559600",
-    "askQty": "103.22000000"
-  },
-  {
-    "symbol": "NEBLBNB",
-    "bidPrice": "1.37608000",
-    "bidQty": "3.80000000",
-    "askPrice": "1.41981000",
-    "askQty": "118.46000000"
-  },
-  {
-    "symbol": "BRDBTC",
-    "bidPrice": "0.00018061",
-    "bidQty": "60.00000000",
-    "askPrice": "0.00018066",
+    "symbol": "EVXBTC",
+    "bidPrice": "0.00017918",
+    "bidQty": "1081.00000000",
+    "askPrice": "0.00018078",
     "askQty": "14.00000000"
   },
   {
-    "symbol": "BRDETH",
-    "bidPrice": "0.00205070",
-    "bidQty": "139.00000000",
-    "askPrice": "0.00207320",
-    "askQty": "52.00000000"
-  },
-  {
-    "symbol": "BRDBNB",
-    "bidPrice": "0.10843000",
-    "bidQty": "27.21000000",
-    "askPrice": "0.11440000",
-    "askQty": "163.97000000"
-  },
-  {
-    "symbol": "MCOBNB",
-    "bidPrice": "0.69625000",
-    "bidQty": "3.96000000",
-    "askPrice": "0.70081000",
-    "askQty": "3.96000000"
-  },
-  {
-    "symbol": "EDOBTC",
-    "bidPrice": "0.00035690",
-    "bidQty": "76.48000000",
-    "askPrice": "0.00035850",
-    "askQty": "436.93000000"
-  },
-  {
-    "symbol": "EDOETH",
-    "bidPrice": "0.00405300",
-    "bidQty": "194.54000000",
-    "askPrice": "0.00406900",
-    "askQty": "31.68000000"
-  },
-  {
-    "symbol": "WINGSBTC",
-    "bidPrice": "0.00011212",
-    "bidQty": "80.00000000",
-    "askPrice": "0.00011246",
-    "askQty": "528.00000000"
-  },
-  {
-    "symbol": "WINGSETH",
-    "bidPrice": "0.00127480",
-    "bidQty": "3547.00000000",
-    "askPrice": "0.00127510",
-    "askQty": "91.00000000"
-  },
-  {
-    "symbol": "NAVBTC",
-    "bidPrice": "0.00027940",
-    "bidQty": "92.00000000",
-    "askPrice": "0.00028130",
-    "askQty": "196.60000000"
-  },
-  {
-    "symbol": "NAVETH",
-    "bidPrice": "0.00314100",
-    "bidQty": "215.48000000",
-    "askPrice": "0.00317000",
-    "askQty": "365.08000000"
-  },
-  {
-    "symbol": "NAVBNB",
-    "bidPrice": "0.16893000",
-    "bidQty": "88.03000000",
-    "askPrice": "0.17420000",
-    "askQty": "35.81000000"
-  },
-  {
-    "symbol": "LUNBTC",
-    "bidPrice": "0.00370960",
-    "bidQty": "51.16000000",
-    "askPrice": "0.00373550",
-    "askQty": "44.60000000"
-  },
-  {
-    "symbol": "LUNETH",
-    "bidPrice": "0.04183500",
-    "bidQty": "169.00000000",
-    "askPrice": "0.04219000",
+    "symbol": "EVXETH",
+    "bidPrice": "0.00241940",
+    "bidQty": "83.00000000",
+    "askPrice": "0.00242980",
     "askQty": "5.00000000"
   },
   {
-    "symbol": "TRIGBTC",
-    "bidPrice": "0.00030560",
-    "bidQty": "34.00000000",
-    "askPrice": "0.00030800",
-    "askQty": "62.64000000"
+    "symbol": "REQBTC",
+    "bidPrice": "0.00002420",
+    "bidQty": "951.00000000",
+    "askPrice": "0.00002427",
+    "askQty": "3676.00000000"
   },
   {
-    "symbol": "TRIGETH",
-    "bidPrice": "0.00345800",
-    "bidQty": "6.40000000",
-    "askPrice": "0.00348600",
-    "askQty": "6.40000000"
+    "symbol": "REQETH",
+    "bidPrice": "0.00032560",
+    "bidQty": "14810.00000000",
+    "askPrice": "0.00032590",
+    "askQty": "1904.00000000"
   },
   {
-    "symbol": "TRIGBNB",
-    "bidPrice": "0.18598000",
-    "bidQty": "87.14000000",
-    "askPrice": "0.19100000",
-    "askQty": "110.00000000"
+    "symbol": "VIBBTC",
+    "bidPrice": "0.00002278",
+    "bidQty": "281.00000000",
+    "askPrice": "0.00002285",
+    "askQty": "1326.00000000"
   },
   {
-    "symbol": "APPCBTC",
-    "bidPrice": "0.00018950",
-    "bidQty": "1017.00000000",
-    "askPrice": "0.00018986",
+    "symbol": "VIBETH",
+    "bidPrice": "0.00030559",
+    "bidQty": "1606.00000000",
+    "askPrice": "0.00030747",
+    "askQty": "45.00000000"
+  },
+  {
+    "symbol": "HSRETH",
+    "bidPrice": "0.00972100",
+    "bidQty": "79.19000000",
+    "askPrice": "0.00974700",
+    "askQty": "8.60000000"
+  },
+  {
+    "symbol": "TRXBTC",
+    "bidPrice": "0.00000406",
+    "bidQty": "765946.00000000",
+    "askPrice": "0.00000407",
+    "askQty": "1927004.00000000"
+  },
+  {
+    "symbol": "TRXETH",
+    "bidPrice": "0.00005463",
+    "bidQty": "2492.00000000",
+    "askPrice": "0.00005465",
+    "askQty": "3990.00000000"
+  },
+  {
+    "symbol": "POWRBTC",
+    "bidPrice": "0.00004680",
+    "bidQty": "200.00000000",
+    "askPrice": "0.00004690",
+    "askQty": "258.00000000"
+  },
+  {
+    "symbol": "POWRETH",
+    "bidPrice": "0.00062940",
+    "bidQty": "30.00000000",
+    "askPrice": "0.00063180",
+    "askQty": "35.00000000"
+  },
+  {
+    "symbol": "ARKBTC",
+    "bidPrice": "0.00034400",
+    "bidQty": "99.67000000",
+    "askPrice": "0.00034550",
+    "askQty": "193.63000000"
+  },
+  {
+    "symbol": "ARKETH",
+    "bidPrice": "0.00462300",
+    "bidQty": "5.41000000",
+    "askPrice": "0.00464700",
+    "askQty": "15.78000000"
+  },
+  {
+    "symbol": "YOYOETH",
+    "bidPrice": "0.00012931",
+    "bidQty": "154.00000000",
+    "askPrice": "0.00012996",
+    "askQty": "3999.00000000"
+  },
+  {
+    "symbol": "XRPBTC",
+    "bidPrice": "0.00008462",
+    "bidQty": "10097.00000000",
+    "askPrice": "0.00008470",
+    "askQty": "3829.00000000"
+  },
+  {
+    "symbol": "XRPETH",
+    "bidPrice": "0.00113662",
+    "bidQty": "48.00000000",
+    "askPrice": "0.00113739",
+    "askQty": "2652.00000000"
+  },
+  {
+    "symbol": "MODBTC",
+    "bidPrice": "0.00022600",
+    "bidQty": "18.40000000",
+    "askPrice": "0.00022620",
+    "askQty": "40.59000000"
+  },
+  {
+    "symbol": "MODETH",
+    "bidPrice": "0.00302700",
+    "bidQty": "12.94000000",
+    "askPrice": "0.00305500",
+    "askQty": "50.92000000"
+  },
+  {
+    "symbol": "ENJBTC",
+    "bidPrice": "0.00001530",
+    "bidQty": "8683.00000000",
+    "askPrice": "0.00001534",
+    "askQty": "11657.00000000"
+  },
+  {
+    "symbol": "ENJETH",
+    "bidPrice": "0.00020525",
+    "bidQty": "4174.00000000",
+    "askPrice": "0.00020652",
+    "askQty": "243.00000000"
+  },
+  {
+    "symbol": "STORJBTC",
+    "bidPrice": "0.00009671",
+    "bidQty": "12.00000000",
+    "askPrice": "0.00009695",
+    "askQty": "106.00000000"
+  },
+  {
+    "symbol": "STORJETH",
+    "bidPrice": "0.00130000",
+    "bidQty": "2475.00000000",
+    "askPrice": "0.00130640",
+    "askQty": "37.00000000"
+  },
+  {
+    "symbol": "BNBUSDT",
+    "bidPrice": "9.36480000",
+    "bidQty": "1.29000000",
+    "askPrice": "9.36960000",
+    "askQty": "203.52000000"
+  },
+  {
+    "symbol": "VENBNB",
+    "bidPrice": "0.47730000",
+    "bidQty": "0.79000000",
+    "askPrice": "0.47790000",
+    "askQty": "24.00000000"
+  },
+  {
+    "symbol": "YOYOBNB",
+    "bidPrice": "0.01079000",
+    "bidQty": "384.24000000",
+    "askPrice": "0.01089000",
+    "askQty": "1045.00000000"
+  },
+  {
+    "symbol": "POWRBNB",
+    "bidPrice": "0.05240000",
+    "bidQty": "421.00000000",
+    "askPrice": "0.05298000",
+    "askQty": "37.00000000"
+  },
+  {
+    "symbol": "VENBTC",
+    "bidPrice": "0.00042489",
+    "bidQty": "3.00000000",
+    "askPrice": "0.00042498",
+    "askQty": "233.00000000"
+  },
+  {
+    "symbol": "VENETH",
+    "bidPrice": "0.00570493",
+    "bidQty": "17.00000000",
+    "askPrice": "0.00570955",
+    "askQty": "2.00000000"
+  },
+  {
+    "symbol": "KMDBTC",
+    "bidPrice": "0.00035090",
+    "bidQty": "221.17000000",
+    "askPrice": "0.00035140",
+    "askQty": "36.31000000"
+  },
+  {
+    "symbol": "KMDETH",
+    "bidPrice": "0.00470000",
+    "bidQty": "13.61000000",
+    "askPrice": "0.00473600",
+    "askQty": "272.12000000"
+  },
+  {
+    "symbol": "NULSBNB",
+    "bidPrice": "0.41380000",
+    "bidQty": "47.00000000",
+    "askPrice": "0.41664000",
+    "askQty": "3.56000000"
+  },
+  {
+    "symbol": "RCNBTC",
+    "bidPrice": "0.00001354",
+    "bidQty": "74.00000000",
+    "askPrice": "0.00001357",
+    "askQty": "184.00000000"
+  },
+  {
+    "symbol": "RCNETH",
+    "bidPrice": "0.00018138",
+    "bidQty": "138.00000000",
+    "askPrice": "0.00018236",
+    "askQty": "138.00000000"
+  },
+  {
+    "symbol": "RCNBNB",
+    "bidPrice": "0.01502000",
+    "bidQty": "66860.36000000",
+    "askPrice": "0.01520000",
+    "askQty": "2293.49000000"
+  },
+  {
+    "symbol": "NULSBTC",
+    "bidPrice": "0.00037139",
+    "bidQty": "9.00000000",
+    "askPrice": "0.00037140",
+    "askQty": "3632.00000000"
+  },
+  {
+    "symbol": "NULSETH",
+    "bidPrice": "0.00496615",
+    "bidQty": "6.00000000",
+    "askPrice": "0.00499081",
+    "askQty": "23.00000000"
+  },
+  {
+    "symbol": "RDNBTC",
+    "bidPrice": "0.00022347",
+    "bidQty": "87.00000000",
+    "askPrice": "0.00022448",
+    "askQty": "875.00000000"
+  },
+  {
+    "symbol": "RDNETH",
+    "bidPrice": "0.00301000",
+    "bidQty": "1149.00000000",
+    "askPrice": "0.00301540",
+    "askQty": "49.00000000"
+  },
+  {
+    "symbol": "RDNBNB",
+    "bidPrice": "0.25012000",
+    "bidQty": "1523.93000000",
+    "askPrice": "0.25325000",
+    "askQty": "56.00000000"
+  },
+  {
+    "symbol": "XMRBTC",
+    "bidPrice": "0.03255000",
+    "bidQty": "0.38000000",
+    "askPrice": "0.03261500",
+    "askQty": "0.09500000"
+  },
+  {
+    "symbol": "XMRETH",
+    "bidPrice": "0.43773000",
+    "bidQty": "2.19300000",
+    "askPrice": "0.43880000",
+    "askQty": "0.28400000"
+  },
+  {
+    "symbol": "DLTBNB",
+    "bidPrice": "0.02728000",
+    "bidQty": "39.98000000",
+    "askPrice": "0.02740000",
+    "askQty": "85.98000000"
+  },
+  {
+    "symbol": "WTCBNB",
+    "bidPrice": "2.30990000",
+    "bidQty": "0.64000000",
+    "askPrice": "2.33190000",
+    "askQty": "8.97000000"
+  },
+  {
+    "symbol": "DLTBTC",
+    "bidPrice": "0.00002419",
+    "bidQty": "1981.00000000",
+    "askPrice": "0.00002442",
+    "askQty": "565.00000000"
+  },
+  {
+    "symbol": "DLTETH",
+    "bidPrice": "0.00032428",
+    "bidQty": "2694.00000000",
+    "askPrice": "0.00032897",
+    "askQty": "72.00000000"
+  },
+  {
+    "symbol": "AMBBTC",
+    "bidPrice": "0.00004258",
+    "bidQty": "5077.00000000",
+    "askPrice": "0.00004274",
+    "askQty": "82.00000000"
+  },
+  {
+    "symbol": "AMBETH",
+    "bidPrice": "0.00057321",
+    "bidQty": "5612.00000000",
+    "askPrice": "0.00057349",
+    "askQty": "85.00000000"
+  },
+  {
+    "symbol": "AMBBNB",
+    "bidPrice": "0.04737000",
+    "bidQty": "259.97000000",
+    "askPrice": "0.04806000",
+    "askQty": "91.58000000"
+  },
+  {
+    "symbol": "BCCETH",
+    "bidPrice": "1.47319000",
+    "bidQty": "0.39200000",
+    "askPrice": "1.47857000",
+    "askQty": "0.01000000"
+  },
+  {
+    "symbol": "BCCUSDT",
+    "bidPrice": "1152.46000000",
+    "bidQty": "1.88866000",
+    "askPrice": "1154.74000000",
+    "askQty": "0.09587000"
+  },
+  {
+    "symbol": "BCCBNB",
+    "bidPrice": "122.99000000",
+    "bidQty": "0.00802000",
+    "askPrice": "123.60000000",
+    "askQty": "0.08500000"
+  },
+  {
+    "symbol": "BATBTC",
+    "bidPrice": "0.00003208",
+    "bidQty": "623.00000000",
+    "askPrice": "0.00003229",
+    "askQty": "148.00000000"
+  },
+  {
+    "symbol": "BATETH",
+    "bidPrice": "0.00042898",
+    "bidQty": "466.00000000",
+    "askPrice": "0.00043100",
+    "askQty": "86.00000000"
+  },
+  {
+    "symbol": "BATBNB",
+    "bidPrice": "0.03577000",
+    "bidQty": "1484.58000000",
+    "askPrice": "0.03618000",
+    "askQty": "357.98000000"
+  },
+  {
+    "symbol": "BCPTBTC",
+    "bidPrice": "0.00008513",
+    "bidQty": "127.00000000",
+    "askPrice": "0.00008534",
+    "askQty": "2635.00000000"
+  },
+  {
+    "symbol": "BCPTETH",
+    "bidPrice": "0.00114436",
+    "bidQty": "206.00000000",
+    "askPrice": "0.00114636",
+    "askQty": "167.00000000"
+  },
+  {
+    "symbol": "BCPTBNB",
+    "bidPrice": "0.09527000",
+    "bidQty": "217.20000000",
+    "askPrice": "0.09600000",
+    "askQty": "145.35000000"
+  },
+  {
+    "symbol": "ARNBTC",
+    "bidPrice": "0.00018819",
+    "bidQty": "356.00000000",
+    "askPrice": "0.00018865",
+    "askQty": "243.00000000"
+  },
+  {
+    "symbol": "ARNETH",
+    "bidPrice": "0.00251773",
+    "bidQty": "381.00000000",
+    "askPrice": "0.00252938",
+    "askQty": "26.00000000"
+  },
+  {
+    "symbol": "GVTBTC",
+    "bidPrice": "0.00338800",
+    "bidQty": "9.53000000",
+    "askPrice": "0.00339270",
+    "askQty": "102.65000000"
+  },
+  {
+    "symbol": "GVTETH",
+    "bidPrice": "0.04543800",
+    "bidQty": "16.94000000",
+    "askPrice": "0.04558000",
+    "askQty": "29.65000000"
+  },
+  {
+    "symbol": "CDTBTC",
+    "bidPrice": "0.00000545",
+    "bidQty": "30061.00000000",
+    "askPrice": "0.00000548",
+    "askQty": "1920.00000000"
+  },
+  {
+    "symbol": "CDTETH",
+    "bidPrice": "0.00007318",
+    "bidQty": "21476.00000000",
+    "askPrice": "0.00007340",
+    "askQty": "2377.00000000"
+  },
+  {
+    "symbol": "GXSBTC",
+    "bidPrice": "0.00032540",
+    "bidQty": "169.00000000",
+    "askPrice": "0.00032670",
+    "askQty": "9.00000000"
+  },
+  {
+    "symbol": "GXSETH",
+    "bidPrice": "0.00437500",
+    "bidQty": "295.34000000",
+    "askPrice": "0.00439900",
     "askQty": "500.00000000"
   },
   {
+    "symbol": "NEOUSDT",
+    "bidPrice": "105.00500000",
+    "bidQty": "8.57100000",
+    "askPrice": "105.17000000",
+    "askQty": "1.13000000"
+  },
+  {
+    "symbol": "NEOBNB",
+    "bidPrice": "11.21100000",
+    "bidQty": "3.12500000",
+    "askPrice": "11.24900000",
+    "askQty": "8.07700000"
+  },
+  {
+    "symbol": "POEBTC",
+    "bidPrice": "0.00000411",
+    "bidQty": "830.00000000",
+    "askPrice": "0.00000412",
+    "askQty": "85121.00000000"
+  },
+  {
+    "symbol": "POEETH",
+    "bidPrice": "0.00005526",
+    "bidQty": "81630.00000000",
+    "askPrice": "0.00005546",
+    "askQty": "8000.00000000"
+  },
+  {
+    "symbol": "QSPBTC",
+    "bidPrice": "0.00001882",
+    "bidQty": "5660.00000000",
+    "askPrice": "0.00001886",
+    "askQty": "103.00000000"
+  },
+  {
+    "symbol": "QSPETH",
+    "bidPrice": "0.00025250",
+    "bidQty": "256.00000000",
+    "askPrice": "0.00025290",
+    "askQty": "12421.00000000"
+  },
+  {
+    "symbol": "QSPBNB",
+    "bidPrice": "0.02093000",
+    "bidQty": "1428.66000000",
+    "askPrice": "0.02123000",
+    "askQty": "3923.64000000"
+  },
+  {
+    "symbol": "BTSBTC",
+    "bidPrice": "0.00001766",
+    "bidQty": "1420.00000000",
+    "askPrice": "0.00001773",
+    "askQty": "1533.00000000"
+  },
+  {
+    "symbol": "BTSETH",
+    "bidPrice": "0.00023714",
+    "bidQty": "550.00000000",
+    "askPrice": "0.00023880",
+    "askQty": "210.00000000"
+  },
+  {
+    "symbol": "BTSBNB",
+    "bidPrice": "0.01973000",
+    "bidQty": "935.00000000",
+    "askPrice": "0.01996000",
+    "askQty": "580.00000000"
+  },
+  {
+    "symbol": "XZCBTC",
+    "bidPrice": "0.00486300",
+    "bidQty": "39.80000000",
+    "askPrice": "0.00488500",
+    "askQty": "1.56000000"
+  },
+  {
+    "symbol": "XZCETH",
+    "bidPrice": "0.06534200",
+    "bidQty": "0.01000000",
+    "askPrice": "0.06565700",
+    "askQty": "16.55000000"
+  },
+  {
+    "symbol": "XZCBNB",
+    "bidPrice": "5.44000000",
+    "bidQty": "6.00000000",
+    "askPrice": "5.50000000",
+    "askQty": "0.40800000"
+  },
+  {
+    "symbol": "LSKBTC",
+    "bidPrice": "0.00152040",
+    "bidQty": "5.22000000",
+    "askPrice": "0.00152320",
+    "askQty": "1.70000000"
+  },
+  {
+    "symbol": "LSKETH",
+    "bidPrice": "0.02042500",
+    "bidQty": "100.01000000",
+    "askPrice": "0.02049600",
+    "askQty": "9.86000000"
+  },
+  {
+    "symbol": "LSKBNB",
+    "bidPrice": "1.70060000",
+    "bidQty": "7.10000000",
+    "askPrice": "1.71550000",
+    "askQty": "4.00000000"
+  },
+  {
+    "symbol": "TNTBTC",
+    "bidPrice": "0.00000914",
+    "bidQty": "4500.00000000",
+    "askPrice": "0.00000920",
+    "askQty": "3724.00000000"
+  },
+  {
+    "symbol": "TNTETH",
+    "bidPrice": "0.00012292",
+    "bidQty": "7082.00000000",
+    "askPrice": "0.00012371",
+    "askQty": "121.00000000"
+  },
+  {
+    "symbol": "FUELBTC",
+    "bidPrice": "0.00000993",
+    "bidQty": "292.00000000",
+    "askPrice": "0.00000995",
+    "askQty": "2972.00000000"
+  },
+  {
+    "symbol": "FUELETH",
+    "bidPrice": "0.00013251",
+    "bidQty": "603.00000000",
+    "askPrice": "0.00013365",
+    "askQty": "1880.00000000"
+  },
+  {
+    "symbol": "MANABTC",
+    "bidPrice": "0.00000973",
+    "bidQty": "7459.00000000",
+    "askPrice": "0.00000977",
+    "askQty": "1002.00000000"
+  },
+  {
+    "symbol": "MANAETH",
+    "bidPrice": "0.00013069",
+    "bidQty": "1000.00000000",
+    "askPrice": "0.00013183",
+    "askQty": "500.00000000"
+  },
+  {
+    "symbol": "BCDBTC",
+    "bidPrice": "0.00328200",
+    "bidQty": "3.42600000",
+    "askPrice": "0.00329300",
+    "askQty": "7.51400000"
+  },
+  {
+    "symbol": "BCDETH",
+    "bidPrice": "0.04412000",
+    "bidQty": "13.56100000",
+    "askPrice": "0.04441000",
+    "askQty": "2.87400000"
+  },
+  {
+    "symbol": "DGDBTC",
+    "bidPrice": "0.04560300",
+    "bidQty": "13.90800000",
+    "askPrice": "0.04566000",
+    "askQty": "0.37200000"
+  },
+  {
+    "symbol": "DGDETH",
+    "bidPrice": "0.61160000",
+    "bidQty": "1.01100000",
+    "askPrice": "0.61374000",
+    "askQty": "0.62200000"
+  },
+  {
+    "symbol": "IOTABNB",
+    "bidPrice": "0.17516000",
+    "bidQty": "140.83000000",
+    "askPrice": "0.17657000",
+    "askQty": "387.66000000"
+  },
+  {
+    "symbol": "ADXBTC",
+    "bidPrice": "0.00010265",
+    "bidQty": "135.00000000",
+    "askPrice": "0.00010296",
+    "askQty": "62.00000000"
+  },
+  {
+    "symbol": "ADXETH",
+    "bidPrice": "0.00137860",
+    "bidQty": "44.00000000",
+    "askPrice": "0.00138160",
+    "askQty": "136.00000000"
+  },
+  {
+    "symbol": "ADXBNB",
+    "bidPrice": "0.11475000",
+    "bidQty": "69.27000000",
+    "askPrice": "0.11550000",
+    "askQty": "9.59000000"
+  },
+  {
+    "symbol": "ADABTC",
+    "bidPrice": "0.00002459",
+    "bidQty": "813.00000000",
+    "askPrice": "0.00002464",
+    "askQty": "43086.00000000"
+  },
+  {
+    "symbol": "ADAETH",
+    "bidPrice": "0.00033026",
+    "bidQty": "490.00000000",
+    "askPrice": "0.00033096",
+    "askQty": "310.00000000"
+  },
+  {
+    "symbol": "PPTBTC",
+    "bidPrice": "0.00180970",
+    "bidQty": "10.51000000",
+    "askPrice": "0.00180990",
+    "askQty": "30.00000000"
+  },
+  {
+    "symbol": "PPTETH",
+    "bidPrice": "0.02423000",
+    "bidQty": "84.36000000",
+    "askPrice": "0.02435000",
+    "askQty": "3.19000000"
+  },
+  {
+    "symbol": "CMTBTC",
+    "bidPrice": "0.00001164",
+    "bidQty": "22932.00000000",
+    "askPrice": "0.00001167",
+    "askQty": "344.00000000"
+  },
+  {
+    "symbol": "CMTETH",
+    "bidPrice": "0.00015581",
+    "bidQty": "161.00000000",
+    "askPrice": "0.00015692",
+    "askQty": "160.00000000"
+  },
+  {
+    "symbol": "CMTBNB",
+    "bidPrice": "0.01303000",
+    "bidQty": "275.52000000",
+    "askPrice": "0.01314000",
+    "askQty": "2285.00000000"
+  },
+  {
+    "symbol": "XLMBTC",
+    "bidPrice": "0.00003068",
+    "bidQty": "2192.00000000",
+    "askPrice": "0.00003075",
+    "askQty": "9341.00000000"
+  },
+  {
+    "symbol": "XLMETH",
+    "bidPrice": "0.00041210",
+    "bidQty": "1625.00000000",
+    "askPrice": "0.00041288",
+    "askQty": "14422.00000000"
+  },
+  {
+    "symbol": "XLMBNB",
+    "bidPrice": "0.03428000",
+    "bidQty": "1578.00000000",
+    "askPrice": "0.03438000",
+    "askQty": "0.46000000"
+  },
+  {
+    "symbol": "CNDBTC",
+    "bidPrice": "0.00001052",
+    "bidQty": "13465.00000000",
+    "askPrice": "0.00001056",
+    "askQty": "124.00000000"
+  },
+  {
+    "symbol": "CNDETH",
+    "bidPrice": "0.00014131",
+    "bidQty": "706.00000000",
+    "askPrice": "0.00014152",
+    "askQty": "66.00000000"
+  },
+  {
+    "symbol": "CNDBNB",
+    "bidPrice": "0.01173000",
+    "bidQty": "490.00000000",
+    "askPrice": "0.01184000",
+    "askQty": "1379.81000000"
+  },
+  {
+    "symbol": "LENDBTC",
+    "bidPrice": "0.00000678",
+    "bidQty": "4186.00000000",
+    "askPrice": "0.00000680",
+    "askQty": "181.00000000"
+  },
+  {
+    "symbol": "LENDETH",
+    "bidPrice": "0.00009128",
+    "bidQty": "51617.00000000",
+    "askPrice": "0.00009130",
+    "askQty": "8762.00000000"
+  },
+  {
+    "symbol": "WABIBTC",
+    "bidPrice": "0.00011301",
+    "bidQty": "100.00000000",
+    "askPrice": "0.00011358",
+    "askQty": "343.00000000"
+  },
+  {
+    "symbol": "WABIETH",
+    "bidPrice": "0.00152001",
+    "bidQty": "2084.00000000",
+    "askPrice": "0.00152838",
+    "askQty": "187.00000000"
+  },
+  {
+    "symbol": "WABIBNB",
+    "bidPrice": "0.12636000",
+    "bidQty": "2083.83000000",
+    "askPrice": "0.12798000",
+    "askQty": "150.09000000"
+  },
+  {
+    "symbol": "LTCETH",
+    "bidPrice": "0.24248000",
+    "bidQty": "0.00800000",
+    "askPrice": "0.24280000",
+    "askQty": "2.54300000"
+  },
+  {
+    "symbol": "LTCUSDT",
+    "bidPrice": "189.66000000",
+    "bidQty": "1.69832000",
+    "askPrice": "189.79000000",
+    "askQty": "0.13000000"
+  },
+  {
+    "symbol": "LTCBNB",
+    "bidPrice": "20.20000000",
+    "bidQty": "0.55445000",
+    "askPrice": "20.23000000",
+    "askQty": "0.05002000"
+  },
+  {
+    "symbol": "TNBBTC",
+    "bidPrice": "0.00000361",
+    "bidQty": "13374.00000000",
+    "askPrice": "0.00000363",
+    "askQty": "35331.00000000"
+  },
+  {
+    "symbol": "TNBETH",
+    "bidPrice": "0.00004875",
+    "bidQty": "5127.00000000",
+    "askPrice": "0.00004906",
+    "askQty": "29733.00000000"
+  },
+  {
+    "symbol": "WAVESBTC",
+    "bidPrice": "0.00056170",
+    "bidQty": "53.20000000",
+    "askPrice": "0.00056350",
+    "askQty": "25.07000000"
+  },
+  {
+    "symbol": "WAVESETH",
+    "bidPrice": "0.00754000",
+    "bidQty": "20.00000000",
+    "askPrice": "0.00758100",
+    "askQty": "41.42000000"
+  },
+  {
+    "symbol": "WAVESBNB",
+    "bidPrice": "0.62690000",
+    "bidQty": "35.00000000",
+    "askPrice": "0.63510000",
+    "askQty": "26.91000000"
+  },
+  {
+    "symbol": "GTOBTC",
+    "bidPrice": "0.00003036",
+    "bidQty": "207.00000000",
+    "askPrice": "0.00003044",
+    "askQty": "3262.00000000"
+  },
+  {
+    "symbol": "GTOETH",
+    "bidPrice": "0.00040700",
+    "bidQty": "121.00000000",
+    "askPrice": "0.00040923",
+    "askQty": "476.00000000"
+  },
+  {
+    "symbol": "GTOBNB",
+    "bidPrice": "0.03404000",
+    "bidQty": "50.00000000",
+    "askPrice": "0.03414000",
+    "askQty": "640.00000000"
+  },
+  {
+    "symbol": "ICXBTC",
+    "bidPrice": "0.00030610",
+    "bidQty": "39.78000000",
+    "askPrice": "0.00030690",
+    "askQty": "1031.52000000"
+  },
+  {
+    "symbol": "ICXETH",
+    "bidPrice": "0.00410500",
+    "bidQty": "32.70000000",
+    "askPrice": "0.00412100",
+    "askQty": "270.50000000"
+  },
+  {
+    "symbol": "ICXBNB",
+    "bidPrice": "0.34175000",
+    "bidQty": "19.56000000",
+    "askPrice": "0.34404000",
+    "askQty": "208.85000000"
+  },
+  {
+    "symbol": "OSTBTC",
+    "bidPrice": "0.00002421",
+    "bidQty": "690.00000000",
+    "askPrice": "0.00002427",
+    "askQty": "1305.00000000"
+  },
+  {
+    "symbol": "OSTETH",
+    "bidPrice": "0.00032501",
+    "bidQty": "2847.00000000",
+    "askPrice": "0.00032588",
+    "askQty": "173.00000000"
+  },
+  {
+    "symbol": "OSTBNB",
+    "bidPrice": "0.02706000",
+    "bidQty": "137.03000000",
+    "askPrice": "0.02743000",
+    "askQty": "480.00000000"
+  },
+  {
+    "symbol": "ELFBTC",
+    "bidPrice": "0.00009850",
+    "bidQty": "4089.00000000",
+    "askPrice": "0.00009869",
+    "askQty": "444.00000000"
+  },
+  {
+    "symbol": "ELFETH",
+    "bidPrice": "0.00132018",
+    "bidQty": "155.00000000",
+    "askPrice": "0.00132765",
+    "askQty": "111.00000000"
+  },
+  {
+    "symbol": "AIONBTC",
+    "bidPrice": "0.00027150",
+    "bidQty": "10.17000000",
+    "askPrice": "0.00027340",
+    "askQty": "81.00000000"
+  },
+  {
+    "symbol": "AIONETH",
+    "bidPrice": "0.00364900",
+    "bidQty": "2347.26000000",
+    "askPrice": "0.00366000",
+    "askQty": "3.00000000"
+  },
+  {
+    "symbol": "AIONBNB",
+    "bidPrice": "0.30227000",
+    "bidQty": "496.23000000",
+    "askPrice": "0.30490000",
+    "askQty": "86.49000000"
+  },
+  {
+    "symbol": "NEBLBTC",
+    "bidPrice": "0.00139710",
+    "bidQty": "3.41000000",
+    "askPrice": "0.00139960",
+    "askQty": "11.22000000"
+  },
+  {
+    "symbol": "NEBLETH",
+    "bidPrice": "0.01880100",
+    "bidQty": "6.72000000",
+    "askPrice": "0.01887500",
+    "askQty": "36.81000000"
+  },
+  {
+    "symbol": "NEBLBNB",
+    "bidPrice": "1.55949000",
+    "bidQty": "9.50000000",
+    "askPrice": "1.57802000",
+    "askQty": "4.29000000"
+  },
+  {
+    "symbol": "BRDBTC",
+    "bidPrice": "0.00007018",
+    "bidQty": "17.00000000",
+    "askPrice": "0.00007050",
+    "askQty": "13.00000000"
+  },
+  {
+    "symbol": "BRDETH",
+    "bidPrice": "0.00094190",
+    "bidQty": "25.00000000",
+    "askPrice": "0.00094410",
+    "askQty": "615.00000000"
+  },
+  {
+    "symbol": "BRDBNB",
+    "bidPrice": "0.07818000",
+    "bidQty": "11032.77000000",
+    "askPrice": "0.07935000",
+    "askQty": "118.00000000"
+  },
+  {
+    "symbol": "MCOBNB",
+    "bidPrice": "0.90791000",
+    "bidQty": "1.49000000",
+    "askPrice": "0.91482000",
+    "askQty": "10.24000000"
+  },
+  {
+    "symbol": "EDOBTC",
+    "bidPrice": "0.00021510",
+    "bidQty": "2.70000000",
+    "askPrice": "0.00021600",
+    "askQty": "17.55000000"
+  },
+  {
+    "symbol": "EDOETH",
+    "bidPrice": "0.00288700",
+    "bidQty": "331.07000000",
+    "askPrice": "0.00291000",
+    "askQty": "13.46000000"
+  },
+  {
+    "symbol": "WINGSBTC",
+    "bidPrice": "0.00007377",
+    "bidQty": "44.00000000",
+    "askPrice": "0.00007409",
+    "askQty": "436.00000000"
+  },
+  {
+    "symbol": "WINGSETH",
+    "bidPrice": "0.00098880",
+    "bidQty": "1565.00000000",
+    "askPrice": "0.00099000",
+    "askQty": "1.00000000"
+  },
+  {
+    "symbol": "NAVBTC",
+    "bidPrice": "0.00015360",
+    "bidQty": "1.18000000",
+    "askPrice": "0.00015390",
+    "askQty": "869.60000000"
+  },
+  {
+    "symbol": "NAVETH",
+    "bidPrice": "0.00205300",
+    "bidQty": "97.66000000",
+    "askPrice": "0.00206400",
+    "askQty": "111.24000000"
+  },
+  {
+    "symbol": "NAVBNB",
+    "bidPrice": "0.17191000",
+    "bidQty": "48.57000000",
+    "askPrice": "0.17347000",
+    "askQty": "46.76000000"
+  },
+  {
+    "symbol": "LUNBTC",
+    "bidPrice": "0.00178860",
+    "bidQty": "1.24000000",
+    "askPrice": "0.00179110",
+    "askQty": "6.75000000"
+  },
+  {
+    "symbol": "LUNETH",
+    "bidPrice": "0.02405000",
+    "bidQty": "0.20000000",
+    "askPrice": "0.02407600",
+    "askQty": "10.69000000"
+  },
+  {
+    "symbol": "TRIGBTC",
+    "bidPrice": "0.00011240",
+    "bidQty": "1110.37000000",
+    "askPrice": "0.00011290",
+    "askQty": "425.45000000"
+  },
+  {
+    "symbol": "TRIGETH",
+    "bidPrice": "0.00151000",
+    "bidQty": "100.00000000",
+    "askPrice": "0.00151300",
+    "askQty": "8.55000000"
+  },
+  {
+    "symbol": "TRIGBNB",
+    "bidPrice": "0.12608000",
+    "bidQty": "146.12000000",
+    "askPrice": "0.12794000",
+    "askQty": "202.00000000"
+  },
+  {
+    "symbol": "APPCBTC",
+    "bidPrice": "0.00005301",
+    "bidQty": "5058.00000000",
+    "askPrice": "0.00005322",
+    "askQty": "200.00000000"
+  },
+  {
     "symbol": "APPCETH",
-    "bidPrice": "0.00214120",
-    "bidQty": "19.00000000",
-    "askPrice": "0.00214860",
-    "askQty": "51.00000000"
+    "bidPrice": "0.00071250",
+    "bidQty": "15.00000000",
+    "askPrice": "0.00071580",
+    "askQty": "427.00000000"
   },
   {
     "symbol": "APPCBNB",
-    "bidPrice": "0.11705000",
-    "bidQty": "3132.61000000",
-    "askPrice": "0.11958000",
-    "askQty": "18.19000000"
+    "bidPrice": "0.05941000",
+    "bidQty": "1286.89000000",
+    "askPrice": "0.06007000",
+    "askQty": "0.56000000"
   },
   {
     "symbol": "VIBEBTC",
-    "bidPrice": "0.00010310",
-    "bidQty": "861.61328805",
-    "askPrice": "0.00010365",
-    "askQty": "36.96188204"
+    "bidPrice": "0.00003179",
+    "bidQty": "289.00000000",
+    "askPrice": "0.00003182",
+    "askQty": "113.00000000"
   },
   {
     "symbol": "VIBEETH",
-    "bidPrice": "0.00116300",
-    "bidQty": "230.00000000",
-    "askPrice": "0.00117440",
-    "askQty": "43.00000000"
+    "bidPrice": "0.00042680",
+    "bidQty": "1892.00000000",
+    "askPrice": "0.00042970",
+    "askQty": "312.00000000"
   },
   {
     "symbol": "RLCBTC",
-    "bidPrice": "0.00032820",
-    "bidQty": "53.41000000",
-    "askPrice": "0.00032900",
-    "askQty": "240.32000000"
+    "bidPrice": "0.00011130",
+    "bidQty": "336.83000000",
+    "askPrice": "0.00011230",
+    "askQty": "789.71000000"
   },
   {
     "symbol": "RLCETH",
-    "bidPrice": "0.00374300",
-    "bidQty": "557.23000000",
-    "askPrice": "0.00374500",
-    "askQty": "42.86000000"
+    "bidPrice": "0.00150600",
+    "bidQty": "18.18000000",
+    "askPrice": "0.00151600",
+    "askQty": "601.59000000"
   },
   {
     "symbol": "RLCBNB",
-    "bidPrice": "0.20450000",
-    "bidQty": "6.50000000",
-    "askPrice": "0.20700000",
-    "askQty": "3.28000000"
+    "bidPrice": "0.12438000",
+    "bidQty": "21.70000000",
+    "askPrice": "0.12666000",
+    "askQty": "86.13000000"
+  },
+  {
+    "symbol": "INSBTC",
+    "bidPrice": "0.00017630",
+    "bidQty": "1310.41000000",
+    "askPrice": "0.00017690",
+    "askQty": "59.58000000"
+  },
+  {
+    "symbol": "INSETH",
+    "bidPrice": "0.00236100",
+    "bidQty": "16.58000000",
+    "askPrice": "0.00238000",
+    "askQty": "102.00000000"
+  },
+  {
+    "symbol": "PIVXBTC",
+    "bidPrice": "0.00050880",
+    "bidQty": "40.59000000",
+    "askPrice": "0.00051060",
+    "askQty": "216.41000000"
+  },
+  {
+    "symbol": "PIVXETH",
+    "bidPrice": "0.00684700",
+    "bidQty": "119.95000000",
+    "askPrice": "0.00688600",
+    "askQty": "14.49000000"
+  },
+  {
+    "symbol": "PIVXBNB",
+    "bidPrice": "0.56874000",
+    "bidQty": "17.58000000",
+    "askPrice": "0.57565000",
+    "askQty": "2.00000000"
+  },
+  {
+    "symbol": "IOSTBTC",
+    "bidPrice": "0.00000267",
+    "bidQty": "150953.00000000",
+    "askPrice": "0.00000268",
+    "askQty": "429913.00000000"
+  },
+  {
+    "symbol": "IOSTETH",
+    "bidPrice": "0.00003594",
+    "bidQty": "500.00000000",
+    "askPrice": "0.00003604",
+    "askQty": "500.00000000"
+  },
+  {
+    "symbol": "CHATBTC",
+    "bidPrice": "0.00001429",
+    "bidQty": "41.00000000",
+    "askPrice": "0.00001432",
+    "askQty": "100.00000000"
+  },
+  {
+    "symbol": "CHATETH",
+    "bidPrice": "0.00019119",
+    "bidQty": "846.00000000",
+    "askPrice": "0.00019168",
+    "askQty": "2766.00000000"
+  },
+  {
+    "symbol": "STEEMBTC",
+    "bidPrice": "0.00028830",
+    "bidQty": "75.54000000",
+    "askPrice": "0.00028870",
+    "askQty": "295.00000000"
+  },
+  {
+    "symbol": "STEEMETH",
+    "bidPrice": "0.00386600",
+    "bidQty": "7.00000000",
+    "askPrice": "0.00388700",
+    "askQty": "178.84000000"
+  },
+  {
+    "symbol": "STEEMBNB",
+    "bidPrice": "0.32027000",
+    "bidQty": "2667.13000000",
+    "askPrice": "0.32743000",
+    "askQty": "65.56000000"
+  },
+  {
+    "symbol": "NANOBTC",
+    "bidPrice": "0.00120750",
+    "bidQty": "0.02000000",
+    "askPrice": "0.00120840",
+    "askQty": "2.99000000"
+  },
+  {
+    "symbol": "NANOETH",
+    "bidPrice": "0.01620000",
+    "bidQty": "17.69000000",
+    "askPrice": "0.01620100",
+    "askQty": "769.11000000"
+  },
+  {
+    "symbol": "NANOBNB",
+    "bidPrice": "1.34970000",
+    "bidQty": "4.15000000",
+    "askPrice": "1.35500000",
+    "askQty": "19.66000000"
+  },
+  {
+    "symbol": "VIABTC",
+    "bidPrice": "0.00025320",
+    "bidQty": "73.56000000",
+    "askPrice": "0.00025430",
+    "askQty": "118.00000000"
+  },
+  {
+    "symbol": "VIAETH",
+    "bidPrice": "0.00338700",
+    "bidQty": "11.56000000",
+    "askPrice": "0.00341400",
+    "askQty": "26.00000000"
+  },
+  {
+    "symbol": "VIABNB",
+    "bidPrice": "0.28091000",
+    "bidQty": "1035.70000000",
+    "askPrice": "0.28649000",
+    "askQty": "112.76000000"
+  },
+  {
+    "symbol": "BLZBTC",
+    "bidPrice": "0.00004010",
+    "bidQty": "1000.00000000",
+    "askPrice": "0.00004020",
+    "askQty": "1067.00000000"
+  },
+  {
+    "symbol": "BLZETH",
+    "bidPrice": "0.00053865",
+    "bidQty": "1895.00000000",
+    "askPrice": "0.00054161",
+    "askQty": "48.00000000"
+  },
+  {
+    "symbol": "BLZBNB",
+    "bidPrice": "0.04467000",
+    "bidQty": "292.04000000",
+    "askPrice": "0.04613000",
+    "askQty": "3258.69000000"
+  },
+  {
+    "symbol": "AEBTC",
+    "bidPrice": "0.00019370",
+    "bidQty": "51.60000000",
+    "askPrice": "0.00019460",
+    "askQty": "20.64000000"
+  },
+  {
+    "symbol": "AEETH",
+    "bidPrice": "0.00259900",
+    "bidQty": "58.50000000",
+    "askPrice": "0.00261100",
+    "askQty": "49.21000000"
+  },
+  {
+    "symbol": "AEBNB",
+    "bidPrice": "0.21681000",
+    "bidQty": "136.60000000",
+    "askPrice": "0.22050000",
+    "askQty": "5.52000000"
+  },
+  {
+    "symbol": "RPXBTC",
+    "bidPrice": "0.00001273",
+    "bidQty": "375.00000000",
+    "askPrice": "0.00001280",
+    "askQty": "7907.00000000"
+  },
+  {
+    "symbol": "RPXETH",
+    "bidPrice": "0.00017171",
+    "bidQty": "919.00000000",
+    "askPrice": "0.00017236",
+    "askQty": "583.00000000"
+  },
+  {
+    "symbol": "RPXBNB",
+    "bidPrice": "0.01426000",
+    "bidQty": "4102.21000000",
+    "askPrice": "0.01434000",
+    "askQty": "0.37000000"
+  },
+  {
+    "symbol": "NCASHBTC",
+    "bidPrice": "0.00000275",
+    "bidQty": "78203.00000000",
+    "askPrice": "0.00000276",
+    "askQty": "542699.00000000"
+  },
+  {
+    "symbol": "NCASHETH",
+    "bidPrice": "0.00003685",
+    "bidQty": "1276.00000000",
+    "askPrice": "0.00003695",
+    "askQty": "6072.00000000"
+  },
+  {
+    "symbol": "NCASHBNB",
+    "bidPrice": "0.00307000",
+    "bidQty": "4724.18000000",
+    "askPrice": "0.00309000",
+    "askQty": "12130.00000000"
+  },
+  {
+    "symbol": "POABTC",
+    "bidPrice": "0.00003597",
+    "bidQty": "543.00000000",
+    "askPrice": "0.00003614",
+    "askQty": "556.00000000"
+  },
+  {
+    "symbol": "POAETH",
+    "bidPrice": "0.00048433",
+    "bidQty": "2186.00000000",
+    "askPrice": "0.00048474",
+    "askQty": "195.00000000"
+  },
+  {
+    "symbol": "POABNB",
+    "bidPrice": "0.04023000",
+    "bidQty": "0.74000000",
+    "askPrice": "0.04040000",
+    "askQty": "82.66000000"
+  },
+  {
+    "symbol": "ZILBTC",
+    "bidPrice": "0.00000429",
+    "bidQty": "2916.00000000",
+    "askPrice": "0.00000430",
+    "askQty": "22576.00000000"
+  },
+  {
+    "symbol": "ZILETH",
+    "bidPrice": "0.00005756",
+    "bidQty": "2167.00000000",
+    "askPrice": "0.00005809",
+    "askQty": "13783.00000000"
+  },
+  {
+    "symbol": "ZILBNB",
+    "bidPrice": "0.00480000",
+    "bidQty": "5653.00000000",
+    "askPrice": "0.00488000",
+    "askQty": "13297.65000000"
   }
 ]

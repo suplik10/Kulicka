@@ -4,18 +4,25 @@ import java.util.ArrayList;
 
 public class TradingData {
 
-    ArrayList<Float> emaShort;
-    ArrayList<Float> emaLong;
-    ArrayList<Float> MACDLine;
-    ArrayList<Float> emaSignal;
-    ArrayList<Float> MACDHistogram;
-    private float emaLongYesterday;
-    private float emaShortYesterday;
-    private float emaSignalYesterday;
+    private String symbol;
+    private Long orderId;
+    private ArrayList<Float> emaShort;
+    private ArrayList<Float> emaLong;
+    private ArrayList<Float> MACDLine;
+    private ArrayList<Float> emaSignal;
+    private ArrayList<Float> MACDHistogram;
+    private float lastEmaLongYesterday;
+    private float prelastEmaLongYesterday;
+    private float lastEmaShortYesterday;
+    private float preLastEmaShortYesterday;
+    private float lastEmaSignalYesterday;
+    private float preLastEmaSignalYesterday;
     private float lastMacdHistogram;
     private float preLastMacdHistogram;
 
-    public TradingData() {
+    public TradingData(String symbol, Long orderId) {
+        this.symbol = symbol;
+        this.orderId = orderId;
     }
 
     public ArrayList<Float> getEmaShort() {
@@ -59,21 +66,50 @@ public class TradingData {
     }
 
     public void updateFields() {
-        this.emaLongYesterday = emaLong.get(emaLong.size() - 1);
-        this.emaShortYesterday = emaShort.get(emaShort.size() - 1);
-        this.emaSignalYesterday = emaSignal.get(emaSignal.size() - 1);
+        this.lastEmaLongYesterday = emaLong.get(emaLong.size() - 1);
+
+        if (emaLong.size() > 1) {
+            this.prelastEmaLongYesterday = emaLong.get(emaLong.size() - 2);
+        }
+        this.lastEmaShortYesterday = emaShort.get(emaShort.size() - 1);
+
+        if (emaShort.size() > 1) {
+            this.preLastEmaShortYesterday = emaShort.get(emaShort.size() - 2);
+        }
+        this.lastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 1);
+
+        if (emaSignal.size() > 1) {
+            this.preLastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 2);
+        }
         this.lastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 1);
+
         if (MACDHistogram.size() > 1) {
             this.preLastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 2);
         }
     }
 
-    public float getEmaLongYesterday() {
-        return emaLongYesterday;
+    public float getPrelastEmaLongYesterday() {
+        return prelastEmaLongYesterday;
     }
 
-    public float getEmaShortYesterday() {
-        return emaShortYesterday;
+    public float getPreLastEmaShortYesterday() {
+        return preLastEmaShortYesterday;
+    }
+
+    public float getLastEmaSignalYesterday() {
+        return lastEmaSignalYesterday;
+    }
+
+    public float getPreLastEmaSignalYesterday() {
+        return preLastEmaSignalYesterday;
+    }
+
+    public float getLastEmaLongYesterday() {
+        return lastEmaLongYesterday;
+    }
+
+    public float getLastEmaShortYesterday() {
+        return lastEmaShortYesterday;
     }
 
     public float getLastMacdHistogram() {
@@ -84,7 +120,27 @@ public class TradingData {
         return preLastMacdHistogram;
     }
 
-    public float getEmaSignalYesterday() {
-        return emaSignalYesterday;
+    @Override
+    public String toString() {
+        return "TradingData{" +
+                "symbol='" + symbol + '\'' +
+                ", orderId=" + orderId +
+                ", lastEmaLongYesterday=" + lastEmaLongYesterday +
+                ", prelastEmaLongYesterday=" + prelastEmaLongYesterday +
+                ", lastEmaShortYesterday=" + lastEmaShortYesterday +
+                ", preLastEmaShortYesterday=" + preLastEmaShortYesterday +
+                ", lastEmaSignalYesterday=" + lastEmaSignalYesterday +
+                ", preLastEmaSignalYesterday=" + preLastEmaSignalYesterday +
+                ", lastMacdHistogram=" + lastMacdHistogram +
+                ", preLastMacdHistogram=" + preLastMacdHistogram +
+                '}';
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public Long getOrderId() {
+        return orderId;
     }
 }

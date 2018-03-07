@@ -16,8 +16,6 @@ public class DateUtilTest {
 
         String candlePeriod = "1m";
 
-
-
         Calendar roundedCalendar = new GregorianCalendar();
         roundedCalendar.setTime(new Date());
 

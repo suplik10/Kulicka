@@ -54,7 +54,7 @@ public class Macd {
             lastKlinesPrices.add((float) kline.getClose());
         }
 
-        TradingData tradingData = MathUtil.getTradingData(lastKlinesPrices, 12,26,9, 0, 0 ,0 );
+        TradingData tradingData = MathUtil.getTradingData("Symbol", null, lastKlinesPrices, 12,26,9, 0, 0 ,0 );
 
         ArrayList<ChartKline> chartKlines = new ArrayList<>();
 

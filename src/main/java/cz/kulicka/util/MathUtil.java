@@ -19,10 +19,10 @@ public class MathUtil {
     //    http://www.iexplain.org/ema-how-to-calculate/.
     //    https://www.investujeme.cz/clanky/macd-temer-svaty-gral/
     //    https://www.binance.com/api/v1/klines?symbol=BNBUSDT&interval=1h&limit=500
-    public static TradingData getTradingData(ArrayList<Float> candlestickData, float emaShortDays, float emaLongDays, float signalDays, float emaShortYesterday, float emaLongYesterday, float emaSignalYesterday) {
+    public static TradingData getTradingData(String symbol, Long orderId, ArrayList<Float> candlestickData, float emaShortDays, float emaLongDays, float signalDays, float emaShortYesterday, float emaLongYesterday, float emaSignalYesterday) {
         Validate.notEmpty(candlestickData);
 
-        TradingData tradingData = new TradingData();
+        TradingData tradingData = new TradingData(symbol, orderId);
 
         tradingData.setEmaShort(getEmaFrom(candlestickData, emaShortDays, emaShortYesterday));
         tradingData.setEmaLong(getEmaFrom(candlestickData, emaLongDays, emaLongYesterday));

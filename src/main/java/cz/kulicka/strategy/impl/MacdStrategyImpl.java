@@ -1,6 +1,6 @@
 package cz.kulicka.strategy.impl;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Iterables;
 import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.entity.*;
 import cz.kulicka.service.BinanceApiService;
@@ -34,21 +34,26 @@ public class MacdStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
+    public boolean buy(Ticker ticker, double actualBTCUSDT) {
 
-        for (Order order : activeOrders) {
-            if (ticker.getSymbol().equals(order.getSymbol())) {
-                return false;
-            }
+        if (orderService.getAllActiveBySymbol(ticker.getSymbol()).size() > 0) {
+            log.debug("Already bought ticker symbol: " + ticker.getSymbol());
+            return false;
         }
+
+        log.debug("Try to make order for ticker symbol: " + ticker.getSymbol());
 
         TradingData tradingData = getTradingDataHistorical(ticker.getSymbol());
 
+        log.debug(tradingData.toString());
+
         // order ??
         if (tradingData.getPreLastMacdHistogram() <= 0 && tradingData.getLastMacdHistogram() > 0) {
+            log.debug("Make order for symbol: " + ticker.getSymbol());
 
             double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice());
             double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
+
             Order newOrder = new Order(ticker.getSymbol(), DateTimeUtils.getCurrentServerDate().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
                     propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC);
             newOrder.setActive(true);
@@ -58,7 +63,8 @@ public class MacdStrategyImpl implements OrderStrategy {
 
             ArrayList<Float> macdList = new ArrayList<>();
             macdList.add(tradingData.getPreLastMacdHistogram());
-            macdList.add(tradingData.getLastMacdHistogram());
+            //add only finished histogram candle
+            //macdList.add(tradingData.getLastMacdHistogram());
 
             MacdIndicator macdIndicator = new MacdIndicator();
             macdIndicator.setBuyTime(orderWithId.getBuyTime());
@@ -66,9 +72,12 @@ public class MacdStrategyImpl implements OrderStrategy {
             macdIndicator.setOrderId(orderWithId.getId());
             macdIndicator.setMacdBuy(tradingData.getLastMacdHistogram());
             macdIndicator.setSymbol(orderWithId.getSymbol());
-            macdIndicator.setEmaLongYesterday(tradingData.getEmaLongYesterday());
-            macdIndicator.setEmaShortYesterday(tradingData.getEmaShortYesterday());
-            macdIndicator.setEmaSignalYesterday(tradingData.getEmaSignalYesterday());
+            //add only finished histogram candle data
+            macdIndicator.setEmaLongYesterday(tradingData.getPrelastEmaLongYesterday());
+            macdIndicator.setEmaShortYesterday(tradingData.getPreLastEmaShortYesterday());
+            macdIndicator.setEmaSignalYesterday(tradingData.getPreLastEmaSignalYesterday());
+
+            log.debug(macdIndicator.toString());
 
             macdIndicatorService.create(macdIndicator);
 
@@ -79,24 +88,39 @@ public class MacdStrategyImpl implements OrderStrategy {
 
     @Override
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
+
+        log.debug("Sell order: " + order.toString());
+
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
         List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2);
 
+        ArrayList<Float> lastPrices = new ArrayList<>();
+
+        for (Candlestick candlestick : candlesticks) {
+            lastPrices.add(Float.parseFloat(candlestick.getClose()));
+        }
+
         MacdIndicator macdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(order.getId());
 
-        TradingData tradingData = MathUtil.getTradingData(Lists.newArrayList(Float.parseFloat(candlesticks.get(0).getClose())),
+        log.debug(macdIndicator.toString());
+
+        TradingData tradingData = MathUtil.getTradingData(order.getSymbol(), order.getId(), lastPrices,
                 propertyPlaceholder.getEmaShortConstant(), propertyPlaceholder.getEmaLongConstant(), propertyPlaceholder.getEmaSignalConstant(),
                 macdIndicator.getEmaShortYesterday(), macdIndicator.getEmaLongYesterday(), macdIndicator.getEmaSignalYesterday());
 
-        macdIndicator.setEmaShortYesterday(tradingData.getEmaShortYesterday());
-        macdIndicator.setEmaLongYesterday(tradingData.getEmaLongYesterday());
-        macdIndicator.setEmaSignalYesterday(tradingData.getEmaSignalYesterday());
-        macdIndicator.getMacdList().add(tradingData.getLastMacdHistogram());
+        log.debug(tradingData.toString());
+
+        macdIndicator.setEmaShortYesterday(tradingData.getPreLastEmaShortYesterday());
+        macdIndicator.setEmaLongYesterday(tradingData.getPrelastEmaLongYesterday());
+        macdIndicator.setEmaSignalYesterday(tradingData.getPreLastEmaSignalYesterday());
+        macdIndicator.getMacdList().add(tradingData.getPreLastMacdHistogram());
         macdIndicatorService.update(macdIndicator);
 
+        log.debug(macdIndicator.toString());
+
         log.info("Sell? Symbol: " + order.getSymbol() + ", percentageProfit: " + String.format("%.9f", actualPercentageProfit) + " %  == "
-                + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ MACDHistoLast " + String.format("%.9f", tradingData.getLastMacdHistogram()));
+                + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ MACDHistoLast-open " + String.format("%.9f", tradingData.getLastMacdHistogram()));
 
         order.setPercentageProfitFeeIncluded(actualPercentageProfit);
 
@@ -104,15 +128,23 @@ public class MacdStrategyImpl implements OrderStrategy {
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
             order.setSellReason(0);
             return true;
-        } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() || tradingData.getLastMacdHistogram() < 0) {
+        } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
 
-            if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getLastMacdHistogram() < 0)) {
+            if (tradingData.getLastMacdHistogram() > 0) {
+                log.info("HODL over last macd was red, but last open macd is green - protect rebuy");
+                log.info("Percengate profit: " + actualPercentageProfit);
+                log.info("Pre last macd - closed: " + tradingData.getPreLastMacdHistogram());
+                return false;
+            }
+
+            if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
                 log.info("PANIC SELL!!! - STOPLOSS");
                 order.setSellReason(1);
             } else {
                 log.info("PANIC SELL!!! - MACD");
                 order.setSellReason(2);
             }
+
             return true;
         } else {
             //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
@@ -121,7 +153,7 @@ public class MacdStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
+    public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
         if (actualPercentageProfit > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
@@ -129,12 +161,12 @@ public class MacdStrategyImpl implements OrderStrategy {
             order.setPercentageProfitFeeIncluded(actualPercentageProfit);
             order.setSellReason(3);
             return true;
-        } else if(actualPercentageProfit < propertyPlaceholder.getStopLossPercentage()) {
+        } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage()) {
             log.info("INSTA SELL!!! - STOPLOSS");
             order.setPercentageProfitFeeIncluded(actualPercentageProfit);
             order.setSellReason(4);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -153,7 +185,7 @@ public class MacdStrategyImpl implements OrderStrategy {
             lastPrices.add(Float.parseFloat(candlestick.getClose()));
         }
 
-        return MathUtil.getTradingData(lastPrices, propertyPlaceholder.getEmaShortConstant(), propertyPlaceholder.getEmaLongConstant(), propertyPlaceholder.getEmaSignalConstant(),
+        return MathUtil.getTradingData(symbol, null, lastPrices, propertyPlaceholder.getEmaShortConstant(), propertyPlaceholder.getEmaLongConstant(), propertyPlaceholder.getEmaSignalConstant(),
                 0, 0, 0);
     }
 }

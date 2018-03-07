@@ -41,7 +41,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean buy(Ticker ticker, List<Order> activeOrders, double actualBTCUSDT) {
+    public boolean buy(Ticker ticker, double actualBTCUSDT) {
         return false;
     }
 
@@ -57,7 +57,7 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
+    public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
         return false;
     }
 

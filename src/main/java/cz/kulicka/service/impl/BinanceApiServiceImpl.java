@@ -1,5 +1,6 @@
 package cz.kulicka.service.impl;
 
+import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.*;
 import cz.kulicka.entity.request.CancelOrderRequest;
@@ -8,6 +9,7 @@ import cz.kulicka.repository.TickerRepository;
 import cz.kulicka.rest.client.BinanceApiRestClient;
 import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.util.CommonUtil;
+import javafx.beans.property.Property;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class BinanceApiServiceImpl implements BinanceApiService {
     @Autowired
     BinanceApiRestClient client;
 
+    @Autowired
+    PropertyPlaceholder propertyPlaceholder;
+
     @Override
     public Long getServerTime() {
         return client.getServerTime();
@@ -42,7 +47,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
             tickerRepository.deleteAll();
             for (int i = 0; i < newBookTickers.size(); i++) {
                 if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol())) {
+                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), propertyPlaceholder.getWhiteListCoins())) {
                         Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
                         newCurrencies.add(ticker);
                         tickersDB.add(ticker);

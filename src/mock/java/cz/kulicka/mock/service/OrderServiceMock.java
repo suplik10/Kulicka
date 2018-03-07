@@ -33,6 +33,11 @@ public class OrderServiceMock implements OrderService {
     }
 
     @Override
+    public List<Order> getAllActiveBySymbol(String symbol) {
+        return null;
+    }
+
+    @Override
     public List<Order> getAllInActive() {
         return null;
     }

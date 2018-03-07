@@ -117,4 +117,19 @@ public class MacdIndicator {
     public void setEmaSignalYesterday(float emaSignalYesterday) {
         this.emaSignalYesterday = emaSignalYesterday;
     }
+
+    @Override
+    public String toString() {
+        return "MacdIndicator{" +
+                "orderId=" + orderId +
+                ", symbol='" + symbol + '\'' +
+                ", buyTime=" + buyTime +
+                ", sellTime=" + sellTime +
+                ", macdBuy=" + macdBuy +
+                ", macdSell=" + macdSell +
+                ", emaShortYesterday=" + emaShortYesterday +
+                ", emaLongYesterday=" + emaLongYesterday +
+                ", emaSignalYesterday=" + emaSignalYesterday +
+                '}';
+    }
 }

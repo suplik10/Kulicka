@@ -59,7 +59,6 @@ public class CoreEngine {
 
     public void scanCurrenciesAndMakeNewOrders() {
         ArrayList<Ticker> newCurrencies = new ArrayList<>();
-        List<Order> activeOrders = (List<Order>) orderRepository.findAllByActiveTrue();
         ArrayList<Ticker> currencies;
         log.info("SCAN START!");
 
@@ -69,9 +68,9 @@ public class CoreEngine {
         if (currencies != null) {
             for (int i = 0; i < currencies.size(); i++) {
                 //Buy???
-                if (orderStrategyContext.buy(currencies.get(i), activeOrders, actualBTCUSDT)) {
+                if (orderStrategyContext.buy(currencies.get(i), actualBTCUSDT)) {
                     //TODO handle that!
-                    log.debug("buy no!");
+                    log.debug("buy now!");
                 }
             }
 
@@ -114,6 +113,7 @@ public class CoreEngine {
             }
             orderService.saveAll(activeOrders);
         }
+        log.info("Handle orders finished!");
 
         if (checkProfits) {
             checkProfits();

@@ -41,6 +41,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllActiveBySymbol(String symbol) {
+        return (List<Order>) orderRepository.findAllByActiveTrueAndSymbolEquals(symbol);
+    }
+
+    @Override
     public List<Order> getAllInActive() {
         return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
     }
