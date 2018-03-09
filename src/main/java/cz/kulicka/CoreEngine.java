@@ -63,6 +63,8 @@ public class CoreEngine {
         log.info("SCAN START!");
 
         currencies = binanceApiService.checkActualCurrencies(newCurrencies);
+        log.debug("Number of currencies: " + currencies.size());
+
         double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
 
         if (currencies != null) {

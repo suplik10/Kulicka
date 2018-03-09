@@ -47,7 +47,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
             tickerRepository.deleteAll();
             for (int i = 0; i < newBookTickers.size(); i++) {
                 if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), propertyPlaceholder.getWhiteListCoins())) {
+                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), propertyPlaceholder.getWhiteListCoins(), propertyPlaceholder.isIgnoreWhitelist())) {
                         Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
                         newCurrencies.add(ticker);
                         tickersDB.add(ticker);

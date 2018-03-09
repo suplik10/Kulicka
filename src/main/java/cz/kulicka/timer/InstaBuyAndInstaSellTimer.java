@@ -12,25 +12,29 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
     static Logger log = Logger.getLogger(InstaBuyAndInstaSellTimer.class);
 
     private CoreEngine coreEngine;
+    private int iteration = 0;
+    private int candlestickPeriod;
 
-    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine) {
+    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine, int candlestickPeriod) {
         super();
         this.coreEngine = coreEngine;
+        this.candlestickPeriod = candlestickPeriod;
     }
 
     @Override
     public void run() {
         try {
-
-
             Calendar calendar = Calendar.getInstance();
             int minutes = calendar.get(Calendar.MINUTE);
 
-            if(minutes > 8 && minutes < 55){
-                log.info("------ TIMER STARTS INSTA BUY&SELL ------");
+            if(8 < minutes && minutes < 55){
+                iteration++;
+                log.info("------ TIMER INSTA BUY&SELL - START " + iteration + " ------");
                 coreEngine.scanCurrenciesAndMakeNewOrders();
                 coreEngine.handleActiveOrders(true);
+                log.info("------ TIMER INSTA BUY&SELL - END " + iteration + " ------");
             }
+
         } catch (BinanceApiException e) {
             log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
         }

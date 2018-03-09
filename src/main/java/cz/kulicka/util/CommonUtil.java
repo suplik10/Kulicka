@@ -1,8 +1,6 @@
 package cz.kulicka.util;
 
-import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Ticker;
-import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 
@@ -13,23 +11,37 @@ public class CommonUtil {
 
     static Logger log = Logger.getLogger(CommonUtil.class);
 
-    public static boolean addTickerToDBList(ArrayList<Ticker> DBList, String newSymbol, List<String> whiteList) {
+    public static boolean addTickerToDBList(ArrayList<Ticker> DBList, String newSymbol, List<String> whiteList, boolean ignoreWhitelist) {
         Validate.notNull(newSymbol);
+        Validate.notNull(whiteList);
 
-        if(DBList == null){
+        boolean foundAtWhitelist = false;
+
+        if (DBList == null) {
             DBList = new ArrayList<>();
         }
-        //TODO white list from properties
-        //for (int i = 0; i < CurrenciesConstants.BLACK_LIST.size(); i++) {
-          //  if(symbolToFind.contains(CurrenciesConstants.BLACK_LIST.get(i))){
-            //    return false;
-            //}
-        //}
 
-        for (int y = 0; y < DBList.size(); y++) {
-            if(DBList.get(y).getSymbol().equals(newSymbol))
+        if (!ignoreWhitelist) {
+            for (String whiteListSymbol : whiteList) {
+                if (newSymbol.contains(whiteListSymbol)) {
+                    foundAtWhitelist = true;
+                    break;
+                }
+            }
+
+            if (!foundAtWhitelist) {
+                return false;
+            }
+        }
+
+        log.trace("FoundAtWhitelist symbol: " + newSymbol);
+
+        for (Ticker ticker : DBList) {
+            if (ticker.getSymbol().equals(newSymbol))
                 return false;
         }
+
+        log.trace("Save to db symbol: " + newSymbol);
         return true;
     }
 }

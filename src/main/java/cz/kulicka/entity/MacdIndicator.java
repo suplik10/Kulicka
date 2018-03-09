@@ -130,6 +130,7 @@ public class MacdIndicator {
                 ", emaShortYesterday=" + emaShortYesterday +
                 ", emaLongYesterday=" + emaLongYesterday +
                 ", emaSignalYesterday=" + emaSignalYesterday +
+                ", macdList=" + macdList.toString() +
                 '}';
     }
 }
