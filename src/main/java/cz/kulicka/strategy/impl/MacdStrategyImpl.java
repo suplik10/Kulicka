@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MacdStrategyImpl implements OrderStrategy {
 
-    static Logger log = Logger.getLogger(SecondDumbStrategyImpl.class);
+    static Logger log = Logger.getLogger(MacdStrategyImpl.class);
 
     private BinanceApiService binanceApiService;
 
@@ -130,7 +130,7 @@ public class MacdStrategyImpl implements OrderStrategy {
             return true;
         } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
 
-            if (tradingData.getLastMacdHistogram() > 0) {
+            if (tradingData.getLastMacdHistogram() > 0 && tradingData.getPreLastMacdHistogram() < 0) {
                 log.info("HODL over last macd was red, but last open macd is green - protect rebuy");
                 log.info("Percengate profit: " + actualPercentageProfit);
                 log.info("Pre last macd - closed: " + tradingData.getPreLastMacdHistogram());

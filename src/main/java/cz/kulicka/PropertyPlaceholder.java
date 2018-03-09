@@ -53,6 +53,9 @@ public class PropertyPlaceholder {
     @Value("${app.csv.report.file.path}")
     private String csvReportFilePath;
 
+    @Value("${app.exchange.coins.whitelist.ignore}")
+    private boolean ignoreWhitelist;
+
     @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
     private List<String> whiteListCoins;
 
@@ -118,5 +121,9 @@ public class PropertyPlaceholder {
 
     public List<String> getWhiteListCoins() {
         return whiteListCoins;
+    }
+
+    public boolean isIgnoreWhitelist() {
+        return ignoreWhitelist;
     }
 }

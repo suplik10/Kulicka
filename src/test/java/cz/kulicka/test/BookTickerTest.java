@@ -37,7 +37,7 @@ public class BookTickerTest {
 
             for (int i = 0; i < result.size(); i++) {
                 if (result.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if (CommonUtil.addTickerToDBList(tickersDB, result.get(i).getSymbol(), null)) {
+                    if (CommonUtil.addTickerToDBList(tickersDB, result.get(i).getSymbol(), null, true)) {
                         Ticker ticker = new Ticker(result.get(i).getSymbol());
                         newCur.add(ticker);
                         tickersDB.add(ticker);

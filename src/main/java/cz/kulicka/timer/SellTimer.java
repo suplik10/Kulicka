@@ -11,26 +11,24 @@ public class SellTimer extends TimerTask {
     static Logger log = Logger.getLogger(SellTimer.class);
 
     private CoreEngine coreEngine;
+    private int iteration = 0;
+    private int candlestickPeriod;
 
-    public SellTimer(CoreEngine coreEngine) {
+    public SellTimer(CoreEngine coreEngine, int candlestickPeriod) {
         super();
         this.coreEngine = coreEngine;
+        this.candlestickPeriod = candlestickPeriod;
     }
 
     @Override
     public void run() {
         try {
-            log.info("------ TIMER STARTS SELL TIMER ------");
-           // if(!coreEngine.isTimerLock()){
-             //   log.info("------ SELL TIMER LOCKED THREAD------");
-             //   coreEngine.setTimerLock(true);
-                //IN THIS STEP VALIDATE ALL BOUGHT ORDERS BY INSTA BUY
-                coreEngine.handleActiveOrders(false);
-              //  coreEngine.setTimerLock(false);
-               // log.info("------ SELL TIMER UNLOCKED THREAD------");
-           // }
+            iteration++;
+            log.info("------ TIMER SELL - START " + iteration + " ------");
+            coreEngine.handleActiveOrders(false);
+            log.info("------ TIMER SELL - END " + iteration + " ------");
         } catch (BinanceApiException e) {
-            log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
+            log.error("BINANCE API EXCEPTION !!! iteration: " + iteration + " exception: " + e.getMessage());
         }
     }
 }
