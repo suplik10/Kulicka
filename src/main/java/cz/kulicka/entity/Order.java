@@ -14,6 +14,7 @@ public class Order {
     private double buyPriceForUnit;
     private double buyPriceBTCForUnit;
     private double sellPriceBTCForUnit;
+    private double percentageProfitBTCForUnitWithoutFee;
     private double steppedBuyPriceForOrderWithFee;
     private double buyPriceForOrder;
     private double buyPriceForOrderWithFee;
@@ -232,16 +233,23 @@ public class Order {
         this.sellPriceBTCForUnit = sellPriceBTCForUnit;
     }
 
+    public double getPercentageProfitBTCForUnitWithoutFee() {
+        return percentageProfitBTCForUnitWithoutFee;
+    }
+
+    public void setPercentageProfitBTCForUnitWithoutFee(double percentageProfitBTCForUnitWithoutFee) {
+        this.percentageProfitBTCForUnitWithoutFee = percentageProfitBTCForUnitWithoutFee;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
-                "id='" + id + '\'' +
-                ", symbol='" + symbol +
-                ", buyPriceOrderFee=" + String.format("%.9f", buyPriceForOrderWithFee) +
-                ", sellPriceOrderFee=" + String.format("%.9f", sellPriceForOrderWithFee) +
-                ", profitFee=" + String.format("%.9f", profitFeeIncluded) +
-                ", percentageProfitFee=" + String.format("%.9f", percentageProfitFeeIncluded) +
-                ", sellReason=" + sellReason +
-                '}';
+                "id=" + id +
+                ", symbol='" + symbol + '\'' +
+                ", buyPriceBTCForUnit=" + String.format("%.9f",buyPriceBTCForUnit) +
+                ", sellPriceBTCForUnit=" + String.format("%.9f",sellPriceBTCForUnit) +
+                ", ProfitBTCForUnitWithoutFee=" + String.format("%.3f", percentageProfitBTCForUnitWithoutFee) +
+                " %, ProfitFeeIncluded=" + String.format("%.3f",percentageProfitFeeIncluded) +
+                " % }";
     }
 }

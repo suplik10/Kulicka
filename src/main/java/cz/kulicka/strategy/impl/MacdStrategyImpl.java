@@ -1,6 +1,5 @@
 package cz.kulicka.strategy.impl;
 
-import com.google.common.collect.Iterables;
 import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.entity.*;
 import cz.kulicka.service.BinanceApiService;
@@ -92,6 +91,8 @@ public class MacdStrategyImpl implements OrderStrategy {
         log.debug("Sell order: " + order.toString());
 
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+        double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
+        double actualPercentageProfitBTC = MathUtil.getPercentageProfit(order.getBuyPriceBTCForUnit(), lastPriceBTC);
 
         List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2);
 
@@ -123,21 +124,22 @@ public class MacdStrategyImpl implements OrderStrategy {
                 + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ MACDHistoLast-open " + String.format("%.9f", tradingData.getLastMacdHistogram()));
 
         order.setPercentageProfitFeeIncluded(actualPercentageProfit);
+        order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
 
-        if (actualPercentageProfit > propertyPlaceholder.getTakeProfitPercentage()) {
+        if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
             log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
             order.setSellReason(0);
             return true;
-        } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
+        } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
 
             if (tradingData.getLastMacdHistogram() > 0 && tradingData.getPreLastMacdHistogram() < 0) {
                 log.info("HODL over last macd was red, but last open macd is green - protect rebuy");
-                log.info("Percengate profit: " + actualPercentageProfit);
+                log.info("Percengate profit BTC: " + actualPercentageProfitBTC);
                 log.info("Pre last macd - closed: " + tradingData.getPreLastMacdHistogram());
                 return false;
             }
 
-            if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
+            if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
                 log.info("PANIC SELL!!! - STOPLOSS");
                 order.setSellReason(1);
             } else {
@@ -154,16 +156,20 @@ public class MacdStrategyImpl implements OrderStrategy {
 
     @Override
     public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
+        double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
+        double actualPercentageProfitBTC = MathUtil.getPercentageProfit(order.getBuyPriceBTCForUnit(), lastPriceBTC);
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
 
-        if (actualPercentageProfit > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
+        if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
             log.info("INSTA SELL!!! - TAKE PROFIT");
             order.setPercentageProfitFeeIncluded(actualPercentageProfit);
+            order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
             order.setSellReason(3);
             return true;
-        } else if (actualPercentageProfit < propertyPlaceholder.getStopLossPercentage()) {
+        } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage()) {
             log.info("INSTA SELL!!! - STOPLOSS");
             order.setPercentageProfitFeeIncluded(actualPercentageProfit);
+            order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
             order.setSellReason(4);
             return true;
         } else {

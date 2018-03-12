@@ -23,7 +23,7 @@ public class CommonUtil {
 
         if (!ignoreWhitelist) {
             for (String whiteListSymbol : whiteList) {
-                if (newSymbol.contains(whiteListSymbol)) {
+                if (newSymbol.equals(whiteListSymbol)) {
                     foundAtWhitelist = true;
                     break;
                 }
