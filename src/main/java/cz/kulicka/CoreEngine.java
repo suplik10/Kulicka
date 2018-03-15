@@ -67,16 +67,19 @@ public class CoreEngine {
 
         double actualBTCUSDT = Double.parseDouble(binanceApiService.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
 
-        if (currencies != null) {
-            for (int i = 0; i < currencies.size(); i++) {
-                //Buy???
-                if (orderStrategyContext.buy(currencies.get(i), actualBTCUSDT)) {
-                    //TODO handle that!
-                    log.debug("buy now!");
-                }
+        for (Ticker currencyTicker : currencies) {
+            //Buy???
+            if (orderStrategyContext.buy(currencyTicker, actualBTCUSDT)) {
+                //TODO handle that!
+                log.debug("buy now!");
             }
 
+            if (propertyPlaceholder.isStopLossProtection()) {
+                orderStrategyContext.rebuyStopLossProtection(currencyTicker, actualBTCUSDT);
+            }
         }
+
+
         log.info("SCAN COMPLETE!");
     }
 
@@ -86,7 +89,7 @@ public class CoreEngine {
         boolean endOrder;
         boolean checkProfits = false;
 
-        log.info("Handle orders start > " + activeOrders.size() + " active orders");
+        log.info("Handle ACTIVE orders start > " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
             //Sell by strategy?
@@ -120,6 +123,21 @@ public class CoreEngine {
         if (checkProfits) {
             checkProfits();
         }
+    }
+
+    public void handleOpenOrders(){
+        List<Order> activeOrders = orderService.getAllOpenButNotActive();
+
+        log.info("Handle OPEN orders start > " + activeOrders.size() + " active orders");
+
+        for (Order order : activeOrders) {
+            if(orderStrategyContext.closeNonActiveOpenOrder(order)){
+                log.debug("Close order id: " + order.getId() + " symbol: " + order.getSymbol());
+                order.setOpen(false);
+            }
+        }
+
+        orderService.saveAll(activeOrders);
     }
 
     public void checkProfits() {

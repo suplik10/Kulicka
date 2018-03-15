@@ -53,6 +53,11 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
+    public boolean rebuyStopLossProtection(Ticker ticker, double actualBTCUSDT) {
+        return false;
+    }
+
+    @Override
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
 
         double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
@@ -74,6 +79,11 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
             //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
             return false;
         }
+    }
+
+    @Override
+    public boolean closeNonActiveOpenOrder(Order order) {
+        return false;
     }
 
     @Override

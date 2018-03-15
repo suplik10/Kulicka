@@ -7,7 +7,6 @@ import cz.kulicka.strategy.impl.MacdStrategyImpl;
 import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
 import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import cz.kulicka.timer.SellTimer;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,8 +47,8 @@ public class ExchangeCommandCenter {
         log.info("newDateForInstaSellInstaBuyTimer : " + newDateForInstaSellInstaBuyTimer);
 
         Timer instaBuyTimer = new Timer();
-        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod())), newDateForInstaSellInstaBuyTimer,
-                TimeUnit.MINUTES.toMillis(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()));
+        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod()), propertyPlaceholder.isStopLossProtection())
+                , newDateForInstaSellInstaBuyTimer, TimeUnit.MINUTES.toMillis(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()));
 
         //Sell Timer
         Calendar calendar = roundCalendarToMinutes(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod()));

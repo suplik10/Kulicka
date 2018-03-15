@@ -10,10 +10,12 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long parentId;
     private String symbol;
     private double buyPriceForUnit;
     private double buyPriceBTCForUnit;
     private double sellPriceBTCForUnit;
+    private double stopLossPriceValue;
     private double percentageProfitBTCForUnitWithoutFee;
     private double steppedBuyPriceForOrderWithFee;
     private double buyPriceForOrder;
@@ -23,6 +25,7 @@ public class Order {
     private double sellAmount;
     private double sellPriceForOrderWithFee;
     private boolean active;
+    private boolean open;
     private int riskValue;
     private double profitFeeIncluded;
     private double percentageProfitFeeIncluded;
@@ -33,12 +36,13 @@ public class Order {
     private double sellFee;
     private double sellFeeConstant;
     private int sellReason;
+    private int buyReason;
 
 
     public Order() {
     }
 
-    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant, double buyPriceBTCForUnit) {
+    public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant, double buyPriceBTCForUnit, int buyReason) {
         this.symbol = symbol;
         this.buyPriceForOrder = buyPriceForOrder;
         this.buyFee = (buyPriceForOrder * (buyFeeConstant / 100));
@@ -51,7 +55,33 @@ public class Order {
         this.steppedBuyPriceForOrderWithFee = buyPriceForOrderWithFee;
         this.buyTime = buyTime;
         this.buyPriceBTCForUnit = buyPriceBTCForUnit;
+        this.buyReason = buyReason;
     }
+
+    //Copy constructor
+//    public Order(Order originalOrder) {
+//        this.id = null;
+//        this.parentId = originalOrder.getId();
+//        this.symbol = originalOrder.getSymbol();
+//        this.buyPriceForOrder = originalOrder.getBuyPriceForOrder();
+//        this.buyPriceForOrderWithFee = originalOrder.getBuyPriceForOrderWithFee();
+//        this.orderSumPriceInBoughtCurrencyWithFee;
+//        this.boughtAmount;
+//        this.sellAmount;
+//        this.sellPriceForOrderWithFee;
+//        this.active;
+//        this.open;
+//        this.riskValue;
+//        this.profitFeeIncluded;
+//        this.percentageProfitFeeIncluded;
+//        this.buyTime;
+//        this.sellTime;
+//        this.buyFee;
+//        this.buyFeeConstant;
+//        this.sellFee;
+//        this.sellFeeConstant;
+//        this.sellReason;
+//    }
 
     public double getBoughtAmount() {
         return boughtAmount;
@@ -239,6 +269,38 @@ public class Order {
 
     public void setPercentageProfitBTCForUnitWithoutFee(double percentageProfitBTCForUnitWithoutFee) {
         this.percentageProfitBTCForUnitWithoutFee = percentageProfitBTCForUnitWithoutFee;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public double getStopLossPriceValue() {
+        return stopLossPriceValue;
+    }
+
+    public int getBuyReason() {
+        return buyReason;
+    }
+
+    public void setBuyReason(int buyReason) {
+        this.buyReason = buyReason;
+    }
+
+    public void setStopLossPriceValue(double stopLossPriceValue) {
+        this.stopLossPriceValue = stopLossPriceValue;
     }
 
     @Override

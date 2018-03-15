@@ -16,6 +16,14 @@ public interface OrderService {
 
     List<Order> getAllActiveBySymbol(String symbol);
 
+    List<Order> getAllOpenBySymbol(String symbol);
+
+    List<Order> getAllOpenButNotActive();
+
+    List<Order> getAllActiveButNotOpenBySymbol(String symbol);
+
+    List<Order> getAllOpenButNotActiveBySymbol(String symbol);
+
     List<Order> getAllInActive();
 
     void update(Order order);

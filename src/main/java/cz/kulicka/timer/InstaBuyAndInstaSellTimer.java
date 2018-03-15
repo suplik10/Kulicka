@@ -14,11 +14,13 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
     private CoreEngine coreEngine;
     private int iteration = 0;
     private int candlestickPeriod;
+    private boolean stopLossProtection;
 
-    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine, int candlestickPeriod) {
+    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine, int candlestickPeriod, boolean stopLossProtection) {
         super();
         this.coreEngine = coreEngine;
         this.candlestickPeriod = candlestickPeriod;
+        this.stopLossProtection = stopLossProtection;
     }
 
     @Override
@@ -32,6 +34,11 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
                 log.info("------ TIMER INSTA BUY&SELL - START " + iteration + " ------");
                 coreEngine.scanCurrenciesAndMakeNewOrders();
                 coreEngine.handleActiveOrders(true);
+
+                if(stopLossProtection) {
+                    coreEngine.handleOpenOrders();
+                }
+
                 log.info("------ TIMER INSTA BUY&SELL - END " + iteration + " ------");
             }
 

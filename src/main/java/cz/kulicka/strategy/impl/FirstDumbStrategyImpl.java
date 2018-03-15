@@ -46,6 +46,11 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
+    public boolean rebuyStopLossProtection(Ticker ticker, double actualBTCUSDT) {
+        return false;
+    }
+
+    @Override
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         if (order.getRiskValue() > 1) {
             order.setRiskValue(order.getRiskValue() - 1);
@@ -54,6 +59,11 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean closeNonActiveOpenOrder(Order order) {
+        return false;
     }
 
     @Override

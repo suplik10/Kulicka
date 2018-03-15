@@ -38,6 +38,26 @@ public class OrderServiceMock implements OrderService {
     }
 
     @Override
+    public List<Order> getAllOpenBySymbol(String symbol) {
+        return null;
+    }
+
+    @Override
+    public List<Order> getAllOpenButNotActive() {
+        return null;
+    }
+
+    @Override
+    public List<Order> getAllActiveButNotOpenBySymbol(String symbol) {
+        return null;
+    }
+
+    @Override
+    public List<Order> getAllOpenButNotActiveBySymbol(String symbol) {
+        return null;
+    }
+
+    @Override
     public List<Order> getAllInActive() {
         return null;
     }

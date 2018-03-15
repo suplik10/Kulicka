@@ -1,5 +1,7 @@
 package cz.kulicka.entity;
 
+import com.google.common.collect.Iterables;
+
 import java.util.ArrayList;
 
 public class TradingData {
@@ -66,25 +68,36 @@ public class TradingData {
     }
 
     public void updateFields() {
-        this.lastEmaLongYesterday = emaLong.get(emaLong.size() - 1);
+        if(emaLong != null){
+            this.lastEmaLongYesterday = emaLong.get(emaLong.size() - 1);
 
-        if (emaLong.size() > 1) {
-            this.prelastEmaLongYesterday = emaLong.get(emaLong.size() - 2);
+            if (emaLong.size() > 1) {
+                this.prelastEmaLongYesterday = emaLong.get(emaLong.size() - 2);
+            }
         }
-        this.lastEmaShortYesterday = emaShort.get(emaShort.size() - 1);
 
-        if (emaShort.size() > 1) {
-            this.preLastEmaShortYesterday = emaShort.get(emaShort.size() - 2);
+        if(emaShort != null) {
+            this.lastEmaShortYesterday = emaShort.get(emaShort.size() - 1);
+
+            if (emaShort.size() > 1) {
+                this.preLastEmaShortYesterday = emaShort.get(emaShort.size() - 2);
+            }
         }
-        this.lastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 1);
 
-        if (emaSignal.size() > 1) {
-            this.preLastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 2);
+        if(emaSignal != null) {
+            this.lastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 1);
+
+            if (emaSignal.size() > 1) {
+                this.preLastEmaSignalYesterday = emaSignal.get(emaSignal.size() - 2);
+            }
         }
-        this.lastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 1);
 
-        if (MACDHistogram.size() > 1) {
-            this.preLastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 2);
+        if(MACDHistogram != null) {
+            this.lastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 1);
+
+            if (MACDHistogram.size() > 1) {
+                this.preLastMacdHistogram = MACDHistogram.get(MACDHistogram.size() - 2);
+            }
         }
     }
 

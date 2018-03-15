@@ -19,21 +19,19 @@ public class MathUtil {
     //    http://www.iexplain.org/ema-how-to-calculate/.
     //    https://www.investujeme.cz/clanky/macd-temer-svaty-gral/
     //    https://www.binance.com/api/v1/klines?symbol=BNBUSDT&interval=1h&limit=500
-    public static TradingData getTradingData(String symbol, Long orderId, ArrayList<Float> candlestickData, float emaShortDays, float emaLongDays, float signalDays, float emaShortYesterday, float emaLongYesterday, float emaSignalYesterday) {
-        Validate.notEmpty(candlestickData);
 
-        TradingData tradingData = new TradingData(symbol, orderId);
+    public static TradingData getTradingData(String symbol, Long orderId, ArrayList<Float> candlestickData, float emaShortDays, float emaLongDays,
+                                             float signalDays, float emaShortYesterday, float emaLongYesterday, float emaSignalYesterday) {
 
-        tradingData.setEmaShort(getEmaFrom(candlestickData, emaShortDays, emaShortYesterday));
-        tradingData.setEmaLong(getEmaFrom(candlestickData, emaLongDays, emaLongYesterday));
+        TradingData tradingData = getEmaShortLongTradingData(symbol, orderId, candlestickData, emaShortDays, emaLongDays, emaShortYesterday, emaLongYesterday);
 
         tradingData.setMACDLine(new ArrayList<>());
 
-        for (int i = 0; tradingData.getEmaShort().size() > i; i++){
+        for (int i = 0; tradingData.getEmaShort().size() > i; i++) {
             tradingData.getMACDLine().add(tradingData.getEmaShort().get(i) - tradingData.getEmaLong().get(i));
         }
 
-        tradingData.setEmaSignal(getEmaFrom(tradingData.getMACDLine(),signalDays, emaSignalYesterday));
+        tradingData.setEmaSignal(getEmaFrom(tradingData.getMACDLine(), signalDays, emaSignalYesterday));
 
         tradingData.setMACDHistogram(new ArrayList<>());
 
@@ -72,5 +70,19 @@ public class MathUtil {
         return emaList;
     }
 
+    public static TradingData getEmaShortLongTradingData(String symbol, Long orderId, ArrayList<Float> candlestickData,
+                                                         float emaShortDays, float emaLongDays, float emaShortYesterday, float emaLongYesterday) {
+        Validate.notEmpty(candlestickData);
+
+        TradingData tradingData = new TradingData(symbol, orderId);
+
+        tradingData.setEmaShort(getEmaFrom(candlestickData, emaShortDays, emaShortYesterday));
+        tradingData.setEmaLong(getEmaFrom(candlestickData, emaLongDays, emaLongYesterday));
+
+        tradingData.updateFields();
+
+        return tradingData;
+
+    }
 
 }

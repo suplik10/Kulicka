@@ -19,6 +19,14 @@ public class OrderStrategyContext {
         return orderStrategy.buy(ticker, actualBTCUSDT);
     }
 
+    public boolean rebuyStopLossProtection(Ticker ticker, double actualBTCUSDT) {
+        return orderStrategy.rebuyStopLossProtection(ticker, actualBTCUSDT);
+    }
+
+    public boolean closeNonActiveOpenOrder(Order order) {
+        return orderStrategy.closeNonActiveOpenOrder(order);
+    }
+
     public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
         return orderStrategy.sell(order, actualSellPriceForOrderWithFee);
     }

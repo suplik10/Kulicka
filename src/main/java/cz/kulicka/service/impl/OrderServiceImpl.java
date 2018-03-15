@@ -46,6 +46,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllOpenBySymbol(String symbol) {
+        return (List<Order>) orderRepository.findAllByOpenTrueAndSymbolEquals(symbol);
+    }
+
+    @Override
+    public List<Order> getAllOpenButNotActive() {
+        return (List<Order>) orderRepository.findAllByOpenTrueAndActiveFalse();
+    }
+
+    @Override
+    public List<Order> getAllActiveButNotOpenBySymbol(String symbol) {
+        return (List<Order>) orderRepository.findAllByActiveTrueAndOpenFalseAndSymbolEquals(symbol);
+    }
+
+    @Override
+    public List<Order> getAllOpenButNotActiveBySymbol(String symbol) {
+        return (List<Order>) orderRepository.findAllByOpenTrueAndActiveFalseAndSymbolEquals(symbol);
+    }
+
+    @Override
     public List<Order> getAllInActive() {
         return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
     }

@@ -56,8 +56,26 @@ public class PropertyPlaceholder {
     @Value("${app.exchange.coins.whitelist.ignore}")
     private boolean ignoreWhitelist;
 
+    @Value("${app.strategy.stoploss.protection}")
+    private boolean stopLossProtection;
+
+    @Value("${app.strategy.ema.check.uptrend}")
+    private boolean checkUptrendEmaStrategy;
+
+    @Value("${app.strategy.ema.uptrend.ema.candlestick.period}")
+    private String emaUptrendEmaStrategyCandlestickPeriod;
+
+    @Value("${app.strategy.ema.uptrend.short.ema}")
+    private int emaUptrendEmaStrategyShortEma;
+
+    @Value("${app.strategy.ema.uptrend.long.ema}")
+    private int emaUptrendEmaStrategyLongEma;
+
     @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
     private List<String> whiteListCoins;
+
+    @Value("${app.strategy.ema.uptrend.ema.candlestick.count}")
+    private int emaUptrendEmaStrategyCandlestickCount;
 
     public int getTimeDifferenceBetweenRequestsInMinutes() {
         return timeDifferenceBetweenRequestsInMinutes;
@@ -125,5 +143,29 @@ public class PropertyPlaceholder {
 
     public boolean isIgnoreWhitelist() {
         return ignoreWhitelist;
+    }
+
+    public boolean isStopLossProtection() {
+        return stopLossProtection;
+    }
+
+    public boolean isCheckUptrendEmaStrategy() {
+        return checkUptrendEmaStrategy;
+    }
+
+    public String getEmaUptrendEmaStrategyCandlestickPeriod() {
+        return emaUptrendEmaStrategyCandlestickPeriod;
+    }
+
+    public int getEmaUptrendEmaStrategyShortEma() {
+        return emaUptrendEmaStrategyShortEma;
+    }
+
+    public int getEmaUptrendEmaStrategyLongEma() {
+        return emaUptrendEmaStrategyLongEma;
+    }
+
+    public int getEmaUptrendEmaStrategyCandlestickCount() {
+        return emaUptrendEmaStrategyCandlestickCount;
     }
 }

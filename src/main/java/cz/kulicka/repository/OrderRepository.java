@@ -9,5 +9,13 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     Iterable<Order> findAllByActiveTrueAndSymbolEquals(String symbol);
 
+    Iterable<Order> findAllByOpenTrueAndSymbolEquals(String symbol);
+
+    Iterable<Order> findAllByOpenTrueAndActiveFalse();
+
+    Iterable<Order> findAllByActiveTrueAndOpenFalseAndSymbolEquals(String symbol);
+
+    Iterable<Order> findAllByOpenTrueAndActiveFalseAndSymbolEquals(String symbol);
+
     Iterable<Order> findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
 }
