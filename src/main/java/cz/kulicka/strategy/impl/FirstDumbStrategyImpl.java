@@ -51,15 +51,11 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
-        if (order.getRiskValue() > 1) {
-            order.setRiskValue(order.getRiskValue() - 1);
-            log.info("Order resuming id: " + order.getId());
-            return false;
-        } else {
-            return true;
-        }
+    public boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC) {
+        return false;
     }
+
+
 
     @Override
     public boolean closeNonActiveOpenOrder(Order order) {
@@ -67,9 +63,10 @@ public class FirstDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
+    public boolean instaSell(Order order, double actualBTCUSDT, double lastPriceBTC) {
         return false;
     }
+
 
 
 }

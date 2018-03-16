@@ -27,11 +27,11 @@ public class OrderStrategyContext {
         return orderStrategy.closeNonActiveOpenOrder(order);
     }
 
-    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
-        return orderStrategy.sell(order, actualSellPriceForOrderWithFee);
+    public boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC) {
+        return orderStrategy.sell(order, actualBTCUSDT, lastPriceBTC);
     }
 
-    public boolean instaSellForProfit(Order order, double actualSellPriceForOrderWithFee) {
-        return orderStrategy.instaSell(order, actualSellPriceForOrderWithFee);
+    public boolean instaSellForProfit(Order order, double actualBTCUSDT, double lastPriceBTC) {
+        return orderStrategy.instaSell(order, actualBTCUSDT, lastPriceBTC);
     }
 }

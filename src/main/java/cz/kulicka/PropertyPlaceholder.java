@@ -50,6 +50,12 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.macd.stop.loss.percentage}")
     private double stopLossPercentage;
 
+    @Value("${app.strategy.trailing.stop.step.down.percentage.coefficient}")
+    private double trailingStopStepDownPercentageCoefficient;
+
+    @Value("${app.strategy.trailing.stop.step.up.percentage.coefficient}")
+    private double trailingStopStepUpPercentageCoefficient;
+
     @Value("${app.csv.report.file.path}")
     private String csvReportFilePath;
 
@@ -61,6 +67,9 @@ public class PropertyPlaceholder {
 
     @Value("${app.strategy.ema.check.uptrend}")
     private boolean checkUptrendEmaStrategy;
+
+    @Value("${app.strategy.trailing.stop}")
+    private boolean trailingStopStrategy;
 
     @Value("${app.strategy.ema.uptrend.ema.candlestick.period}")
     private String emaUptrendEmaStrategyCandlestickPeriod;
@@ -167,5 +176,17 @@ public class PropertyPlaceholder {
 
     public int getEmaUptrendEmaStrategyCandlestickCount() {
         return emaUptrendEmaStrategyCandlestickCount;
+    }
+
+    public boolean isTrailingStopStrategy() {
+        return trailingStopStrategy;
+    }
+
+    public double getTrailingStopStepDownPercentageCoefficient() {
+        return trailingStopStepDownPercentageCoefficient;
+    }
+
+    public double getTrailingStopStepUpPercentageCoefficient() {
+        return trailingStopStepUpPercentageCoefficient;
     }
 }

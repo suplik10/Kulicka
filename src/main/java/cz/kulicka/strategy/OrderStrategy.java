@@ -11,9 +11,9 @@ public interface OrderStrategy {
 
     boolean rebuyStopLossProtection(Ticker ticker, double actualBTCUSDT);
 
-    boolean sell(Order order, double actualSellPriceForOrderWithFee);
+    boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC);
 
     boolean closeNonActiveOpenOrder(Order order);
 
-    boolean instaSell(Order order, double actualSellPriceForOrderWithFee);
+    boolean instaSell(Order order, double actualBTCUSDT, double lastPriceBTC);
 }

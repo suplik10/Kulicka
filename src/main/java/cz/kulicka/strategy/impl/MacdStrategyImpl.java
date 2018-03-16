@@ -132,6 +132,10 @@ public class MacdStrategyImpl implements OrderStrategy {
             log.debug(newOrder.toString());
             log.debug(macdIndicatorForNewOrder.toString());
 
+            log.debug("RE-BUY - close parent order id: " + openOrder.getId() + " symbol: " + openOrder.getSymbol());
+            openOrder.setOpen(false);
+            orderService.update(openOrder);
+
             macdIndicatorService.create(macdIndicatorForNewOrder);
 
             return true;
@@ -141,73 +145,116 @@ public class MacdStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
+    public boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC) {
 
-        log.debug("Sell order: " + order.toString());
+        log.debug("Sell? order: " + order.toString());
 
-        double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
-        double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
-        double actualPercentageProfitBTC = MathUtil.getPercentageProfit(order.getBuyPriceBTCForUnit(), lastPriceBTC);
+        double actualPercentageProfitBTC = MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), lastPriceBTC);
 
         TradingData tradingData = checkMacdIndicatorAndGetTradingData(order);
 
-        log.info("Sell? Symbol: " + order.getSymbol() + ", percentageProfit: " + String.format("%.9f", actualPercentageProfit) + " %  == "
-                + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ MACDHistoLast-open " + String.format("%.9f", tradingData.getLastMacdHistogram()));
+        log.info("Sell? Symbol: " + order.getSymbol() + ", percentageProfitBTCWIthoutFee:  " + String.format("%.9f", actualPercentageProfitBTC) + " % "
+                + " MACDHistoLast-open " + String.format("%.9f", tradingData.getLastMacdHistogram()));
 
-        order.setPercentageProfitFeeIncluded(actualPercentageProfit);
-        order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
+        if (propertyPlaceholder.isTrailingStopStrategy() && order.isTrailingStop()) {
+            return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC);
+        } else {
+            if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
+                log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_TAKE_PROFIT, lastPriceBTC, true);
+                return true;
+            } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
 
-        if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
-            log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
-            order.setSellReason(OrderSellReason.CANDLESTICK_PERIOD_TAKE_PROFIT.getCST());
-            order.setOpen(false);
-            return true;
-        } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastMacdHistogram() < 0) {
+                if (tradingData.getLastMacdHistogram() > 0 && tradingData.getPreLastMacdHistogram() < 0) {
+                    log.info("HODL over last macd was red, but last open macd is green - protect rebuy");
+                    log.info("Percengate profit BTC: " + actualPercentageProfitBTC);
+                    log.info("Pre last macd - closed: " + tradingData.getPreLastMacdHistogram());
+                    return false;
+                }
 
-            if (tradingData.getLastMacdHistogram() > 0 && tradingData.getPreLastMacdHistogram() < 0) {
-                log.info("HODL over last macd was red, but last open macd is green - protect rebuy");
-                log.info("Percengate profit BTC: " + actualPercentageProfitBTC);
-                log.info("Pre last macd - closed: " + tradingData.getPreLastMacdHistogram());
+                if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
+                    log.info("PANIC SELL!!! - STOPLOSS");
+                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_STOPLOSS, lastPriceBTC, false);
+                } else {
+                    log.info("PANIC SELL!!! - MACD");
+                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_NEGATIVE_MACD, lastPriceBTC, true);
+                }
+
+                return true;
+            } else {
+                //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
                 return false;
             }
-
-            if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
-                log.info("PANIC SELL!!! - STOPLOSS");
-                order.setSellReason(OrderSellReason.CANDLESTICK_PERIOD_STOPLOSS.getCST());
-            } else {
-                log.info("PANIC SELL!!! - MACD");
-                order.setSellReason(OrderSellReason.CANDLESTICK_PERIOD_NEGATIVE_MACD.getCST());
-                order.setOpen(false);
-            }
-
-            return true;
-        } else {
-            //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
-            return false;
         }
     }
 
     @Override
-    public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
-        double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
-        double actualPercentageProfitBTC = MathUtil.getPercentageProfit(order.getBuyPriceBTCForUnit(), lastPriceBTC);
-        double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+    public boolean instaSell(Order order, double actualBTCUSDT, double lastPriceBTC) {
+        double actualPercentageProfitBTC = MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), lastPriceBTC);
 
-        if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
-            log.info("INSTA SELL!!! - TAKE PROFIT");
-            order.setPercentageProfitFeeIncluded(actualPercentageProfit);
-            order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
-            order.setSellReason(OrderSellReason.INSTA_SELL_TAKE_PROFIT.getCST());
-            return true;
-        } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || sellByStopLostProtection(order, lastPriceBTC)) {
-            log.info("INSTA SELL!!! - STOPLOSS");
-            order.setPercentageProfitFeeIncluded(actualPercentageProfit);
-            order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
-            order.setSellReason(OrderSellReason.INSTA_SELL_STOPLOSS.getCST());
-            return true;
+        if (propertyPlaceholder.isTrailingStopStrategy() && order.isTrailingStop()) {
+            return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC);
         } else {
-            return false;
+            if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitInstaSellPercentage()) {
+                log.info("INSTA SELL!!! - TAKE PROFIT");
+                if (propertyPlaceholder.isTrailingStopStrategy()) {
+                    log.debug("INSTA SELL set TRAILING STOP for symbol: " + order.getSymbol());
+                    order.setTrailingStop(true);
+                    return false;
+                }
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TAKE_PROFIT, lastPriceBTC, true);
+                return true;
+            } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || sellByStopLostProtection(order, lastPriceBTC)) {
+                log.info("INSTA SELL!!! - STOPLOSS");
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_STOPLOSS, lastPriceBTC, false);
+                return true;
+            } else {
+                return false;
+            }
         }
+    }
+
+    private boolean handleTrailingStopOrder(Order order, double actualBTCUSDT, double actualPercentageProfitBTC, double lastPriceBTC) {
+
+        double actualUpPercentageLimit = order.getTrailingStopLevel() * propertyPlaceholder.getTrailingStopStepUpPercentageCoefficient();
+        double actualDownPercentageLimit = order.getTrailingStopLevel() * propertyPlaceholder.getTrailingStopStepDownPercentageCoefficient();
+
+        log.debug("TRAILING STOP for symbol: " + order.getSymbol() + " actualPercentageProfitBTC: " + String.format("%.9f", actualPercentageProfitBTC)
+                + " level: " + order.getTrailingStopLevel() + " actual UP coefficient" + String.format("%.9f", actualUpPercentageLimit)
+                + " actual DOWN coefficient" + String.format("%.9f", actualDownPercentageLimit));
+
+        if (actualPercentageProfitBTC > (propertyPlaceholder.getTakeProfitInstaSellPercentage() + actualUpPercentageLimit)) {
+            order.setTrailingStopLevel(order.getTrailingStopLevel() + 1);
+            return false;
+        } else if (actualPercentageProfitBTC < (propertyPlaceholder.getTakeProfitInstaSellPercentage() + actualDownPercentageLimit)) {
+            setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TRAILING_STOP_STOPLOSS, lastPriceBTC, true);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean closeNonActiveOpenOrder(Order order) {
+        TradingData tradingData = checkMacdIndicatorAndGetTradingData(order);
+        return tradingData.getPreLastMacdHistogram() < 0 ? true : false;
+    }
+
+    private Order setOrderForSell(Order order, double actualBTCUSDT, double actualPercentageProfitBTC, OrderSellReason orderSellReason, double lastPriceBTC, boolean closeOrder) {
+        double actualSellPriceForOrderWithFee = MathUtil.getSellPriceForOrderWithFee(order.getBoughtAmount(),
+                lastPriceBTC * actualBTCUSDT, order.getSellFeeConstant());
+        double actualPercentageProfit = MathUtil.getPercentageDifference(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+
+        order.setPercentageProfitFeeIncluded(actualPercentageProfit);
+        order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
+        order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
+        order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
+        order.setSellTime(DateTimeUtils.getCurrentServerDate().getTime());
+        order.setSellReason(orderSellReason.getCST());
+        order.setSellPriceBTCForUnit(lastPriceBTC);
+        order.setOpen(!closeOrder);
+        order.setActive(false);
+
+        return order;
     }
 
     private boolean sellByStopLostProtection(Order order, double lastPriceBTC) {
@@ -232,7 +279,7 @@ public class MacdStrategyImpl implements OrderStrategy {
                 0, 0);
     }
 
-    private ArrayList<Float> getCandlesticksValues(String symbol, String candlestickPeriod, int candlecticksCount){
+    private ArrayList<Float> getCandlesticksValues(String symbol, String candlestickPeriod, int candlecticksCount) {
         List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, candlestickPeriod, candlecticksCount);
 
         //remove last candle to get more stable signal!
@@ -246,12 +293,6 @@ public class MacdStrategyImpl implements OrderStrategy {
         }
 
         return lastPrices;
-    }
-
-    @Override
-    public boolean closeNonActiveOpenOrder(Order order) {
-        TradingData tradingData = checkMacdIndicatorAndGetTradingData(order);
-        return tradingData.getPreLastMacdHistogram() < 0 ? true : false;
     }
 
     private TradingData checkMacdIndicatorAndGetTradingData(Order order) {

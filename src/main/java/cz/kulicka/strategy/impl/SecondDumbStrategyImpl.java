@@ -58,28 +58,11 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean sell(Order order, double actualSellPriceForOrderWithFee) {
-
-        double actualPercentageProfit = MathUtil.getPercentageProfit(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
-        //double actualSteppedPercengateProfit = MathUtil.getPercentageProfit(order.getSteppedBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
-
-        log.info("Sell? Symbol: " + order.getSymbol() + ", actualRealPercentageProfit from bought price: " + String.format("%.9f", actualPercentageProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getBuyPriceForOrderWithFee()) + " $ buy price " + order.getBuyPriceForOrderWithFee());
-        //log.info("Sell? Symbol: " + order.getSymbol() + ", actualSteppedPercengateProfit from stepped price: " + String.format("%.9f", actualSteppedPercengateProfit) + " %  == " + String.format("%.9f", actualSellPriceForOrderWithFee - order.getSteppedBuyPriceForOrderWithFee()) + " $ stepped price " + order.getSteppedBuyPriceForOrderWithFee());
-
-
-        if (actualPercentageProfit > 0.05) {
-            log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
-            order.setSteppedBuyPriceForOrderWithFee(actualSellPriceForOrderWithFee);
-            return true;
-        } else if (actualPercentageProfit < -1.5) {
-            //stop-loss
-            log.info("PANIC SELL!!!");
-            return true;
-        } else {
-            //HODL, HODL, HOOOOODDDDLLLLLLLLL!!!
-            return false;
-        }
+    public boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC) {
+        return false;
     }
+
+
 
     @Override
     public boolean closeNonActiveOpenOrder(Order order) {
@@ -87,9 +70,10 @@ public class SecondDumbStrategyImpl implements OrderStrategy {
     }
 
     @Override
-    public boolean instaSell(Order order, double actualSellPriceForOrderWithFee) {
+    public boolean instaSell(Order order, double actualBTCUSDT, double lastPriceBTC) {
         return false;
     }
+
 
 
 }

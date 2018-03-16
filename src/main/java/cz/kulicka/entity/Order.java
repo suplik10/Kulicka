@@ -13,11 +13,11 @@ public class Order {
     private Long parentId;
     private String symbol;
     private double buyPriceForUnit;
+    private double originalBuyPriceBTCForUnit;
     private double buyPriceBTCForUnit;
     private double sellPriceBTCForUnit;
     private double stopLossPriceValue;
     private double percentageProfitBTCForUnitWithoutFee;
-    private double steppedBuyPriceForOrderWithFee;
     private double buyPriceForOrder;
     private double buyPriceForOrderWithFee;
     private double orderSumPriceInBoughtCurrencyWithFee;
@@ -38,6 +38,11 @@ public class Order {
     private int sellReason;
     private int buyReason;
 
+    private boolean trailingStop;
+    private int trailingStopLevel;
+    private double trailingStopTakeProfitPercentage;
+    private double trailingStopStopLossPercentage;
+
 
     public Order() {
     }
@@ -45,6 +50,7 @@ public class Order {
     public Order(String symbol, long buyTime, double buyPriceForOrder, double buyPriceForUnit, double buyFeeConstant, double sellFeeConstant, double buyPriceBTCForUnit, int buyReason) {
         this.symbol = symbol;
         this.buyPriceForOrder = buyPriceForOrder;
+        this.originalBuyPriceBTCForUnit = buyPriceBTCForUnit;
         this.buyFee = (buyPriceForOrder * (buyFeeConstant / 100));
         this.buyPriceForOrderWithFee = buyPriceForOrder - buyFee;
         this.boughtAmount = buyPriceForOrderWithFee / buyPriceForUnit;
@@ -52,7 +58,6 @@ public class Order {
         this.buyFeeConstant = buyFeeConstant;
         this.sellFeeConstant = sellFeeConstant;
         this.buyPriceForUnit = buyPriceForUnit;
-        this.steppedBuyPriceForOrderWithFee = buyPriceForOrderWithFee;
         this.buyTime = buyTime;
         this.buyPriceBTCForUnit = buyPriceBTCForUnit;
         this.buyReason = buyReason;
@@ -111,6 +116,14 @@ public class Order {
         this.sellTime = sellTime;
     }
 
+    public int getTrailingStopLevel() {
+        return trailingStopLevel;
+    }
+
+    public void setTrailingStopLevel(int trailingStopLevel) {
+        this.trailingStopLevel = trailingStopLevel;
+    }
+
     public void setProfitFeeIncluded(double profitFeeIncluded) {
         this.profitFeeIncluded = profitFeeIncluded;
     }
@@ -151,12 +164,12 @@ public class Order {
         return id;
     }
 
-    public double getSteppedBuyPriceForOrderWithFee() {
-        return steppedBuyPriceForOrderWithFee;
+    public double getOriginalBuyPriceBTCForUnit() {
+        return originalBuyPriceBTCForUnit;
     }
 
-    public void setSteppedBuyPriceForOrderWithFee(double steppedBuyPriceForOrderWithFee) {
-        this.steppedBuyPriceForOrderWithFee = steppedBuyPriceForOrderWithFee;
+    public void setOriginalBuyPriceBTCForUnit(double originalBuyPriceBTCForUnit) {
+        this.originalBuyPriceBTCForUnit = originalBuyPriceBTCForUnit;
     }
 
     public double getBuyPriceForOrder() {
@@ -301,6 +314,34 @@ public class Order {
 
     public void setStopLossPriceValue(double stopLossPriceValue) {
         this.stopLossPriceValue = stopLossPriceValue;
+    }
+
+    public boolean isTrailingStop() {
+        return trailingStop;
+    }
+
+    public void setTrailingStop(boolean trailingStop) {
+        this.trailingStop = trailingStop;
+
+        if(trailingStop){
+            this.trailingStopLevel = 1;
+        }
+    }
+
+    public double getTrailingStopTakeProfitPercentage() {
+        return trailingStopTakeProfitPercentage;
+    }
+
+    public void setTrailingStopTakeProfitPercentage(double trailingStopTakeProfitPercentage) {
+        this.trailingStopTakeProfitPercentage = trailingStopTakeProfitPercentage;
+    }
+
+    public double getTrailingStopStopLossPercentage() {
+        return trailingStopStopLossPercentage;
+    }
+
+    public void setTrailingStopStopLossPercentage(double trailingStopStopLossPercentage) {
+        this.trailingStopStopLossPercentage = trailingStopStopLossPercentage;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class MathUtil {
 
-    public static double getPercentageProfit(double buyPrice, double actualPrice) {
+    public static double getPercentageDifference(double buyPrice, double actualPrice) {
         return (actualPrice / (buyPrice / 100)) - 100;
     }
 

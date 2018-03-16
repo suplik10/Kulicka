@@ -93,22 +93,16 @@ public class CoreEngine {
 
         for (Order order : activeOrders) {
             //Sell by strategy?
-            double actualSellPriceBTCForUnit = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
-            double actualSellPriceForOrderWithFee = MathUtil.getSellPriceForOrderWithFee(order.getBoughtAmount(),
-                    actualSellPriceBTCForUnit * actualBTCUSDT, order.getSellFeeConstant());
+
+            double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
 
             if (instaSell) {
-                endOrder = orderStrategyContext.instaSellForProfit(order, actualSellPriceForOrderWithFee);
+                endOrder = orderStrategyContext.instaSellForProfit(order, actualBTCUSDT, lastPriceBTC);
             } else {
-                endOrder = orderStrategyContext.sell(order, actualSellPriceForOrderWithFee);
+                endOrder = orderStrategyContext.sell(order, actualBTCUSDT, lastPriceBTC);
             }
 
             if (endOrder) {
-                order.setActive(false);
-                order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
-                order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
-                order.setSellTime(DateTimeUtils.getCurrentServerDate().getTime());
-                order.setSellPriceBTCForUnit(actualSellPriceBTCForUnit);
                 log.info("Order STOPPED : " + order.toString());
                 checkProfits = true;
             } else {
@@ -118,7 +112,7 @@ public class CoreEngine {
             }
             orderService.saveAll(activeOrders);
         }
-        log.info("Handle orders finished!");
+        log.info("Handle ACTIVE orders finished!");
 
         if (checkProfits) {
             checkProfits();
@@ -136,6 +130,8 @@ public class CoreEngine {
                 order.setOpen(false);
             }
         }
+
+        log.info("Handle OPEN orders finished!");
 
         orderService.saveAll(activeOrders);
     }
