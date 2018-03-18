@@ -14,21 +14,20 @@ public class MathUtilTest {
 
         int buyPrice = 100;
 
-        int takeProfitPercentage = 3;
+        int takeProfitPercentage = 1;
 
         int stoplossPercentage = -2;
 
         double result = MathUtil.getPercentageDifference(100, 120);
 
-        int level = 1;
+        int level = 2;
 
-        double upPercentage = 1.5;
+        double upPercentage = 1;
 
-        double downPercentage = 2;
+        double downPercentage = 1;
 
         if (result > (takeProfitPercentage + (level * upPercentage))) {
             //TODO posunuju up level
-            String bla = "fsdf";
         } else if (result <  (stoplossPercentage + (level * downPercentage))) {
             //TODO prodavam
             String bla = "fsdf";

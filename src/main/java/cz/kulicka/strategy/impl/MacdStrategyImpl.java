@@ -160,6 +160,11 @@ public class MacdStrategyImpl implements OrderStrategy {
             return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC);
         } else {
             if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
+                if (propertyPlaceholder.isTrailingStopStrategy()) {
+                    log.debug("Border CRACKED! but trailing stop enabled for symbol: " + order.getSymbol());
+                    order.setTrailingStop(true);
+                    return false;
+                }
                 log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
                 setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_TAKE_PROFIT, lastPriceBTC, true);
                 return true;

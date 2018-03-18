@@ -1,18 +1,20 @@
 package cz.kulicka;
 
+import cz.kulicka.entity.Order;
 import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.impl.MacdStrategyImpl;
-import cz.kulicka.strategy.impl.SecondDumbStrategyImpl;
 import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import cz.kulicka.timer.SellTimer;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +24,7 @@ import static cz.kulicka.util.DateTimeUtils.roundCalendarToMinutes;
 @Component
 public class ExchangeCommandCenter {
 
-    static Logger log = Logger.getLogger(SecondDumbStrategyImpl.class);
+    static Logger log = LogManager.getLogger(ExchangeCommandCenter.class);
 
     @Autowired
     CoreEngine coreEngine;
@@ -36,6 +38,17 @@ public class ExchangeCommandCenter {
     MacdIndicatorService macdIndicatorService;
 
     public void runIt() {
+
+        List<Order> openOrdersaall = orderService.getAll();
+
+        Order order = orderService.getOrderById(16);
+
+        List<Order> opennotactive = orderService.getAllOpenButNotActive();
+
+        List<Order> openOrders = orderService.getAllOpenButNotActiveBySymbol("DGDBTC");
+
+
+
 
         coreEngine.synchronizeServerTime();
         coreEngine.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
