@@ -35,5 +35,10 @@ public class MathUtilTest {
         //todo nic
 
 
+        double lastPrice = 0.0011388;
+        double sellPrice = 0.0011355;
+
+        double result2 = MathUtil.getPercentageDifference(sellPrice, lastPrice);
+
     }
 }

@@ -65,6 +65,9 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.stoploss.protection}")
     private boolean stopLossProtection;
 
+    @Value("${app.strategy.stoploss.protection.percentage.intolerantion}")
+    private double stopLossProtectionPercentageIntolerantion;
+
     @Value("${app.strategy.ema.check.uptrend}")
     private boolean checkUptrendEmaStrategy;
 
@@ -188,5 +191,9 @@ public class PropertyPlaceholder {
 
     public double getTrailingStopStepUpPercentageCoefficient() {
         return trailingStopStepUpPercentageCoefficient;
+    }
+
+    public double getStopLossProtectionPercentageIntolerantion() {
+        return stopLossProtectionPercentageIntolerantion;
     }
 }

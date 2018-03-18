@@ -109,9 +109,9 @@ public class MacdStrategyImpl implements OrderStrategy {
                 propertyPlaceholder.getEmaCountCandlesticks(), propertyPlaceholder.getEmaShortConstant(),
                 propertyPlaceholder.getEmaLongConstant(), propertyPlaceholder.getEmaSignalConstant());
 
-        log.debug("RE-BUY" + tradingData.toString());
+        log.debug("RE-BUY " + tradingData.toString());
 
-        if (lastPriceBTC > openOrder.getSellPriceBTCForUnit() && isUptrend(ticker)) {
+        if ((MathUtil.getPercentageDifference(openOrder.getSellPriceBTCForUnit(), lastPriceBTC) > propertyPlaceholder.getStopLossProtectionPercentageIntolerantion()) && isUptrend(ticker)) {
             log.debug("RE-BUY - Make order macd, symbol: " + tradingData.toString() + " parent id: " + openOrder.getId());
 
             double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
