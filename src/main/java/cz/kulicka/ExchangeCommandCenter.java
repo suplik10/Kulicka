@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
 import static cz.kulicka.util.DateTimeUtils.convertRequestPeriodToMin;
@@ -52,7 +54,7 @@ public class ExchangeCommandCenter {
 
         //Sell Timer
         Calendar calendar = roundCalendarToMinutes(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod()));
-        calendar.add(Calendar.MINUTE, 2);
+        calendar.add(Calendar.MINUTE, 1);
         Date newDateForSellTimer = new Date(calendar.getTimeInMillis());
 
         log.info("newDateForSellTimer : " + newDateForSellTimer);
@@ -61,5 +63,10 @@ public class ExchangeCommandCenter {
         sellTimer.schedule(new SellTimer(coreEngine, convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod())), newDateForSellTimer,
                 TimeUnit.MINUTES.toMillis(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod())));
 
+
+        BlockingQueue<Timer> blockingQueue = new LinkedBlockingDeque<>();
+
+        blockingQueue.add(instaBuyTimer);
+        blockingQueue.add(sellTimer);
     }
 }

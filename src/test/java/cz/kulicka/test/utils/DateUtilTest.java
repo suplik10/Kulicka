@@ -1,11 +1,16 @@
 package cz.kulicka.test.utils;
 
+import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
+import cz.kulicka.timer.SellTimer;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Timer;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 public class DateUtilTest {
 
@@ -71,7 +76,6 @@ public class DateUtilTest {
         }
 
 
-
         roundedCalendar.setTime(new Date());
         roundedCalendar.add(Calendar.HOUR, 1);
         roundedCalendar.set(Calendar.MINUTE, 0);
@@ -97,13 +101,13 @@ public class DateUtilTest {
         //Assert.assertTrue(saveListOfStringsToFile(testArray, "src/test/resources/IOTestFile"));
     }
 
-    private Calendar roundCalendarToMinutes(int minutes, Calendar roundedCalendar){
+    private Calendar roundCalendarToMinutes(int minutes, Calendar roundedCalendar) {
         int minute = roundedCalendar.get(Calendar.MINUTE);
         minute = minute % minutes;
         if (minute != 0) {
             int minuteToAdd = minutes - minute;
             roundedCalendar.add(Calendar.MINUTE, minuteToAdd);
-        }else{
+        } else {
             roundedCalendar.add(Calendar.MINUTE, minutes);
         }
         roundedCalendar.set(Calendar.SECOND, 0);
@@ -111,4 +115,38 @@ public class DateUtilTest {
         return roundedCalendar;
     }
 
+    @Test
+    public void commonTest() {
+        Calendar calendar = Calendar.getInstance();
+        int candlestickPeriod = 5;
+
+        int actualMinutes = calendar.get(Calendar.MINUTE);
+
+        calendar.set(Calendar.MINUTE, candlestickPeriod + 5);
+
+        int downBorderMin = calendar.get(Calendar.MINUTE);
+
+        calendar.set(Calendar.MINUTE, candlestickPeriod - 5);
+
+        int upperBorderMin = calendar.get(Calendar.MINUTE);
+    }
+
+    @Test
+    public void taskTest() {
+        Timer instaBuyTimer = new Timer();
+
+        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(null, 3, false)
+                , new Date(), 1000);
+
+
+        Timer sellTimer = new Timer();
+        sellTimer.schedule(new SellTimer(null, 4), new Date(),
+                3000);
+
+
+        BlockingQueue<Timer> blockingQueue = new LinkedBlockingDeque<>();
+
+        blockingQueue.add(instaBuyTimer);
+        blockingQueue.add(sellTimer);
+    }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" monitorInterval="30">
     <Properties>
+        <property name="FILE_NAME_POSTFIX" value="111_5up1020per1h"/>
         <Property name="LOG_PATTERN">
             %d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{1}] - %m%n
         </Property>
@@ -10,25 +11,25 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
         <!-- Rolling File Appender -->
-        <RollingFile name="FileAppender" fileName="C:/APPS/JavaDev/kulicka.log"
-                     filePattern="C:/APPS/JavaDev/kulicka-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="FileAppender" fileName="C:/APPS/JavaDev/kulicka${FILE_NAME_POSTFIX}.log"
+                     filePattern="C:/APPS/JavaDev/kulicka${FILE_NAME_POSTFIX}-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>
             <Policies>
-                <SizeBasedTriggeringPolicy size="10MB" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
     </Appenders>
     <Loggers>
         <Logger name="cz.kulicka" level="debug" additivity="false">
-            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>
         </Logger>
 
         <Root level="info">
-            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>

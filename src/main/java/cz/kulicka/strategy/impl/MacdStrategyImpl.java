@@ -2,11 +2,7 @@ package cz.kulicka.strategy.impl;
 
 import com.google.common.collect.Iterables;
 import cz.kulicka.PropertyPlaceholder;
-import cz.kulicka.entity.Candlestick;
-import cz.kulicka.entity.MacdIndicator;
-import cz.kulicka.entity.Order;
-import cz.kulicka.entity.Ticker;
-import cz.kulicka.entity.TradingData;
+import cz.kulicka.entity.*;
 import cz.kulicka.enums.OrderBuyReason;
 import cz.kulicka.enums.OrderSellReason;
 import cz.kulicka.service.BinanceApiService;
@@ -177,12 +173,12 @@ public class MacdStrategyImpl implements OrderStrategy {
                     return false;
                 }
 
-                if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() && !(tradingData.getPreLastMacdHistogram() < 0)) {
-                    log.info("PANIC SELL!!! - STOPLOSS");
-                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_STOPLOSS, lastPriceBTC, false);
-                } else {
+                if (tradingData.getPreLastMacdHistogram() < 0) {
                     log.info("PANIC SELL!!! - MACD");
                     setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_NEGATIVE_MACD, lastPriceBTC, true);
+                } else {
+                    log.info("PANIC SELL!!! - STOPLOSS");
+                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
                 }
 
                 return true;
@@ -211,7 +207,7 @@ public class MacdStrategyImpl implements OrderStrategy {
                 return true;
             } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || sellByStopLostProtection(order, lastPriceBTC)) {
                 log.info("INSTA SELL!!! - STOPLOSS");
-                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_STOPLOSS, lastPriceBTC, false);
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
                 return true;
             } else {
                 return false;
@@ -232,7 +228,7 @@ public class MacdStrategyImpl implements OrderStrategy {
             order.setTrailingStopLevel(order.getTrailingStopLevel() + 1);
             return false;
         } else if (actualPercentageProfitBTC < (propertyPlaceholder.getTakeProfitInstaSellPercentage() + actualDownPercentageLimit)) {
-            setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TRAILING_STOP_STOPLOSS, lastPriceBTC, true);
+            setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TRAILING_STOP_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
             return true;
         }
         return false;

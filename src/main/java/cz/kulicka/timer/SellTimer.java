@@ -22,6 +22,17 @@ public class SellTimer extends TimerTask {
 
     @Override
     public void run() {
+
+        while (coreEngine.isMutex()) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        coreEngine.setMutex(true);
+
         try {
             iteration++;
             log.info("------ TIMER SELL - START " + iteration + " ------");
@@ -29,6 +40,8 @@ public class SellTimer extends TimerTask {
             log.info("------ TIMER SELL - END " + iteration + " ------");
         } catch (BinanceApiException e) {
             log.error("BINANCE API EXCEPTION !!! iteration: " + iteration + " exception: " + e.getMessage());
+        } finally {
+            coreEngine.setMutex(false);
         }
     }
 }

@@ -11,7 +11,6 @@ import cz.kulicka.strategy.OrderStrategy;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.IOUtil;
-import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +40,7 @@ public class CoreEngine {
     @Autowired
     MacdIndicatorService macdIndicatorService;
 
-    boolean timerLock = false;
+    boolean mutex = false;
 
     public void synchronizeServerTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -119,13 +118,13 @@ public class CoreEngine {
         }
     }
 
-    public void handleOpenOrders(){
+    public void handleOpenOrders() {
         List<Order> activeOrders = orderService.getAllOpenButNotActive();
 
         log.info("Handle OPEN orders start > " + activeOrders.size() + " active orders");
 
         for (Order order : activeOrders) {
-            if(orderStrategyContext.closeNonActiveOpenOrder(order)){
+            if (orderStrategyContext.closeNonActiveOpenOrder(order)) {
                 log.debug("Close order id: " + order.getId() + " symbol: " + order.getSymbol());
                 order.setOpen(false);
             }
@@ -150,11 +149,11 @@ public class CoreEngine {
         IOUtil.saveOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false, propertyPlaceholder.getWhiteListCoins());
     }
 
-    public boolean isTimerLock() {
-        return timerLock;
+    public boolean isMutex() {
+        return mutex;
     }
 
-    public void setTimerLock(boolean timerLock) {
-        this.timerLock = timerLock;
+    public void setMutex(boolean mutex) {
+        this.mutex = mutex;
     }
 }

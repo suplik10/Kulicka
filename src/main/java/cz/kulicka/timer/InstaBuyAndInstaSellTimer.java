@@ -4,7 +4,6 @@ import cz.kulicka.CoreEngine;
 import cz.kulicka.exception.BinanceApiException;
 import org.apache.log4j.Logger;
 
-import java.util.Calendar;
 import java.util.TimerTask;
 
 public class InstaBuyAndInstaSellTimer extends TimerTask {
@@ -25,25 +24,32 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
 
     @Override
     public void run() {
+
+        while (coreEngine.isMutex()) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        coreEngine.setMutex(true);
+
         try {
-            Calendar calendar = Calendar.getInstance();
-            int minutes = calendar.get(Calendar.MINUTE);
+            iteration++;
+            log.info("------ TIMER INSTA BUY&SELL - START " + iteration + " ------");
+            coreEngine.scanCurrenciesAndMakeNewOrders();
+            coreEngine.handleActiveOrders(true);
 
-            if(8 < minutes && minutes < 55){
-                iteration++;
-                log.info("------ TIMER INSTA BUY&SELL - START " + iteration + " ------");
-                coreEngine.scanCurrenciesAndMakeNewOrders();
-                coreEngine.handleActiveOrders(true);
-
-                if(stopLossProtection) {
-                    coreEngine.handleOpenOrders();
-                }
-
-                log.info("------ TIMER INSTA BUY&SELL - END " + iteration + " ------");
+            if (stopLossProtection) {
+                coreEngine.handleOpenOrders();
             }
 
+            log.info("------ TIMER INSTA BUY&SELL - END " + iteration + " ------");
         } catch (BinanceApiException e) {
             log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
+        } finally {
+            coreEngine.setMutex(false);
         }
     }
 }
