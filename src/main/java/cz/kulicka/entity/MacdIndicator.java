@@ -30,15 +30,15 @@ public class MacdIndicator {
     public MacdIndicator() {
     }
 
-    public static MacdIndicator createNewInstance(MacdIndicator oldMacdIndicator, Long newOrderId, long newBuyTime, float newMacdBuy) {
+    public static MacdIndicator createNewInstance(MacdIndicator oldMacdIndicator, Long newOrderId, long newBuyTime, TradingData tradingData) {
         MacdIndicator newInstance = new MacdIndicator();
         newInstance.setSymbol(oldMacdIndicator.getSymbol());
         newInstance.setOrderId(newOrderId);
         newInstance.setBuyTime(newBuyTime);
-        newInstance.setMacdBuy(newMacdBuy);
-        newInstance.setEmaShortYesterday(oldMacdIndicator.getEmaShortYesterday());
-        newInstance.setEmaLongYesterday(oldMacdIndicator.getEmaLongYesterday());
-        newInstance.setEmaSignalYesterday(oldMacdIndicator.getEmaSignalYesterday());
+        newInstance.setMacdBuy(tradingData.getLastMacdHistogram());
+        newInstance.setEmaShortYesterday(tradingData.getPreLastEmaShortYesterday());
+        newInstance.setEmaLongYesterday(tradingData.getPrelastEmaLongYesterday());
+        newInstance.setEmaSignalYesterday(tradingData.getPreLastEmaSignalYesterday());
         newInstance.setMacdBlobList(oldMacdIndicator.getMacdBlobList());
         newInstance.setMacdList(oldMacdIndicator.getMacdList());
 

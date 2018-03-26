@@ -135,12 +135,12 @@ public class DateUtilTest {
     public void taskTest() {
         Timer instaBuyTimer = new Timer();
 
-        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(null, 3, false)
+        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(null, false)
                 , new Date(), 1000);
 
 
         Timer sellTimer = new Timer();
-        sellTimer.schedule(new SellTimer(null, 4), new Date(),
+        sellTimer.schedule(new SellTimer(null), new Date(),
                 3000);
 
 

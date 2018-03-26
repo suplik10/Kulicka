@@ -12,12 +12,10 @@ public class SellTimer extends TimerTask {
 
     private CoreEngine coreEngine;
     private int iteration = 0;
-    private int candlestickPeriod;
 
-    public SellTimer(CoreEngine coreEngine, int candlestickPeriod) {
+    public SellTimer(CoreEngine coreEngine) {
         super();
         this.coreEngine = coreEngine;
-        this.candlestickPeriod = candlestickPeriod;
     }
 
     @Override

@@ -3,12 +3,14 @@ package cz.kulicka;
 import cz.kulicka.constant.CurrenciesConstants;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
+import cz.kulicka.enums.StrategyEnum;
 import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
-import cz.kulicka.strategy.OrderStrategy;
 import cz.kulicka.strategy.OrderStrategyContext;
+import cz.kulicka.strategy.impl.EMAStrategyImpl;
+import cz.kulicka.strategy.impl.MacdStrategyImpl;
 import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.IOUtil;
 import org.apache.log4j.Logger;
@@ -52,8 +54,23 @@ public class CoreEngine {
         log.info("Date after synch: " + dateFormat.format(DateTimeUtils.getCurrentServerDate()));
     }
 
-    public void setOrderStrategy(OrderStrategy strategy) {
-        orderStrategyContext.setOrderStrategy(strategy);
+    public void setOrderStrategy(String strategy) {
+
+        StrategyEnum strategyEnum = StrategyEnum.valueOf(strategy);
+
+        switch (strategyEnum) {
+            case MACD:
+                log.info("----- MACD STRATEGY SET -----");
+                orderStrategyContext.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+                break;
+            case EMA:
+                log.info("----- EMA STRATEGY SET -----");
+                orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+                break;
+            default:
+                log.info("----- DEFAULT MACD STRATEGY SET -----");
+                orderStrategyContext.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+        }
     }
 
     public void scanCurrenciesAndMakeNewOrders() {

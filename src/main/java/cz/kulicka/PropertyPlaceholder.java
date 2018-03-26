@@ -77,11 +77,23 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.ema.uptrend.ema.candlestick.period}")
     private String emaUptrendEmaStrategyCandlestickPeriod;
 
+    @Value("${app.strategy.selected.strategy}")
+    private String actualStrategy;
+
     @Value("${app.strategy.ema.uptrend.short.ema}")
     private int emaUptrendEmaStrategyShortEma;
 
     @Value("${app.strategy.ema.uptrend.long.ema}")
     private int emaUptrendEmaStrategyLongEma;
+
+    @Value("${app.strategy.ema.short}")
+    private int emaStrategyShortEma;
+
+    @Value("${app.strategy.ema.long}")
+    private int emaStrategyLongEma;
+
+    @Value("${app.strategy.ema.candlestick.count}")
+    private int emaStrategyCandlestickCount;
 
     @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
     private List<String> whiteListCoins;
@@ -196,4 +208,21 @@ public class PropertyPlaceholder {
     public double getStopLossProtectionPercentageIntolerantion() {
         return stopLossProtectionPercentageIntolerantion;
     }
+
+    public String getActualStrategy() {
+        return actualStrategy;
+    }
+
+    public int getEmaStrategyShortEma() {
+        return emaStrategyShortEma;
+    }
+
+    public int getEmaStrategyLongEma() {
+        return emaStrategyLongEma;
+    }
+
+    public int getEmaStrategyCandlestickCount() {
+        return emaStrategyCandlestickCount;
+    }
 }
+

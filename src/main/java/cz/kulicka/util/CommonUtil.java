@@ -1,7 +1,6 @@
 package cz.kulicka.util;
 
 import cz.kulicka.entity.Ticker;
-import cz.kulicka.enums.OrderSellReason;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 
@@ -46,7 +45,7 @@ public class CommonUtil {
         return true;
     }
 
-    public static String convertSellReasonToString(int sellReason){
+    public static String convertSellReasonToString(int sellReason) {
 
         switch (sellReason) {
             case 0:
@@ -61,12 +60,14 @@ public class CommonUtil {
                 return "INSTA_SELL_STOPLOSS";
             case 5:
                 return "INSTA_SELL_TRAILING_STOP_STOPLOSS";
+            case 6:
+                return "CANDLESTICK_PERIOD_UNCONFIRMED_EMA";
             default:
                 throw new IllegalArgumentException("Invalid sellReason!");
         }
     }
 
-    public static String convertBuyReasonToString(int buyReason){
+    public static String convertBuyReasonToString(int buyReason) {
 
         switch (buyReason) {
             case 0:
@@ -74,7 +75,7 @@ public class CommonUtil {
             case 1:
                 return "STOPLOSS_PROTECTION_REBUY";
             case 2:
-                return "MACD_BUY_IN_EMA_UPTREND";
+                return "EMA_BUY";
             default:
                 throw new IllegalArgumentException("Invalid buyReason!");
         }

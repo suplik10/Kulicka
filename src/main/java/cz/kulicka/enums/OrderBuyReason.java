@@ -6,7 +6,7 @@ public enum OrderBuyReason implements OrderEnum {
 
     MACD_BUY(0),
     STOPLOSS_PROTECTION_REBUY(1),
-    MACD_BUY_IN_EMA_UPTREND(2);
+    EMA_BUY(2);
 
     private final int cst;
 

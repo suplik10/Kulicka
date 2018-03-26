@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" monitorInterval="30">
     <Properties>
-        <property name="FILE_NAME_POSTFIX" value="111_5up1020per1h"/>
+        <property name="FILE_NAME_POSTFIX" value="EMA_332_30m"/>
         <Property name="LOG_PATTERN">
             %d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{1}] - %m%n
         </Property>

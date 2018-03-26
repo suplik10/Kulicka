@@ -14,7 +14,9 @@ public enum OrderSellReason implements OrderEnum {
 
     INSTA_SELL_STOPLOSS(4),
 
-    INSTA_SELL_TRAILING_STOP_STOPLOSS(5);
+    INSTA_SELL_TRAILING_STOP_STOPLOSS(5),
+
+    CANDLESTICK_PERIOD_UNCONFIRMED_EMA(6);
 
 
     private final int cst;
