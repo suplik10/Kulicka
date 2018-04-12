@@ -93,8 +93,10 @@ public class MacdStrategyImpl extends AbstractStrategy implements OrderStrategy 
         } else {
             if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
                 if (propertyPlaceholder.isTrailingStopStrategy()) {
-                    log.debug("Border CRACKED! but trailing stop enabled for symbol: " + order.getSymbol());
+                    log.debug("Border CRACKED! but trailing stop enabled for symbol : " + order.getSymbol());
                     order.setTrailingStop(true);
+                    order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
+                    order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopStopLossMinusPercentageConstant());
                     return false;
                 }
                 log.info("Border CRACKED! SELL AND GET MY MONEY!!!");

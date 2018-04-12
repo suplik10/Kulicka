@@ -50,10 +50,10 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.macd.stop.loss.percentage}")
     private double stopLossPercentage;
 
-    @Value("${app.strategy.trailing.stop.take.profit.percentage.constant}")
+    @Value("${app.strategy.trailing.stop.take.profit.plus.percentage.constant}")
     private double trailingStopTakeProfitPlusPercentageConstant;
 
-    @Value("${app.strategy.trailing.stop.stoploss.percentage.constant}")
+    @Value("${app.strategy.trailing.stop.stoploss.minus.percentage.constant}")
     private double trailingStopStopLossMinusPercentageConstant;
 
     @Value("${app.csv.report.file.path}")

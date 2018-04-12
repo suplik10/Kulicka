@@ -10,7 +10,6 @@
 
     <modules>
         <module>reports</module>
-        <module>exchange</module>
     </modules>
 
     <packaging>pom</packaging>

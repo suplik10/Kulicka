@@ -2,20 +2,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>cz-kulicka-robotroll</artifactId>
-        <groupId>cz.kulicka.robotroll</groupId>
-        <version>0.9-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cz-kulicka-exchange</artifactId>
+    <groupId>cz.kulicka.exchange</groupId>
+    <artifactId>exchange</artifactId>
+    <version>0.9-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.9.RELEASE</version>
+    </parent>
+
+    <repositories>
+        <repository>
+            <id>java.net</id>
+            <url>https://maven.java.net/content/repositories/public/</url>
+        </repository>
+    </repositories>
 
     <properties>
+        <jar.filename>EMA_332_15m_remove_last_open</jar.filename>
         <com.squareup.retrofit2.version>2.3.0</com.squareup.retrofit2.version>
         <java.version>1.8</java.version>
         <spring.boot.version>1.5.9.RELEASE</spring.boot.version>
-        <jar.finalName>EMA_332_15m</jar.finalName>
     </properties>
 
     <dependencies>
@@ -110,7 +122,7 @@
     </dependencies>
 
     <build>
-        <finalName>${jar.finalName}</finalName>
+        <finalName>${jar.filename}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -126,5 +138,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

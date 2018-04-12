@@ -235,6 +235,8 @@ public abstract class AbstractStrategy {
                 if (propertyPlaceholder.isTrailingStopStrategy()) {
                     log.debug("INSTA SELL set TRAILING STOP for symbol: " + order.getSymbol());
                     order.setTrailingStop(true);
+                    order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
+                    order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopStopLossMinusPercentageConstant());
                     return false;
                 }
                 setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TAKE_PROFIT, lastPriceBTC, true);
