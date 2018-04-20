@@ -114,6 +114,7 @@ public class CoreEngine {
             //Sell by strategy?
 
             double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(order.getSymbol()).getPrice());
+            order.setActualPriceBTCForUnit(lastPriceBTC);
 
             if (instaSell) {
                 endOrder = orderStrategyContext.instaSellForProfit(order, actualBTCUSDT, lastPriceBTC);
@@ -191,7 +192,7 @@ public class CoreEngine {
 
         log.info("Report active orders count > " + openOrders.size());
 
-        IOUtil.ordersToCSV(new ArrayList<>(openOrders), propertyPlaceholder.getCsvReportOpenOrdersFilePath(), false);
+        IOUtil.activeOrdersToCSV(new ArrayList<>(openOrders), propertyPlaceholder.getCsvReportOpenOrdersFilePath(), false);
     }
 
 

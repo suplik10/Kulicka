@@ -2,6 +2,7 @@ package cz.kulicka.util;
 
 import cz.kulicka.entity.Order;
 import org.apache.log4j.Logger;
+import org.h2.util.MathUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -160,5 +161,44 @@ public class IOUtil {
         }
 
         return makedHeader;
+    }
+
+    public static boolean activeOrdersToCSV(ArrayList<Order> orders, String csvFile, boolean makedHeader) {
+        try {
+            FileWriter writer = new FileWriter(csvFile);
+
+            if (!makedHeader) {
+                CSVUtils.writeLine(writer, Arrays.asList("ID", "Acitve", "ParentId", "Symbol", "BuyTime",
+                        "BuyReason", "BuyPriceForUnitBTC", "ActualPriceForUnitBTC", "ActualPercentageProfitBTCWhitoutFee"));
+                makedHeader = true;
+            }
+
+            for (Order order : orders) {
+                List<String> list = new ArrayList<>();
+                list.add(String.valueOf(order.getId()));
+                list.add(String.valueOf(order.isActive()));
+                list.add(String.valueOf(order.getParentId()));
+                list.add(order.getSymbol());
+                list.add(new Date(order.getBuyTime()).toString());
+                list.add(CommonUtil.convertBuyReasonToString(order.getBuyReason()));
+                list.add(String.format("%.9f", order.getBuyPriceBTCForUnit()));
+                list.add(String.format("%.9f", order.getActualPriceBTCForUnit()));
+                list.add(String.format("%.3f", MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), order.getActualPriceBTCForUnit())));
+
+                //CSVUtils.writeLine(writer, list);
+
+                //try custom separator and quote.
+                CSVUtils.writeLine(writer, list, ';', ' ');
+            }
+
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            log.info("Exception when writing order to CSV " + e.getMessage());
+        }
+
+        return makedHeader;
+
     }
 }

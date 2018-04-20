@@ -15,6 +15,7 @@ public class Order {
     private double buyPriceForUnit;
     private double originalBuyPriceBTCForUnit;
     private double buyPriceBTCForUnit;
+    private double actualPriceBTCForUnit;
     private double sellPriceBTCForUnit;
     private double stopLossPriceValue;
     private double percentageProfitBTCForUnitWithoutFee;
@@ -50,6 +51,7 @@ public class Order {
         this.symbol = symbol;
         this.buyPriceForOrder = buyPriceForOrder;
         this.originalBuyPriceBTCForUnit = buyPriceBTCForUnit;
+        this.actualPriceBTCForUnit = buyPriceBTCForUnit;;
         this.buyFee = (buyPriceForOrder * (buyFeeConstant / 100));
         this.buyPriceForOrderWithFee = buyPriceForOrder - buyFee;
         this.boughtAmount = buyPriceForOrderWithFee / buyPriceForUnit;
@@ -329,6 +331,14 @@ public class Order {
 
     public void setTrailingStopStopLossPercentage(double trailingStopStopLossPercentage) {
         this.trailingStopStopLossPercentage = trailingStopStopLossPercentage;
+    }
+
+    public double getActualPriceBTCForUnit() {
+        return actualPriceBTCForUnit;
+    }
+
+    public void setActualPriceBTCForUnit(double actualPriceBTCForUnit) {
+        this.actualPriceBTCForUnit = actualPriceBTCForUnit;
     }
 
     @Override

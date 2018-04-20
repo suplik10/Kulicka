@@ -20,7 +20,7 @@ public class MathUtilTest {
 
         int stoplossfirst = 2;
 
-        double result = MathUtil.getPercentageDifference(0.0006655, 0.0006668);
+        double result = MathUtil.getPercentageDifference(0.0006655, 0.0005668);
 
         int level = 1;
 
