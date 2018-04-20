@@ -80,7 +80,7 @@ public class NewOrder {
         this.side = side;
         this.type = type;
         this.quantity = quantity;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = timestamp;
         this.recvWindow = BinanceApiConstants.DEFAULT_RECEIVING_WINDOW;
     }
 

@@ -79,10 +79,14 @@ public class ExchangeInfo {
         String stepSize = symbolInfo.getSymbolFilter(FilterType.LOT_SIZE).getStepSize();
 
         try{
-            return stepSize.substring(stepSize.indexOf("."), stepSize.indexOf("1")).length();
+            try{
+                return stepSize.substring(stepSize.indexOf("."), stepSize.indexOf("1")).length();
+            }catch (StringIndexOutOfBoundsException e){
+                return 0;
+            }
         }catch (RuntimeException e){
-            log.error("Failed to parse coin decimal places before sell coin symbol " + symbolPair + " EXCEPTION: " + e.getStackTrace());
-            throw new BinanceApiException("Failed to parse coin decimal places before sell coin symbol " + symbolPair);
+            log.error("Failed to parse coin decimal places > coin symbol " + symbolPair + " EXCEPTION: " + e.getStackTrace());
+            throw new BinanceApiException("Failed to parse coin decimal places > coin symbol " + symbolPair);
         }
     }
 

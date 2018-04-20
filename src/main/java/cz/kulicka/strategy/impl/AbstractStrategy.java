@@ -16,6 +16,7 @@ import cz.kulicka.util.MathUtil;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class AbstractStrategy {
@@ -315,11 +316,11 @@ public abstract class AbstractStrategy {
             log.info("===========" + orderSellResponse + "=========");
 
         } catch (BinanceApiException e) {
-            log.error("==================================== FATAL ERROR WHEN TRY TO BUY COIN ==========================================");
+            log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
             log.error("===================================== OrderBuy > " + orderSell);
             log.error("===================================== OrderBuyResponse > " + orderSellResponse);
             log.error("===================================== BinanceApiException > " + e.getMessage());
-            log.error("==================================== FATAL ERROR WHEN TRY TO BUY COIN ==========================================");
+            log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
             throw new OrderApiException("Order SELL symbol " + symbol + " FAILED " + e.getMessage());
         }
     }

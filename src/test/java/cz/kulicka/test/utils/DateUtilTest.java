@@ -1,5 +1,6 @@
 package cz.kulicka.test.utils;
 
+import cz.kulicka.CoreEngine;
 import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import cz.kulicka.timer.SellTimer;
 import cz.kulicka.util.DateTimeUtils;
@@ -156,6 +157,10 @@ public class DateUtilTest {
     @Test
     public void getYesterdayTest() {
 
+        Date dadf = new Date(1524214723104L);
+
+        Date kurva = new Date(new Date().getTime() - 58000);
+
         String safd = DateTimeUtils.getPathWithDate("patfff", DateTimeUtils.yesterday());
 
         Date date = DateTimeUtils.yesterday();
@@ -163,6 +168,8 @@ public class DateUtilTest {
 
         DateFormat df = new SimpleDateFormat("MM_dd_yyyy");
         pathWithDate = pathWithDate.concat(df.format(date));
+
+
 
     }
 
