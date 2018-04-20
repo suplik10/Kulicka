@@ -120,8 +120,45 @@ public class IOUtil {
         return makedHeader;
     }
 
-    public static boolean dailyReportToCSV(ArrayList<Order> orders, String csvFile, boolean makedHeader) {
-        //TODO not implemented yet
-        return true;
+
+    public static boolean ordersToCSV(ArrayList<Order> orders, String csvFile, boolean makedHeader) {
+        try {
+            FileWriter writer = new FileWriter(csvFile);
+
+            if (!makedHeader) {
+                CSVUtils.writeLine(writer, Arrays.asList("ID", "Acitve", "ParentId", "Symbol", "BuyTime", "SellTime", "BuyReason", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "PercentageProfitBTCWhitoutFee", "ProfitFeeIncluded", "PercentageProfitFeeIncluded"));
+                makedHeader = true;
+            }
+
+            for (Order order : orders) {
+                List<String> list = new ArrayList<>();
+                list.add(String.valueOf(order.getId()));
+                list.add(String.valueOf(order.isActive()));
+                list.add(String.valueOf(order.getParentId()));
+                list.add(order.getSymbol());
+                list.add(new Date(order.getBuyTime()).toString());
+                list.add(new Date(order.getSellTime()).toString());
+                list.add(CommonUtil.convertBuyReasonToString(order.getBuyReason()));
+                list.add(String.format("%.9f", order.getBuyPriceBTCForUnit()));
+                list.add(String.format("%.9f", order.getSellPriceBTCForUnit()));
+                list.add(CommonUtil.convertSellReasonToString(order.getSellReason()));
+                list.add(String.format("%.3f", order.getPercentageProfitBTCForUnitWithoutFee()));
+                list.add(String.format("%.9f", order.getProfitFeeIncluded()));
+                list.add(String.format("%.3f", order.getPercentageProfitFeeIncluded()));
+
+                //CSVUtils.writeLine(writer, list);
+
+                //try custom separator and quote.
+                CSVUtils.writeLine(writer, list, ';', ' ');
+            }
+
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            log.info("Exception when writing order to CSV " + e.getMessage());
+        }
+
+        return makedHeader;
     }
 }

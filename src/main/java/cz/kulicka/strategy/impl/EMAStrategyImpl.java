@@ -134,7 +134,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
         boolean sellCoin = sellByRequestPeriod(order, actualBTCUSDT, lastPriceBTC);
 
-        if (sellCoin && propertyPlaceholder.isCoinMashineOn()) {
+        if (sellCoin && propertyPlaceholder.isCoinMachineOn()) {
             try {
                 makeServerSellOrder(order.getSymbol());
             } catch (OrderApiException e) {
@@ -157,7 +157,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
     public boolean instaSell(Order order, double actualBTCUSDT, double lastPriceBTC) {
         boolean sellCoin = handleInstaSell(order, actualBTCUSDT, lastPriceBTC);
 
-        if (sellCoin && propertyPlaceholder.isCoinMashineOn()) {
+        if (sellCoin && propertyPlaceholder.isCoinMachineOn()) {
             try {
                 makeServerSellOrder(order.getSymbol());
             } catch (OrderApiException e) {

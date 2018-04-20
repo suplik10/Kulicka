@@ -89,4 +89,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllByActiveFalse() {
         return (List<Order>) orderRepository.findAllByActiveFalse();
     }
+
+    @Override
+    public List<Order> findAllByOpenTrue() {
+        return (List<Order>) orderRepository.findAllByOpenTrue();
+    }
+
+    @Override
+    public List<Order> findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull() {
+        return (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
+    }
 }

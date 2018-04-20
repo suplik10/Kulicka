@@ -157,7 +157,7 @@ public abstract class AbstractStrategy {
         double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
 
         //TODO important !!! aby naše nabídka byla první na řadě
-        if (propertyPlaceholder.isCoinMashineOn()) {
+        if (propertyPlaceholder.isCoinMachineOn()) {
             try {
                 makeServerBuyOrder(ticker.getSymbol(), lastPriceBTC);
             } catch (OrderApiException e) {
@@ -198,7 +198,7 @@ public abstract class AbstractStrategy {
 
         double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
 
-        if (propertyPlaceholder.isCoinMashineOn()) {
+        if (propertyPlaceholder.isCoinMachineOn()) {
             try {
                 makeServerBuyOrder(openOrder.getSymbol(), lastPriceBTC);
             } catch (OrderApiException e) {
@@ -284,7 +284,7 @@ public abstract class AbstractStrategy {
             newOrderBuy = NewOrder.marketBuy(symbol, quantity, DateTimeUtils.getCurrentServerTimeStamp());
             newOrderBuyResponse = binanceApiService.newOrder(newOrderBuy);
 
-            log.info("==================================== SUCESSFULL BOUGHT COIN ==========================================");
+            log.info("==================================== SUCESSFULL BOUGHT COIN PROD ENVIROMENT ==========================================");
             log.info("===========" + newOrderBuyResponse + "=========");
         } catch (BinanceApiException e) {
             log.error("===================================== FATAL ERROR WHEN TRY TO BUY COIN ==========================================");
@@ -305,12 +305,13 @@ public abstract class AbstractStrategy {
             Account acount = binanceApiService.getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, DateTimeUtils.getCurrentServerTimeStamp());
             AssetBalance assetBalance = acount.getAssetBalance(symbol.substring(0, symbol.length() - 3));
 
-            String quantity = Double.toString(MathUtil.cutDecimalsWithoutRound(Double.parseDouble(assetBalance.getFree()), CoreEngine.EXCHANGE_INFO_CONTEXT.getNumberOfDecimalPlacesToOrder(symbol)));
+            String quantity = Double.toString(
+                    MathUtil.cutDecimalsWithoutRound(Double.parseDouble(assetBalance.getFree()), CoreEngine.EXCHANGE_INFO_CONTEXT.getNumberOfDecimalPlacesToOrder(symbol)));
 
             orderSell = NewOrder.marketSell(symbol, quantity, DateTimeUtils.getCurrentServerTimeStamp());
             orderSellResponse = binanceApiService.newOrder(orderSell);
 
-            log.info("==================================== SUCESSFULL SOLD COIN ==========================================");
+            log.info("==================================== SUCESSFULL SOLD COIN PROD ENVIROMENT ==========================================");
             log.info("===========" + orderSellResponse + "=========");
 
         } catch (BinanceApiException e) {

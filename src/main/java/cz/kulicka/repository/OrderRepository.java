@@ -23,5 +23,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     Iterable<Order> findAllByActiveFalse();
 
+    Iterable<Order> findAllByOpenTrue();
+
 
 }

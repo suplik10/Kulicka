@@ -2,6 +2,8 @@ package cz.kulicka.util;
 
 import cz.kulicka.CoreEngine;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,7 +18,7 @@ public class DateTimeUtils {
         return getCurrentServerDate().getTime();
     }
 
-    public static int convertRequestPeriodToMin(String candlestickPeriod){
+    public static int convertRequestPeriodToMin(String candlestickPeriod) {
         switch (candlestickPeriod) {
             case "5m":
                 return 5;
@@ -65,6 +67,21 @@ public class DateTimeUtils {
         cal.add(Calendar.DATE, -1);
         return cal.getTime();
     }
+
+    public static boolean isTimeToDailyReport() {
+        Calendar calendar = Calendar.getInstance();
+
+        if (calendar.get(Calendar.HOUR) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String getPathWithDate(String path, Date date){
+    DateFormat df = new SimpleDateFormat("MM_dd_yyyy");
+    return path.concat(df.format(date));
+    }
+
 
 
 }

@@ -62,8 +62,14 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.trailing.stop.stoploss.minus.percentage.constant}")
     private double trailingStopStopLossMinusPercentageConstant;
 
-    @Value("${app.csv.report.file.path}")
+    @Value("${app.csv.report.finished.orders.file.path}")
     private String csvReportFilePath;
+
+    @Value("${app.csv.report.open.orders.file.path}")
+    private String csvReportOpenOrdersFilePath;
+
+    @Value("${app.csv.report.daily.file.path}")
+    private String csvReportDailyFilePath;
 
     @Value("${app.exchange.coins.whitelist.ignore}")
     private boolean ignoreWhitelist;
@@ -81,7 +87,7 @@ public class PropertyPlaceholder {
     private boolean checkUptrendEmaStrategy;
 
     @Value("${app.binance.coin.machine.on}")
-    private boolean coinMashineOn;
+    private boolean coinMachineOn;
 
     @Value("${app.strategy.trailing.stop}")
     private boolean trailingStopStrategy;
@@ -252,12 +258,20 @@ public class PropertyPlaceholder {
         return pricePerOrderBTC;
     }
 
-    public boolean isCoinMashineOn() {
-        return coinMashineOn;
+    public boolean isCoinMachineOn() {
+        return coinMachineOn;
     }
 
     public String getAppName() {
         return appName;
+    }
+
+    public String getCsvReportOpenOrdersFilePath() {
+        return csvReportOpenOrdersFilePath;
+    }
+
+    public String getCsvReportDailyFilePath() {
+        return csvReportDailyFilePath;
     }
 }
 

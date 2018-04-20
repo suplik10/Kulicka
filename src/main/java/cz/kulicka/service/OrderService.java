@@ -34,4 +34,8 @@ public interface OrderService {
 
     List<Order> findAllByActiveFalse();
 
+    List<Order> findAllByOpenTrue();
+
+    List<Order> findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
+
 }

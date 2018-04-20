@@ -6,6 +6,8 @@ import cz.kulicka.util.DateTimeUtils;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -150,9 +152,32 @@ public class DateUtilTest {
         blockingQueue.add(instaBuyTimer);
         blockingQueue.add(sellTimer);
     }
+
     @Test
     public void getYesterdayTest() {
-        Date dav = DateTimeUtils.yesterday();
+
+        String safd = DateTimeUtils.getPathWithDate("patfff", DateTimeUtils.yesterday());
+
+        Date date = DateTimeUtils.yesterday();
+        String pathWithDate = "reprot_";
+
+        DateFormat df = new SimpleDateFormat("MM_dd_yyyy");
+        pathWithDate = pathWithDate.concat(df.format(date));
+
+    }
+
+    @Test
+    public void dailyReportTest() {
+
+        boolean isTimeToDailyReport = false;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        int hour = calendar.get(Calendar.HOUR);
+        if(calendar.get(Calendar.HOUR) == 0){
+
+        }
     }
 
 }

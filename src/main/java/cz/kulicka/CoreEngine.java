@@ -5,7 +5,6 @@ import cz.kulicka.entity.ExchangeInfo;
 import cz.kulicka.entity.Order;
 import cz.kulicka.entity.Ticker;
 import cz.kulicka.enums.StrategyEnum;
-import cz.kulicka.repository.OrderRepository;
 import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
@@ -33,8 +32,6 @@ public class CoreEngine {
 
     @Autowired
     OrderService orderService;
-    @Autowired
-    OrderRepository orderRepository;
     @Autowired
     BinanceApiService binanceApiService;
     @Autowired
@@ -139,6 +136,7 @@ public class CoreEngine {
         if (checkProfits) {
             checkProfits();
         }
+        reportActiveOrders();
     }
 
     public void handleOpenOrders() {
@@ -159,7 +157,7 @@ public class CoreEngine {
     }
 
     public void checkProfits() {
-        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
+        List<Order> finishedOrders = orderService.findAllByActiveFalseAndSellPriceForOrderWithFeeIsNotNull();
 
         double profit = 0;
 
@@ -173,9 +171,8 @@ public class CoreEngine {
     }
 
     public void dailyReport() {
-        List<Order> finishedOrders = (List<Order>) orderRepository.findAllByActiveFalse();
+        List<Order> finishedOrders = orderService.findAllByActiveFalse();
         List<Order> dailyOrders = new ArrayList<>();
-
 
         for (Order order : finishedOrders) {
             if (DateTimeUtils.yesterday().getTime() < order.getSellTime()) {
@@ -183,13 +180,23 @@ public class CoreEngine {
             }
         }
 
-        //  log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
+        log.info("Report finished order per day count > " + dailyOrders.size());
 
-        IOUtil.dailyReportToCSV(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false);
+        IOUtil.ordersToCSV(new ArrayList<>(finishedOrders),
+                DateTimeUtils.getPathWithDate(propertyPlaceholder.getCsvReportDailyFilePath(), DateTimeUtils.yesterday()), false);
     }
 
+    public void reportActiveOrders() {
+        List<Order> openOrders = orderService.getAllActive();
+
+        log.info("Report active orders count > " + openOrders.size());
+
+        IOUtil.ordersToCSV(new ArrayList<>(openOrders), propertyPlaceholder.getCsvReportOpenOrdersFilePath(), false);
+    }
+
+
     public void panicSell() {
-        if (propertyPlaceholder.isCoinMashineOn()) {
+        if (propertyPlaceholder.isCoinMachineOn()) {
             orderStrategyContext.panicSellAll();
         }
     }
@@ -201,4 +208,6 @@ public class CoreEngine {
     public void setMutex(boolean mutex) {
         this.mutex = mutex;
     }
+
+
 }
