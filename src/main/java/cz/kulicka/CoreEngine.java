@@ -55,6 +55,7 @@ public class CoreEngine {
 
     public void loadExchangeContext() {
         EXCHANGE_INFO_CONTEXT = binanceApiService.getExchangeInfo();
+        synchronizeServerTime();
     }
 
     public void setOrderStrategy(String strategy) {
@@ -168,7 +169,7 @@ public class CoreEngine {
 
         log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
 
-        IOUtil.saveOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false, propertyPlaceholder.getWhiteListCoins());
+        IOUtil.finishedOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false, propertyPlaceholder.getBlackListCoins());
     }
 
     public void dailyReport() {

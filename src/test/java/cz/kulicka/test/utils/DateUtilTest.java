@@ -139,7 +139,7 @@ public class DateUtilTest {
     public void taskTest() {
         Timer instaBuyTimer = new Timer();
 
-        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(null, false)
+        instaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(null, null)
                 , new Date(), 1000);
 
 
@@ -157,7 +157,7 @@ public class DateUtilTest {
     @Test
     public void getYesterdayTest() {
 
-        Date dadf = new Date(1524214723104L);
+        Date dadf = new Date(1524328412946L);
 
         Date kurva = new Date(new Date().getTime() - 58000);
 

@@ -11,25 +11,27 @@ public class CommonUtil {
 
     static Logger log = Logger.getLogger(CommonUtil.class);
 
-    public static boolean addTickerToDBList(ArrayList<Ticker> DBList, String newSymbol, List<String> whiteList, boolean ignoreWhitelist) {
+    public static boolean addTickerToDBList(ArrayList<Ticker> DBList, String newSymbol, List<String> blackList, boolean ignoreBlackList) {
         Validate.notNull(newSymbol);
-        Validate.notNull(whiteList);
+        Validate.notNull(blackList);
 
-        boolean foundAtWhitelist = false;
+        boolean foundAtBlackList = false;
 
         if (DBList == null) {
             DBList = new ArrayList<>();
         }
 
-        if (!ignoreWhitelist) {
-            for (String whiteListSymbol : whiteList) {
-                if (newSymbol.equals(whiteListSymbol)) {
-                    foundAtWhitelist = true;
+        //&& !newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BNB) && !newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.USDT)
+
+        if (!ignoreBlackList) {
+            for (String blackListSymbol : blackList) {
+                if (newSymbol.equals(blackListSymbol)) {
+                    foundAtBlackList = true;
                     break;
                 }
             }
 
-            if (!foundAtWhitelist) {
+            if (foundAtBlackList) {
                 return false;
             }
         }

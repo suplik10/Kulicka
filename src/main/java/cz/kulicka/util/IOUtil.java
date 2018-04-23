@@ -68,19 +68,18 @@ public class IOUtil {
         return result;
     }
 
-    public static boolean saveOrderToCsv(ArrayList<Order> orders, String csvFile, boolean makedHeader, List<String> whiteList) {
+    public static boolean finishedOrderToCsv(ArrayList<Order> orders, String csvFile, boolean makedHeader, List<String> blackList) {
 
         try {
             FileWriter writer = new FileWriter(csvFile);
 
-            //čas, coin, buy price, sell price, důvod sell, profit
             if (!makedHeader) {
-                CSVUtils.writeLine(writer, Arrays.asList("ID", "ParentId", "Symbol", "BuyTime", "SellTime", "BuyReason", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "PercentageProfitBTCWhitoutFee", "ProfitFeeIncluded", "PercentageProfitFeeIncluded", "WhiteList"));
+                CSVUtils.writeLine(writer, Arrays.asList("ID", "ParentId", "Symbol", "BuyTime", "SellTime", "BuyReason", "BuyPriceForUnitBTC", "SellPriceForUnitBTC", "SellReason", "PercentageProfitBTCWhitoutFee", "ProfitFeeIncluded", "PercentageProfitFeeIncluded", "BlackList"));
                 makedHeader = true;
             }
 
             for (Order order : orders) {
-                boolean foundInWhiteList = false;
+                boolean foundAtBlackList = false;
 
                 List<String> list = new ArrayList<>();
                 list.add(String.valueOf(order.getId()));
@@ -97,13 +96,13 @@ public class IOUtil {
                 list.add(String.format("%.3f", order.getPercentageProfitFeeIncluded()));
 
                 //TODO temporary solution
-                for (String symbol : whiteList) {
+                for (String symbol : blackList) {
                     if (symbol.equals(order.getSymbol())) {
-                        foundInWhiteList = true;
+                        foundAtBlackList = true;
                         break;
                     }
                 }
-                list.add(String.valueOf(foundInWhiteList));
+                list.add(String.valueOf(foundAtBlackList));
 
                 //CSVUtils.writeLine(writer, list);
 

@@ -53,7 +53,7 @@ public class ExchangeCommandCenter {
         log.info("NewDateForInstaSellInstaBuyTimer : " + newDateForInstaSellInstaBuyTimer);
 
         Timer instaSellInstaBuyTimer = new Timer();
-        instaSellInstaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, propertyPlaceholder.isStopLossProtection())
+        instaSellInstaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, propertyPlaceholder)
                 , newDateForInstaSellInstaBuyTimer, TimeUnit.MINUTES.toMillis(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()));
 
         //Sell Timer

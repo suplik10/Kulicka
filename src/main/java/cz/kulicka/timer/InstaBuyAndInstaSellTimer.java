@@ -1,6 +1,7 @@
 package cz.kulicka.timer;
 
 import cz.kulicka.CoreEngine;
+import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.exception.BinanceApiException;
 import org.apache.log4j.Logger;
 
@@ -11,13 +12,13 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
     static Logger log = Logger.getLogger(InstaBuyAndInstaSellTimer.class);
 
     private CoreEngine coreEngine;
+    private PropertyPlaceholder propertyPlaceholder;
     private int iteration = 0;
-    private boolean stopLossProtection;
 
-    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine, boolean stopLossProtection) {
+    public InstaBuyAndInstaSellTimer(CoreEngine coreEngine, PropertyPlaceholder propertyPlaceholder) {
         super();
         this.coreEngine = coreEngine;
-        this.stopLossProtection = stopLossProtection;
+        this.propertyPlaceholder = propertyPlaceholder;
     }
 
     @Override
@@ -36,10 +37,16 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
         try {
             iteration++;
             log.info("------ TIMER INSTA BUY&SELL - START " + iteration + " ------");
-            coreEngine.scanCurrenciesAndMakeNewOrders();
+
+            if(propertyPlaceholder.isAllowNewOrders()){
+                coreEngine.scanCurrenciesAndMakeNewOrders();
+            }else{
+                log.warn("------ MAKING OF NEW ORDERS IS DISABLED ------");
+            }
+
             coreEngine.handleActiveOrders(true);
 
-            if (stopLossProtection) {
+            if (propertyPlaceholder.isStopLossProtection()) {
                 coreEngine.handleOpenOrders();
             }
 

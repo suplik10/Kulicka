@@ -71,14 +71,17 @@ public class PropertyPlaceholder {
     @Value("${app.csv.report.daily.file.path}")
     private String csvReportDailyFilePath;
 
-    @Value("${app.exchange.coins.whitelist.ignore}")
-    private boolean ignoreWhitelist;
+    @Value("${app.exchange.coins.blacklist.ignore}")
+    private boolean ignoreBlacklist;
 
     @Value("${app.strategy.stoploss.protection}")
     private boolean stopLossProtection;
 
     @Value("${app.binance.candlesticks.remove.last.open}")
     private boolean removeLastOpenCandlestick;
+
+    @Value("${app.exchange.order.allow.new}")
+    private boolean allowNewOrders;
 
     @Value("${app.strategy.stoploss.protection.percentage.intolerantion}")
     private double stopLossProtectionPercentageIntolerantion;
@@ -116,8 +119,8 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.ema.long.buy.intoleration.percentage}")
     private double emaStrategyLongIntolerantionPercentage;
 
-    @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
-    private List<String> whiteListCoins;
+    @Value("#{'${app.exchange.coins.blacklist}'.split(',')}")
+    private List<String> blackListCoins;
 
     @Value("${app.strategy.ema.uptrend.ema.candlestick.count}")
     private int emaUptrendEmaStrategyCandlestickCount;
@@ -180,14 +183,6 @@ public class PropertyPlaceholder {
 
     public double getTakeProfitInstaSellPercentage() {
         return takeProfitInstaSellPercentage;
-    }
-
-    public List<String> getWhiteListCoins() {
-        return whiteListCoins;
-    }
-
-    public boolean isIgnoreWhitelist() {
-        return ignoreWhitelist;
     }
 
     public boolean isStopLossProtection() {
@@ -272,6 +267,22 @@ public class PropertyPlaceholder {
 
     public String getCsvReportDailyFilePath() {
         return csvReportDailyFilePath;
+    }
+
+    public boolean isIgnoreBlacklist() {
+        return ignoreBlacklist;
+    }
+
+    public boolean isAllowNewOrders() {
+        return allowNewOrders;
+    }
+
+    public List<String> getBlackListCoins() {
+        return blackListCoins;
+    }
+
+    public void setAllowNewOrders(boolean allowNewOrders) {
+        this.allowNewOrders = allowNewOrders;
     }
 }
 

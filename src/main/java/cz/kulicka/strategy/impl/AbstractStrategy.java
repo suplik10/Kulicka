@@ -136,9 +136,9 @@ public abstract class AbstractStrategy {
 
     protected boolean handleTrailingStopOrder(Order order, double actualBTCUSDT, double actualPercentageProfitBTC, double lastPriceBTC) {
 
-        log.debug("TRAILING STOP for symbol: " + order.getSymbol() + " actualPercentageProfitBTC: " + String.format("%.9f", actualPercentageProfitBTC)
-                + " actual TAKEPROFIT " + String.format("%.9f", order.getTrailingStopTakeProfitPercentage())
-                + " actual STOPLOSS " + String.format("%.9f", order.getTrailingStopStopLossPercentage()));
+        log.debug("TRAILING STOP for symbol: " + order.getSymbol() + " actualPercentageProfitBTC: " + String.format("%.3f", actualPercentageProfitBTC)
+                + " % actual TAKEPROFIT " + String.format("%.3f", order.getTrailingStopTakeProfitPercentage())
+                + " % actual STOPLOSS " + String.format("%.3f", order.getTrailingStopStopLossPercentage()) + " %");
 
         if (actualPercentageProfitBTC > order.getTrailingStopTakeProfitPercentage()) {
             order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
@@ -317,8 +317,8 @@ public abstract class AbstractStrategy {
 
         } catch (BinanceApiException e) {
             log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
-            log.error("===================================== OrderBuy > " + orderSell);
-            log.error("===================================== OrderBuyResponse > " + orderSellResponse);
+            log.error("===================================== OrderSell > " + orderSell);
+            log.error("===================================== OrderSellResponse > " + orderSellResponse);
             log.error("===================================== BinanceApiException > " + e.getMessage());
             log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
             throw new OrderApiException("Order SELL symbol " + symbol + " FAILED " + e.getMessage());
