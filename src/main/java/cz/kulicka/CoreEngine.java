@@ -64,16 +64,15 @@ public class CoreEngine {
 
         switch (strategyEnum) {
             case MACD:
-                log.info("----- MACD STRATEGY SET -----");
-                orderStrategyContext.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+                log.info("----- ERROR MACD STRATEGY SET -----");
                 break;
             case EMA:
                 log.info("----- EMA STRATEGY SET -----");
                 orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
                 break;
             default:
-                log.info("----- DEFAULT MACD STRATEGY SET -----");
-                orderStrategyContext.setOrderStrategy(new MacdStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
+                log.info("----- DEFAULT EMA STRATEGY SET -----");
+                orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder));
         }
     }
 
@@ -210,6 +209,5 @@ public class CoreEngine {
     public void setMutex(boolean mutex) {
         this.mutex = mutex;
     }
-
 
 }

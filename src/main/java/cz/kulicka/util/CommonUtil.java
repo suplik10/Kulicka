@@ -63,7 +63,11 @@ public class CommonUtil {
             case 5:
                 return "INSTA_SELL_TRAILING_STOP_STOPLOSS";
             case 6:
-                return "CANDLESTICK_PERIOD_UNCONFIRMED_EMA";
+                return "CANDLESTICK_PERIOD_CROSS_DOWN_EMA";
+            case 7:
+                return "TRAILING_STOP_CROSS_DOWN_EMA";
+            case 8:
+                return "INSTA_SELL_CROSS_DOWN_EMA";
             default:
                 throw new IllegalArgumentException("Invalid sellReason!");
         }

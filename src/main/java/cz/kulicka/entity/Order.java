@@ -38,6 +38,7 @@ public class Order {
     private double sellFeeConstant;
     private int sellReason;
     private int buyReason;
+    private double amount;
 
     private boolean trailingStop;
     private double trailingStopTakeProfitPercentage;
@@ -341,11 +342,20 @@ public class Order {
         this.actualPriceBTCForUnit = actualPriceBTCForUnit;
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", symbol='" + symbol + '\'' +
+                ", amount=" + String.format("%.9f", amount) +
                 ", buyPriceBTCForUnit=" + String.format("%.9f",buyPriceBTCForUnit) +
                 ", sellPriceBTCForUnit=" + String.format("%.9f",sellPriceBTCForUnit) +
                 ", ProfitBTCForUnitWithoutFee=" + String.format("%.3f", percentageProfitBTCForUnitWithoutFee) +

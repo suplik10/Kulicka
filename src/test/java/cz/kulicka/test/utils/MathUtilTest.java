@@ -30,38 +30,37 @@ public class MathUtilTest {
 
         double up = (takeProfitPercentage + (level * upPercentage));
 
-        double down = ((takeProfitPercentage-2) + (level * downPercentage));
+        double down = ((takeProfitPercentage - 2) + (level * downPercentage));
 
         if (result > (takeProfitPercentage + (level * upPercentage))) {
             //TODO posunuju up level
-        } else if (result <  (stoplossPercentage + (level * downPercentage))) {
+        } else if (result < (stoplossPercentage + (level * downPercentage))) {
             //TODO prodavam
             String bla = "fsdf";
         }
         //todo nic
 
-        double reslut3 = MathUtil.getValuePercentage(100,20);
+        double reslut3 = MathUtil.getValuePercentage(100, 20);
 
-        double reslut4 = MathUtil.getValuePercentage(10,20);
+        double reslut4 = MathUtil.getValuePercentage(10, 20);
 
-        double reslut5 = MathUtil.getValuePercentage(0.5,10);
+        double reslut5 = MathUtil.getValuePercentage(0.5, 10);
 
-        boolean hm = 0.8 > (0.5 + MathUtil.getValuePercentage(0.5,10));
+        boolean hm = 0.8 > (0.5 + MathUtil.getValuePercentage(0.5, 10));
 
-        double dif = MathUtil.getPercentageDifference(0.00000883379,0.00000889828);
+        double dif = MathUtil.getPercentageDifference(0.00000883379, 0.00000889828);
 
 
         double lastPrice = 0.108076;
         double buyBTC = 0.002;
 
-        double res = buyBTC/lastPrice;
+        double res = buyBTC / lastPrice;
         String resString = String.valueOf(res);
-        String fasfd= resString.substring(resString.indexOf("."), resString.indexOf(".") + 3);
+        String fasfd = resString.substring(resString.indexOf("."), resString.indexOf(".") + 3);
 
-        String resultString = String.valueOf(round(res,0));
+        String resultString = String.valueOf(round(res, 0));
 
         double result2 = MathUtil.getPercentageDifference(100, 101);
-
 
 
     }
@@ -74,4 +73,30 @@ public class MathUtilTest {
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }
+
+    @Test
+    public void isCrossDownEma() {
+
+        boolean result;
+
+        double lastlong =  0.071327813;
+        double lastshort = 0.071335055;
+        double propertyIntolerantion = -0.011;
+
+        //test sell
+        result = (MathUtil.getPercentageDifference(lastlong, lastshort) + propertyIntolerantion) < 0;
+
+        //test buy
+        lastlong =  0.0015473467;
+        lastshort = 0.0015512565;
+        double propertyIntolerantionBuy = 0.1;
+
+        result = MathUtil.getPercentageDifference(lastlong, lastshort) - propertyIntolerantionBuy > 0;
+
+        boolean v = result;
+
+
+
+    }
+
 }

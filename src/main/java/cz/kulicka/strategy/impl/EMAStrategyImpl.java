@@ -36,14 +36,15 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
         log.debug("Try to make order for ticker symbol: " + ticker.getSymbol());
 
         TradingData tradingData = getEmaTradingDataHistorical(ticker.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), propertyPlaceholder.getEmaStrategyCandlestickCount(),
-                propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma());
+                propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(), propertyPlaceholder.isEmaBuyRemoveLastOpenCandlestick());
 
         log.debug(tradingData.toString());
 
         // order ??
         if ((tradingData.getLastEmaShortYesterday() > tradingData.getLastEmaLongYesterday())
-                && (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData.getLastEmaShortYesterday()) > propertyPlaceholder.getEmaStrategyLongIntolerantionPercentage())
-                && isUptrend(ticker)) {
+                && (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData.getLastEmaShortYesterday()) - propertyPlaceholder.getEmaStrategyBuyLongIntolerantionPercentage() > 0)
+                && isUptrend(ticker, propertyPlaceholder.isCheckUptrendRemoveLastOpenCandlestick())
+                && tradingData.getPreLastEmaShortYesterday() < tradingData.getPrelastEmaLongYesterday()) {
             makeOrder(ticker, actualBTCUSDT, tradingData, OrderBuyReason.EMA_BUY);
             return true;
         }
@@ -66,11 +67,11 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
         log.debug("RE-BUY - Try to make order, symbol: " + ticker.getSymbol());
 
         TradingData tradingData = getEmaTradingDataHistorical(ticker.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), propertyPlaceholder.getEmaStrategyCandlestickCount(),
-                propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma());
+                propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(), propertyPlaceholder.isStopLossProtectionBuyRemoveLastOpenCandlestick());
 
         log.debug("RE-BUY " + tradingData.toString());
 
-        if ((MathUtil.getPercentageDifference(openOrder.getSellPriceBTCForUnit(), lastPriceBTC) > propertyPlaceholder.getStopLossProtectionPercentageIntolerantion()) && isUptrend(ticker)) {
+        if ((MathUtil.getPercentageDifference(openOrder.getSellPriceBTCForUnit(), lastPriceBTC) > propertyPlaceholder.getStopLossProtectionPercentageIntolerantion()) && isUptrend(ticker, propertyPlaceholder.isCheckUptrendRemoveLastOpenCandlestick())) {
             makeOrderByStopLossProtection(openOrder, tradingData, lastPriceBTC, actualBTCUSDT);
             return true;
         }
@@ -82,15 +83,17 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
         double actualPercentageProfitBTC = MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), lastPriceBTC);
 
-        TradingData tradingData = getEmaTradingData(order);
+        TradingData tradingData = getEmaTradingDataHistorical(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(),
+                propertyPlaceholder.getEmaCountCandlesticks(), propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(),
+                propertyPlaceholder.isEmaSellRemoveLastOpenCandlestick());
 
         log.info("Sell? Symbol: " + order.getSymbol() + ", percentageProfitBTCWIthoutFee:  " + String.format("%.9f", actualPercentageProfitBTC) + " % "
                 + " EmaLastShort-open " + String.format("%.9f", tradingData.getLastEmaShortYesterday()) + " EmaLastLong-open " + String.format("%.9f", tradingData.getLastEmaLongYesterday()));
 
         if (propertyPlaceholder.isTrailingStopStrategy() && order.isTrailingStop()) {
-            return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC);
+            return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC, tradingData);
         } else {
-            if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage()) {
+            if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitPercentage() && !isEmaCrossedDown(tradingData)) {
                 if (propertyPlaceholder.isTrailingStopStrategy()) {
                     log.debug("Border CRACKED! but trailing stop enabled for symbol: " + order.getSymbol());
                     order.setTrailingStop(true);
@@ -101,11 +104,10 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
                 log.info("Border CRACKED! SELL AND GET MY MONEY!!!");
                 setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_TAKE_PROFIT, lastPriceBTC, true);
                 return true;
-            } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || tradingData.getPreLastEmaShortYesterday() < tradingData.getPrelastEmaLongYesterday()) {
+            } else if (actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || isEmaCrossedDown(tradingData)) {
 
-                if ((tradingData.getLastEmaShortYesterday() > tradingData.getLastEmaLongYesterday())
-                        && (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData.getLastEmaShortYesterday()) > propertyPlaceholder.getEmaStrategyLongIntolerantionPercentage())
-                        && !propertyPlaceholder.isStopLossProtection()) {
+                //TODO check if anytime happend ?!
+                if (!isEmaCrossedDown(tradingData) && !propertyPlaceholder.isStopLossProtection()) {
                     log.info("HODL over last closed short ema was smaller than long, but last open short ema is highter than long - protect rebuy");
                     log.info("Percengate profit BTC: " + actualPercentageProfitBTC);
                     log.info("Pre last short ema - closed: " + tradingData.getPreLastEmaShortYesterday());
@@ -113,9 +115,9 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
                     return false;
                 }
 
-                if (tradingData.getPreLastEmaShortYesterday() < tradingData.getPrelastEmaLongYesterday()) {
-                    log.info("PANIC SELL!!! - EMA UNCONFIRMED");
-                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_UNCONFIRMED_EMA, lastPriceBTC, true);
+                if (isEmaCrossedDown(tradingData)) {
+                    log.info("PANIC SELL!!! - EMA CROSSED DOWN");
+                    setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_CROSS_DOWN_EMA, lastPriceBTC, true);
                 } else {
                     log.info("PANIC SELL!!! - STOPLOSS");
                     setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.CANDLESTICK_PERIOD_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
@@ -129,6 +131,41 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
         }
     }
 
+    protected boolean handleInstaSell(Order order, double actualBTCUSDT, double lastPriceBTC) {
+
+        TradingData tradingData = getEmaTradingDataHistorical(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(),
+                propertyPlaceholder.getEmaCountCandlesticks(), propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(),
+                propertyPlaceholder.isEmaSellRemoveLastOpenCandlestick());
+
+        double actualPercentageProfitBTC = MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), lastPriceBTC);
+
+        if (propertyPlaceholder.isTrailingStopStrategy() && order.isTrailingStop()) {
+            return handleTrailingStopOrder(order, actualBTCUSDT, actualPercentageProfitBTC, lastPriceBTC, tradingData);
+        } else {
+            if (actualPercentageProfitBTC > propertyPlaceholder.getTakeProfitInstaSellPercentage() && !isEmaCrossedDown(tradingData)) {
+                log.info("INSTA SELL!!! - TAKE PROFIT");
+                if (propertyPlaceholder.isTrailingStopStrategy()) {
+                    log.debug("INSTA SELL set TRAILING STOP for symbol: " + order.getSymbol());
+                    order.setTrailingStop(true);
+                    order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
+                    order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopStopLossMinusPercentageConstant());
+                    return false;
+                }
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TAKE_PROFIT, lastPriceBTC, true);
+                return true;
+            } else if ((actualPercentageProfitBTC < propertyPlaceholder.getStopLossPercentage() || sellByStopLostProtection(order, lastPriceBTC)) && !isEmaCrossedDown(tradingData)) {
+                log.info("INSTA SELL!!! - STOPLOSS");
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
+                return true;
+            } else if (isEmaCrossedDown(tradingData)) {
+                setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_CROSS_DOWN_EMA, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     @Override
     public boolean sell(Order order, double actualBTCUSDT, double lastPriceBTC) {
 
@@ -136,7 +173,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
         if (sellCoin && propertyPlaceholder.isCoinMachineOn()) {
             try {
-                makeServerSellOrder(order.getSymbol());
+                makeServerSellOrder(order);
             } catch (OrderApiException e) {
                 return false;
             }
@@ -149,8 +186,10 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
     @Override
     public boolean closeNonActiveOpenOrder(Order order) {
-        TradingData tradingData = getEmaTradingData(order);
-        return tradingData.getPreLastEmaShortYesterday() < tradingData.getPrelastEmaLongYesterday() ? true : false;
+        TradingData tradingData = getEmaTradingDataHistorical(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(),
+                propertyPlaceholder.getEmaCountCandlesticks(), propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(),
+                propertyPlaceholder.isStopLossProtectionCloseNonActiveRemoveLastOpenCandlestick());
+        return tradingData.getLastEmaShortYesterday() < tradingData.getLastEmaLongYesterday() ? true : false;
     }
 
     @Override
@@ -159,7 +198,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
         if (sellCoin && propertyPlaceholder.isCoinMachineOn()) {
             try {
-                makeServerSellOrder(order.getSymbol());
+                makeServerSellOrder(order);
             } catch (OrderApiException e) {
                 return false;
             }
@@ -180,7 +219,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
         for (Order order : activeOrders) {
             try {
-                makeServerSellOrder(order.getSymbol());
+                makeServerSellOrder(order);
             } catch (OrderApiException e) {
                 log.error(e);
             }

@@ -77,8 +77,23 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.stoploss.protection}")
     private boolean stopLossProtection;
 
-    @Value("${app.binance.candlesticks.remove.last.open}")
-    private boolean removeLastOpenCandlestick;
+    @Value("${app.strategy.ema.buy.candlesticks.remove.last.open}")
+    private boolean emaBuyRemoveLastOpenCandlestick;
+
+    @Value("${app.strategy.stoploss.protection.buy.remove.last.open}")
+    private boolean stopLossProtectionBuyRemoveLastOpenCandlestick;
+
+    @Value("${app.strategy.stoploss.protection.close.non.active.remove.last.open}")
+    private boolean stopLossProtectionCloseNonActiveRemoveLastOpenCandlestick;
+
+    @Value("${app.strategy.ema.uptrend.remove.last.open}")
+    private boolean checkUptrendRemoveLastOpenCandlestick;
+
+    @Value("${app.strategy.ema.sell.candlesticks.remove.last.open}")
+    private boolean emaSellRemoveLastOpenCandlestick;
+
+    @Value("${app.strategy.ema.long.sell.intoleration.percentage}")
+    private double emaStrategySellLongIntolerantionPercentage;
 
     @Value("${app.exchange.order.allow.new}")
     private boolean allowNewOrders;
@@ -117,7 +132,7 @@ public class PropertyPlaceholder {
     private int emaStrategyCandlestickCount;
 
     @Value("${app.strategy.ema.long.buy.intoleration.percentage}")
-    private double emaStrategyLongIntolerantionPercentage;
+    private double emaStrategyBuyLongIntolerantionPercentage;
 
     @Value("#{'${app.exchange.coins.blacklist}'.split(',')}")
     private List<String> blackListCoins;
@@ -237,12 +252,8 @@ public class PropertyPlaceholder {
         return emaStrategyCandlestickCount;
     }
 
-    public double getEmaStrategyLongIntolerantionPercentage() {
-        return emaStrategyLongIntolerantionPercentage;
-    }
-
-    public boolean isRemoveLastOpenCandlestick() {
-        return removeLastOpenCandlestick;
+    public double getEmaStrategyBuyLongIntolerantionPercentage() {
+        return emaStrategyBuyLongIntolerantionPercentage;
     }
 
     public double getTrailingStopStopLossMinusPercentageConstant() {
@@ -283,6 +294,30 @@ public class PropertyPlaceholder {
 
     public void setAllowNewOrders(boolean allowNewOrders) {
         this.allowNewOrders = allowNewOrders;
+    }
+
+    public boolean isEmaBuyRemoveLastOpenCandlestick() {
+        return emaBuyRemoveLastOpenCandlestick;
+    }
+
+    public boolean isStopLossProtectionBuyRemoveLastOpenCandlestick() {
+        return stopLossProtectionBuyRemoveLastOpenCandlestick;
+    }
+
+    public boolean isCheckUptrendRemoveLastOpenCandlestick() {
+        return checkUptrendRemoveLastOpenCandlestick;
+    }
+
+    public boolean isEmaSellRemoveLastOpenCandlestick() {
+        return emaSellRemoveLastOpenCandlestick;
+    }
+
+    public double getEmaStrategySellLongIntolerantionPercentage() {
+        return emaStrategySellLongIntolerantionPercentage;
+    }
+
+    public boolean isStopLossProtectionCloseNonActiveRemoveLastOpenCandlestick() {
+        return stopLossProtectionCloseNonActiveRemoveLastOpenCandlestick;
     }
 }
 
