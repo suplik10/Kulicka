@@ -140,6 +140,9 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.ema.uptrend.ema.candlestick.count}")
     private int emaUptrendEmaStrategyCandlestickCount;
 
+    @Value("${app.strategy.ema.buy.wait.cross}")
+    private boolean emaStrategyBuyWaitCross;
+
     public int getTimeDifferenceBetweenRequestsInMinutes() {
         return timeDifferenceBetweenRequestsInMinutes;
     }
@@ -318,6 +321,10 @@ public class PropertyPlaceholder {
 
     public boolean isStopLossProtectionCloseNonActiveRemoveLastOpenCandlestick() {
         return stopLossProtectionCloseNonActiveRemoveLastOpenCandlestick;
+    }
+
+    public boolean isEmaStrategyBuyWaitCross() {
+        return emaStrategyBuyWaitCross;
     }
 }
 

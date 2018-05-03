@@ -79,17 +79,19 @@ public class MathUtilTest {
 
         boolean result;
 
-        double lastlong =  0.071327813;
-        double lastshort = 0.071335055;
-        double propertyIntolerantion = -0.011;
+        double lastlong =  0.000149797;
+        double lastshort = 0.000149927;
+        double propertyIntolerantion = -0.1;
 
         //test sell
         result = (MathUtil.getPercentageDifference(lastlong, lastshort) + propertyIntolerantion) < 0;
 
+
+
         //test buy
-        lastlong =  0.0015473467;
-        lastshort = 0.0015512565;
-        double propertyIntolerantionBuy = 0.1;
+        //lastlong =  0.000084276;
+        //lastshort = 0.000084335;
+        double propertyIntolerantionBuy = 0.0;
 
         result = MathUtil.getPercentageDifference(lastlong, lastshort) - propertyIntolerantionBuy > 0;
 
