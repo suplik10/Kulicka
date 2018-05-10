@@ -39,4 +39,14 @@ public class CommonUtilTest {
 
     }
 
+    @Test
+    public void doubleToString() {
+
+        double hot = 0.333111;
+        String str = String.valueOf(hot);
+
+
+
+    }
+
 }

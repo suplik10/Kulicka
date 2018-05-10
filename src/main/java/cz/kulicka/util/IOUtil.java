@@ -168,7 +168,7 @@ public class IOUtil {
 
             if (!makedHeader) {
                 CSVUtils.writeLine(writer, Arrays.asList("ID", "Acitve", "ParentId", "Symbol", "BuyTime",
-                        "BuyReason", "BuyPriceForUnitBTC", "ActualPriceForUnitBTC", "ActualPercentageProfitBTCWhitoutFee"));
+                        "BuyReason", "BuyPriceForUnitBTC", "ActualPriceForUnitBTC", "Amount", "ActualPercentageProfitBTCWhitoutFee"));
                 makedHeader = true;
             }
 
@@ -182,6 +182,7 @@ public class IOUtil {
                 list.add(CommonUtil.convertBuyReasonToString(order.getBuyReason()));
                 list.add(String.format("%.9f", order.getBuyPriceBTCForUnit()));
                 list.add(String.format("%.9f", order.getActualPriceBTCForUnit()));
+                list.add(String.format("%.9f", order.getAmount()));
                 list.add(String.format("%.3f", MathUtil.getPercentageDifference(order.getBuyPriceBTCForUnit(), order.getActualPriceBTCForUnit())));
 
                 //CSVUtils.writeLine(writer, list);

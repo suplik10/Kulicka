@@ -2,6 +2,7 @@ package cz.kulicka;
 
 import cz.kulicka.service.BinanceApiService;
 import cz.kulicka.service.MacdIndicatorService;
+import cz.kulicka.service.MailService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.timer.InstaBuyAndInstaSellTimer;
 import cz.kulicka.timer.SellTimer;
@@ -33,6 +34,8 @@ public class ExchangeCommandCenter {
 	BinanceApiService binanceApiService;
 	@Autowired
 	MacdIndicatorService macdIndicatorService;
+	@Autowired
+	MailService mailService;
 
 	public void runIt() {
 		coreEngine.loadExchangeContext();
@@ -46,7 +49,7 @@ public class ExchangeCommandCenter {
 		log.info("NewDateForInstaSellInstaBuyTimer : " + newDateForInstaSellInstaBuyTimer);
 
 		Timer instaSellInstaBuyTimer = new Timer();
-		instaSellInstaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, propertyPlaceholder)
+		instaSellInstaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, propertyPlaceholder, mailService)
 				, newDateForInstaSellInstaBuyTimer, TimeUnit.MINUTES.toMillis(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()));
 
 		//Sell Timer
@@ -57,7 +60,7 @@ public class ExchangeCommandCenter {
 		log.info("NewDateForSellTimer : " + newDateForSellTimer);
 
 		Timer sellTimer = new Timer();
-		sellTimer.schedule(new SellTimer(coreEngine), newDateForSellTimer,
+		sellTimer.schedule(new SellTimer(coreEngine, mailService), newDateForSellTimer,
 				TimeUnit.MINUTES.toMillis(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod())));
 
 	}

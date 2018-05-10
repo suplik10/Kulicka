@@ -137,11 +137,20 @@ public class PropertyPlaceholder {
     @Value("#{'${app.exchange.coins.blacklist}'.split(',')}")
     private List<String> blackListCoins;
 
+    @Value("#{'${app.notification.emails}'.split(',')}")
+    private List<String> notificationEmails;
+
+    @Value("${app.notification.on.error.enabled}")
+    private boolean notificationOnErrorEnabled;
+
     @Value("${app.strategy.ema.uptrend.ema.candlestick.count}")
     private int emaUptrendEmaStrategyCandlestickCount;
 
     @Value("${app.strategy.ema.buy.wait.cross}")
     private boolean emaStrategyBuyWaitCross;
+
+    @Value("${app.strategy.ema.trailing.stop.after.cross.down}")
+    private boolean setTrailingStopAfterEmaCrossedDown;
 
     public int getTimeDifferenceBetweenRequestsInMinutes() {
         return timeDifferenceBetweenRequestsInMinutes;
@@ -325,6 +334,18 @@ public class PropertyPlaceholder {
 
     public boolean isEmaStrategyBuyWaitCross() {
         return emaStrategyBuyWaitCross;
+    }
+
+    public List<String> getNotificationEmails() {
+        return notificationEmails;
+    }
+
+    public boolean isNotificationOnErrorEnabled() {
+        return notificationOnErrorEnabled;
+    }
+
+    public boolean isSetTrailingStopAfterEmaCrossedDown() {
+        return setTrailingStopAfterEmaCrossedDown;
     }
 }
 

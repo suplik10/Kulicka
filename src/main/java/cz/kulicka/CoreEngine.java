@@ -183,8 +183,9 @@ public class CoreEngine {
 
         log.info("Report finished order per day count > " + dailyOrders.size());
 
+        //TODO file path hotfix
         IOUtil.ordersToCSV(new ArrayList<>(finishedOrders),
-                DateTimeUtils.getPathWithDate(propertyPlaceholder.getCsvReportDailyFilePath(), DateTimeUtils.yesterday()), false);
+                DateTimeUtils.getPathWithDate(propertyPlaceholder.getCsvReportDailyFilePath(), DateTimeUtils.yesterday()).concat(".csv"), false);
     }
 
     public void reportActiveOrders() {
