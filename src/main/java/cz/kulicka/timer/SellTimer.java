@@ -1,7 +1,6 @@
 package cz.kulicka.timer;
 
 import cz.kulicka.CoreEngine;
-import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.service.MailService;
 import cz.kulicka.util.DateTimeUtils;
@@ -49,8 +48,11 @@ public class SellTimer extends TimerTask {
 
 			log.info("------ TIMER SELL - END " + iteration + " ------");
 		} catch (BinanceApiException e) {
-			log.error("BINANCE API EXCEPTION !!! iteration: " + iteration + " exception: " + e.getMessage());
-			mailService.sendMail(e.getMessage(), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+			log.error("BINANCE API EXCEPTION !!!  " + e.toString());
+			mailService.sendMail("BINANCE API EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+		} catch (Exception e) {
+			log.error("PROGRAM THREAD EXCEPTION !!!  " + e.toString());
+			mailService.sendMail("PROGRAM THREAD EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
 		} finally {
 			coreEngine.setMutex(false);
 		}

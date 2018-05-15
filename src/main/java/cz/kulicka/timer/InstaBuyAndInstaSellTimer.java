@@ -57,8 +57,11 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
 
 			log.info("------ TIMER INSTA BUY&SELL - END " + iteration + " ------");
 		} catch (BinanceApiException e) {
-			log.error("BINANCE API EXCEPTION !!!  " + e.getMessage());
-			mailService.sendMail(e.getMessage(), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+			log.error("BINANCE API EXCEPTION !!!  " + e.toString());
+			mailService.sendMail("BINANCE API EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+		} catch (Exception e) {
+			log.error("PROGRAM THREAD EXCEPTION !!!  " + e.toString());
+			mailService.sendMail("PROGRAM THREAD EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
 		} finally {
 			coreEngine.setMutex(false);
 		}

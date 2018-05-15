@@ -2,10 +2,15 @@ package cz.kulicka.service.impl;
 
 import cz.kulicka.PropertyPlaceholder;
 import cz.kulicka.service.MailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
@@ -14,21 +19,30 @@ import java.util.Properties;
 @Service
 public class MailServiceImpl implements MailService {
 
+	static Logger log = LogManager.getLogger(MailServiceImpl.class);
+
 	@Autowired
 	PropertyPlaceholder propertyPlaceholder;
 
 	@Override
 	public boolean sendMail(String subject, Date errorTime) {
 
-		Session session = getSession();
-
 		if (!propertyPlaceholder.isNotificationOnErrorEnabled()) {
 			return false;
 		}
 
+		Session session;
+
+		try {
+			session = getSession();
+		} catch (Exception e) {
+			log.error("SEND MAIL get session Exception:" + e.toString());
+			throw new RuntimeException(e);
+		}
+
+
 		for (String mail : propertyPlaceholder.getNotificationEmails()) {
 			try {
-
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress("kulicka.bot@gmail.com"));
 				message.setRecipients(Message.RecipientType.TO,
@@ -38,14 +52,13 @@ public class MailServiceImpl implements MailService {
 
 				Transport.send(message);
 
-				System.out.println("Done");
+				log.info("Mail successful send to: " + mail);
 
-			} catch (MessagingException e) {
+			} catch (Exception e) {
+				log.error("SEND MAIL send Exception:" + e.toString());
 				throw new RuntimeException(e);
 			}
 		}
-
-
 		return true;
 	}
 
@@ -69,7 +82,7 @@ public class MailServiceImpl implements MailService {
 
 	}
 
-	private String buildMessage(String subject, Date errorTime){
+	private String buildMessage(String subject, Date errorTime) {
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("ENV: " + propertyPlaceholder.getAppName());
 		stringBuilder.append("\n");
