@@ -26,21 +26,24 @@ public class BookTickerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        List<BookTicker> result = null;
-        ArrayList<Ticker> newCur = new ArrayList<>();
+        List<BookTicker> newBookTickers = null;
+        ArrayList<Ticker> newCurrencies = new ArrayList<>();
         ArrayList<Ticker> tickersDB = new ArrayList<>();
         try {
-            result = objectMapper.readValue(jsonFile, new TypeReference<List<BookTicker>>(){});
+            newBookTickers = objectMapper.readValue(jsonFile, new TypeReference<List<BookTicker>>(){});
 
+            //tickersDB = getEmptyTickers();
+           tickersDB = getTickers();
 
-
-
-            for (int i = 0; i < result.size(); i++) {
-                if (result.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if (CommonUtil.addTickerToDBList(tickersDB, result.get(i).getSymbol(), null, true)) {
-                        Ticker ticker = new Ticker(result.get(i).getSymbol());
-                        newCur.add(ticker);
-                        tickersDB.add(ticker);
+            if (newBookTickers != null) {
+                //tickerRepository.deleteAll();
+                for (int i = 0; i < newBookTickers.size(); i++) {
+                    if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
+                        if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), getBlackListCoins(), false, getWhiteListCOins(), true)) {
+                            Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
+                            newCurrencies.add(ticker);
+                            tickersDB.add(ticker);
+                        }
                     }
                 }
             }
@@ -49,8 +52,47 @@ public class BookTickerTest {
         }
 
 
+        String tickers = "";
+        for(Ticker ticker : tickersDB){
+            tickers += ticker.getSymbol() + ",";
+        }
 
-        Assert.assertNotNull(result);
+        System.out.println(tickers);
+
 
     }
+
+    private ArrayList<Ticker> getEmptyTickers(){
+        return new ArrayList<>();
+    }
+
+    private ArrayList<Ticker> getTickers(){
+        ArrayList<Ticker> bookTickers = new ArrayList<>();
+        bookTickers.add(new Ticker("ETHBTC"));
+        bookTickers.add(new Ticker("LTCBTC"));
+        bookTickers.add(new Ticker("BNBBTC"));
+        bookTickers.add(new Ticker("NEOBTC"));
+        bookTickers.add(new Ticker("BCCBTC"));
+        bookTickers.add(new Ticker("GASBTC"));
+        bookTickers.add(new Ticker("BTCUSDT"));
+
+        return bookTickers;
+    }
+
+    private List<String> getBlackListCoins(){
+        List<String> bookTickers = new ArrayList<>();
+        bookTickers.add("QTUMBTC");
+        bookTickers.add("YOYOBTC");
+        return bookTickers;
+    }
+
+    private List<String> getWhiteListCOins(){
+        List<String> bookTickers = new ArrayList<>();
+        bookTickers.add("ETHBTC");
+        bookTickers.add("IOTABTC");
+        return bookTickers;
+    }
+
+
+    //ETHBTC,LTCBTC,BNBBTC,NEOBTC,BCCBTC,GASBTC,BTCUSDT,HSRBTC,MCOBTC,WTCBTC,LRCBTC,QTUMBTC,YOYOBTC,OMGBTC,ZRXBTC,STRATBTC,SNGLSBTC,BQXBTC,KNCBTC,FUNBTC,SNMBTC,IOTABTC,LINKBTC,XVGBTC,SALTBTC,MDABTC,MTLBTC,SUBBTC
 }

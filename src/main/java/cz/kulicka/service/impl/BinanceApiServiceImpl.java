@@ -52,7 +52,7 @@ public class BinanceApiServiceImpl implements BinanceApiService {
             tickerRepository.deleteAll();
             for (int i = 0; i < newBookTickers.size(); i++) {
                 if (newBookTickers.get(i).getSymbol().contains(CurrenciesConstants.BTC)) {
-                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), propertyPlaceholder.getBlackListCoins(), propertyPlaceholder.isIgnoreBlacklist())) {
+                    if (CommonUtil.addTickerToDBList(tickersDB, newBookTickers.get(i).getSymbol(), propertyPlaceholder.getBlackListCoins(), propertyPlaceholder.isIgnoreBlacklist(), propertyPlaceholder.getWhitelistCoins(), propertyPlaceholder.isIgnoreWhitelist())) {
                         Ticker ticker = new Ticker(newBookTickers.get(i).getSymbol());
                         newCurrencies.add(ticker);
                         tickersDB.add(ticker);
@@ -69,8 +69,6 @@ public class BinanceApiServiceImpl implements BinanceApiService {
 
 
         tickerRepository.save(tickersDB);
-
-        log.debug("New currencies on exchange! : " + newCurrencies.toString());
         //TODO handle some notification
 
         return tickersDB;

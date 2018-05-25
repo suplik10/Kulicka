@@ -137,6 +137,12 @@ public class PropertyPlaceholder {
     @Value("#{'${app.exchange.coins.blacklist}'.split(',')}")
     private List<String> blackListCoins;
 
+    @Value("#{'${app.exchange.coins.whitelist}'.split(',')}")
+    private List<String> whitelistCoins;
+
+    @Value("${app.exchange.coins.whitelist.ignore}")
+    private boolean ignoreWhitelist;
+
     @Value("#{'${app.notification.emails}'.split(',')}")
     private List<String> notificationEmails;
 
@@ -346,6 +352,14 @@ public class PropertyPlaceholder {
 
     public boolean isSetTrailingStopAfterEmaCrossedDown() {
         return setTrailingStopAfterEmaCrossedDown;
+    }
+
+    public List<String> getWhitelistCoins() {
+        return whitelistCoins;
+    }
+
+    public boolean isIgnoreWhitelist() {
+        return ignoreWhitelist;
     }
 }
 

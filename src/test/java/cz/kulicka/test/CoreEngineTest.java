@@ -9,8 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration("/test-spring-context.xml")
+//@RunWith(SpringRunner.class)
+//@ContextConfiguration("/test-spring-context.xml")
 public class CoreEngineTest {
 
     @Autowired
@@ -22,7 +22,7 @@ public class CoreEngineTest {
     }
 
 
-    @Test
+    //@Test
     public void testCoreEngine() {
         //TODO complet test
         //coreEngine.runIt();
