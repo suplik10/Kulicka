@@ -1,8 +1,8 @@
 package cz.kulicka.timer;
 
+import com.binance.api.client.exception.BinanceApiException;
 import cz.kulicka.CoreEngine;
 import cz.kulicka.PropertyPlaceholder;
-import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.service.MailService;
 import cz.kulicka.util.DateTimeUtils;
 import org.apache.log4j.Logger;

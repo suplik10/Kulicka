@@ -39,7 +39,6 @@ public class CommonUtilTest {
 		double hot = 0.333111;
 		String str = String.valueOf(hot);
 
-
 	}
 
 }

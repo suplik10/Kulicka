@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations" value="classpath:application.properties" ></property>
-    </bean>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:application.properties"></property>
+	</bean>
 
-    <bean id="orderRepository" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="cz.kulicka.repository.OrderRepository"/>
-    </bean>
+	<bean id="orderRepository" class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="cz.kulicka.repository.OrderRepository"/>
+	</bean>
 
-    <bean id="binanceApiService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="cz.kulicka.service.BinanceApiService"/>
-    </bean>
+	<bean id="binanceApiServiceMKA" class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg value="cz.kulicka.service.BinanceApiServiceMKA"/>
+	</bean>
 
-    <bean id="coreEngine"
-          class="cz.kulicka.CoreEngine">
-    </bean>
+	<bean id="coreEngine"
+		  class="cz.kulicka.CoreEngine">
+	</bean>
 
-    <bean id="propertyPlaceholder" class="cz.kulicka.PropertyPlaceholder">
-    </bean>
+	<bean id="propertyPlaceholder" class="cz.kulicka.PropertyPlaceholder">
+	</bean>
 
-    <bean id="orderStrategyContext"
-          class="cz.kulicka.strategy.OrderStrategyContext">
-    </bean>
+	<bean id="orderStrategyContext"
+		  class="cz.kulicka.strategy.OrderStrategyContext">
+	</bean>
 
 
 </beans>

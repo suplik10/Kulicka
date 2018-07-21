@@ -8,7 +8,7 @@ import cz.kulicka.entity.TradingData;
 import cz.kulicka.enums.OrderBuyReason;
 import cz.kulicka.enums.OrderSellReason;
 import cz.kulicka.exception.OrderApiException;
-import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.service.BinanceApiServiceMKA;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.OrderStrategy;
@@ -21,8 +21,8 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
 	static Logger log = Logger.getLogger(EMAStrategyImpl.class);
 
-	public EMAStrategyImpl(BinanceApiService binanceApiService, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
-		super(binanceApiService, macdIndicatorService, orderService, propertyPlaceholder);
+	public EMAStrategyImpl(BinanceApiServiceMKA binanceApiServiceMKA, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
+		super(binanceApiServiceMKA, macdIndicatorService, orderService, propertyPlaceholder);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 
 		Order openOrder = Iterables.getFirst(openOrders, null);
 
-		double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(openOrder.getSymbol()).getPrice());
+		double lastPriceBTC = Double.parseDouble(binanceApiServiceMKA.getLastPrice(openOrder.getSymbol()).getPrice());
 
 		log.debug("RE-BUY - Try to make order, symbol: " + ticker.getSymbol());
 

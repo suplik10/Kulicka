@@ -1,5 +1,8 @@
 package cz.kulicka.util;
 
+import com.binance.api.client.domain.general.FilterType;
+import com.binance.api.client.domain.general.SymbolInfo;
+import com.binance.api.client.exception.BinanceApiException;
 import cz.kulicka.entity.Ticker;
 import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
@@ -94,6 +97,26 @@ public class CommonUtil {
 				return "EMA_BUY";
 			default:
 				throw new IllegalArgumentException("Invalid buyReason!");
+		}
+	}
+
+	public static int getNumberOfDecimalPlacesToOrder(String symbolPair, List<SymbolInfo> symbols) {
+
+		SymbolInfo symbolInfo = symbols.stream().filter(symbolInfo1 -> symbolInfo1.getSymbol().equals(symbolPair))
+				.findFirst()
+				.orElseThrow(() -> new BinanceApiException("Unable to obtain information for symbol " + symbolPair));
+
+		String stepSize = symbolInfo.getSymbolFilter(FilterType.LOT_SIZE).getStepSize();
+
+		try {
+			try {
+				return stepSize.substring(stepSize.indexOf("."), stepSize.indexOf("1")).length();
+			} catch (StringIndexOutOfBoundsException e) {
+				return 0;
+			}
+		} catch (RuntimeException e) {
+			log.error("Failed to parse coin decimal places > coin symbol " + symbolPair + " EXCEPTION: " + e.getStackTrace());
+			throw new BinanceApiException("Failed to parse coin decimal places > coin symbol " + symbolPair);
 		}
 	}
 }

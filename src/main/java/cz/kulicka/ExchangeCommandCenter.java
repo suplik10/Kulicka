@@ -1,6 +1,6 @@
 package cz.kulicka;
 
-import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.service.BinanceApiServiceMKA;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.MailService;
 import cz.kulicka.service.OrderService;
@@ -31,7 +31,7 @@ public class ExchangeCommandCenter {
 	@Autowired
 	OrderService orderService;
 	@Autowired
-	BinanceApiService binanceApiService;
+	BinanceApiServiceMKA binanceApiServiceMKA;
 	@Autowired
 	MacdIndicatorService macdIndicatorService;
 	@Autowired

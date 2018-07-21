@@ -1,16 +1,25 @@
 package cz.kulicka.strategy.impl;
 
+import com.binance.api.client.domain.account.Account;
+import com.binance.api.client.domain.account.AssetBalance;
+import com.binance.api.client.domain.account.NewOrder;
+import com.binance.api.client.domain.account.NewOrderResponse;
+import com.binance.api.client.domain.market.Candlestick;
+import com.binance.api.client.exception.BinanceApiException;
 import cz.kulicka.CoreEngine;
 import cz.kulicka.PropertyPlaceholder;
-import cz.kulicka.constant.BinanceApiConstants;
-import cz.kulicka.entity.*;
+import cz.kulicka.constant.CommonConstants;
+import cz.kulicka.entity.MacdIndicator;
+import cz.kulicka.entity.Order;
+import cz.kulicka.entity.Ticker;
+import cz.kulicka.entity.TradingData;
 import cz.kulicka.enums.OrderBuyReason;
 import cz.kulicka.enums.OrderSellReason;
-import cz.kulicka.exception.BinanceApiException;
 import cz.kulicka.exception.OrderApiException;
-import cz.kulicka.service.BinanceApiService;
+import cz.kulicka.service.BinanceApiServiceMKA;
 import cz.kulicka.service.MacdIndicatorService;
 import cz.kulicka.service.OrderService;
+import cz.kulicka.util.CommonUtil;
 import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.MathUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -23,15 +32,15 @@ public abstract class AbstractStrategy {
 
 	static Logger log = Logger.getLogger(AbstractStrategy.class);
 
-	protected BinanceApiService binanceApiService;
+	protected BinanceApiServiceMKA binanceApiServiceMKA;
 	protected MacdIndicatorService macdIndicatorService;
 	protected PropertyPlaceholder propertyPlaceholder;
 	protected OrderService orderService;
 
 	protected ArrayList<Long> emaCrossProtectedOrdersIds = new ArrayList<>();
 
-	protected AbstractStrategy(BinanceApiService binanceApiService, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
-		this.binanceApiService = binanceApiService;
+	protected AbstractStrategy(BinanceApiServiceMKA binanceApiServiceMKA, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
+		this.binanceApiServiceMKA = binanceApiServiceMKA;
 		this.macdIndicatorService = macdIndicatorService;
 		this.orderService = orderService;
 		this.propertyPlaceholder = propertyPlaceholder;
@@ -190,7 +199,7 @@ public abstract class AbstractStrategy {
 	protected Order makeOrder(Ticker ticker, double actualBTCUSDT, TradingData tradingData, OrderBuyReason buyReason) {
 		log.debug("Make order for symbol: " + ticker.getSymbol());
 
-		double lastPriceBTC = Double.parseDouble(binanceApiService.getLastPrice(ticker.getSymbol()).getPrice());
+		double lastPriceBTC = Double.parseDouble(binanceApiServiceMKA.getLastPrice(ticker.getSymbol()).getPrice());
 		double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
 		double quantity = 0;
 
@@ -294,7 +303,7 @@ public abstract class AbstractStrategy {
 	}
 
 	private ArrayList<Float> getCandlesticksValues(String symbol, String candlestickPeriod, int candlecticksCount, boolean removeLastOpenCandlestick) {
-		List<Candlestick> candlesticks = binanceApiService.getCandlestickBars(symbol, candlestickPeriod, candlecticksCount);
+		List<Candlestick> candlesticks = binanceApiServiceMKA.getCandlestickBars(symbol, candlestickPeriod, candlecticksCount);
 
 		if (removeLastOpenCandlestick) {
 			candlesticks.remove(candlesticks.size() - 1);
@@ -317,9 +326,9 @@ public abstract class AbstractStrategy {
 
 		try {
 
-			quantity = MathUtil.cutDecimalsWithoutRound(propertyPlaceholder.getPricePerOrderBTC() / lastPriceBTC, CoreEngine.EXCHANGE_INFO_CONTEXT.getNumberOfDecimalPlacesToOrder(symbol));
-			newOrderBuy = NewOrder.marketBuy(symbol, Double.toString(quantity), DateTimeUtils.getCurrentServerTimeStamp());
-			newOrderBuyResponse = binanceApiService.newOrder(newOrderBuy);
+			quantity = MathUtil.cutDecimalsWithoutRound(propertyPlaceholder.getPricePerOrderBTC() / lastPriceBTC, CommonUtil.getNumberOfDecimalPlacesToOrder(symbol, CoreEngine.EXCHANGE_INFO_CONTEXT.getSymbols()));
+			newOrderBuy = NewOrder.marketBuy(symbol, Double.toString(quantity));
+			newOrderBuyResponse = binanceApiServiceMKA.newOrder(newOrderBuy);
 
 			log.info("==================================== SUCESSFULL BOUGHT COIN PROD ENVIROMENT ==========================================");
 			log.info("===========" + newOrderBuyResponse + "=========");
@@ -340,7 +349,7 @@ public abstract class AbstractStrategy {
 		NewOrderResponse orderSellResponse = null;
 
 		try {
-			Account acount = binanceApiService.getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, DateTimeUtils.getCurrentServerTimeStamp());
+			Account acount = binanceApiServiceMKA.getAccount(CommonConstants.DEFAULT_RECEIVING_WINDOW, DateTimeUtils.getCurrentServerTimeStamp());
 
 			String quantity = Double.toString(order.getAmount());
 
@@ -348,11 +357,11 @@ public abstract class AbstractStrategy {
 			if (StringUtils.isBlank(quantity) || quantity.equals("0") || quantity.equals("0.0")) {
 				AssetBalance assetBalance = acount.getAssetBalance(order.getSymbol().substring(0, order.getSymbol().length() - 3));
 				quantity = Double.toString(MathUtil.cutDecimalsWithoutRound(Double.parseDouble(assetBalance.getFree()),
-						CoreEngine.EXCHANGE_INFO_CONTEXT.getNumberOfDecimalPlacesToOrder(order.getSymbol())));
+						CommonUtil.getNumberOfDecimalPlacesToOrder(order.getSymbol(), CoreEngine.EXCHANGE_INFO_CONTEXT.getSymbols())));
 			}
 
-			orderSell = NewOrder.marketSell(order.getSymbol(), quantity, DateTimeUtils.getCurrentServerTimeStamp());
-			orderSellResponse = binanceApiService.newOrder(orderSell);
+			orderSell = NewOrder.marketSell(order.getSymbol(), quantity);
+			orderSellResponse = binanceApiServiceMKA.newOrder(orderSell);
 
 			log.info("==================================== SUCESSFULL SOLD COIN PROD ENVIROMENT ==========================================");
 			log.info("===========" + orderSellResponse + "=========");
