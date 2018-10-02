@@ -20,7 +20,9 @@ public enum OrderSellReason implements OrderEnum {
 
     TRAILING_STOP_CROSS_DOWN_EMA(7),
 
-    INSTA_SELL_CROSS_DOWN_EMA(8);
+	INSTA_SELL_CROSS_DOWN_EMA(8),
+
+	PANIC_SELL(9);
 
 
     private final int cst;

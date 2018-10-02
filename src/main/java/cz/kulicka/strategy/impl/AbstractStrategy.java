@@ -1,5 +1,7 @@
 package cz.kulicka.strategy.impl;
 
+import com.binance.api.client.constant.BinanceApiConstants;
+import com.binance.api.client.domain.TimeInForce;
 import com.binance.api.client.domain.account.Account;
 import com.binance.api.client.domain.account.AssetBalance;
 import com.binance.api.client.domain.account.NewOrder;
@@ -26,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class AbstractStrategy {
@@ -39,23 +42,26 @@ public abstract class AbstractStrategy {
 
 	protected ArrayList<Long> emaCrossProtectedOrdersIds = new ArrayList<>();
 
-	protected AbstractStrategy(BinanceApiServiceMKA binanceApiServiceMKA, MacdIndicatorService macdIndicatorService, OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
+	protected AbstractStrategy(BinanceApiServiceMKA binanceApiServiceMKA, MacdIndicatorService macdIndicatorService,
+							   OrderService orderService, PropertyPlaceholder propertyPlaceholder) {
 		this.binanceApiServiceMKA = binanceApiServiceMKA;
 		this.macdIndicatorService = macdIndicatorService;
 		this.orderService = orderService;
 		this.propertyPlaceholder = propertyPlaceholder;
 	}
 
-	protected Order setOrderForSell(Order order, double actualBTCUSDT, double actualPercentageProfitBTC, OrderSellReason orderSellReason, double lastPriceBTC, boolean closeOrder) {
+	protected Order setOrderForSell(Order order, double actualBTCUSDT, double actualPercentageProfitBTC,
+									OrderSellReason orderSellReason, double lastPriceBTC, boolean closeOrder) {
 		double actualSellPriceForOrderWithFee = MathUtil.getSellPriceForOrderWithFee(order.getBoughtAmount(),
 				lastPriceBTC * actualBTCUSDT, order.getSellFeeConstant());
-		double actualPercentageProfit = MathUtil.getPercentageDifference(order.getBuyPriceForOrderWithFee(), actualSellPriceForOrderWithFee);
+		double actualPercentageProfit = MathUtil.getPercentageDifference(order.getBuyPriceForOrderWithFee(),
+				actualSellPriceForOrderWithFee);
 
 		order.setPercentageProfitFeeIncluded(actualPercentageProfit);
 		order.setPercentageProfitBTCForUnitWithoutFee(actualPercentageProfitBTC);
 		order.setSellPriceForOrderWithFee(actualSellPriceForOrderWithFee);
 		order.setProfitFeeIncluded(order.getSellPriceForOrderWithFee() - order.getBuyPriceForOrderWithFee());
-		order.setSellTime(DateTimeUtils.getCurrentServerDate().getTime());
+		order.setSellTime(System.currentTimeMillis());
 		order.setSellReason(orderSellReason.getCST());
 		order.setSellPriceBTCForUnit(lastPriceBTC);
 		order.setOpen(!closeOrder);
@@ -76,13 +82,18 @@ public abstract class AbstractStrategy {
 		return true;
 	}
 
-	protected TradingData getFullTradingDataHistorical(String symbol, String candlestickPeriod, int candlecticksCount, int emaShort, int emaLong, int emaSignal, boolean removeLastOpenCandlestick) {
-		return MathUtil.getTradingData(symbol, null, getCandlesticksValues(symbol, candlestickPeriod, candlecticksCount, removeLastOpenCandlestick), emaShort, emaLong, emaSignal,
+	protected TradingData getFullTradingDataHistorical(String symbol, String candlestickPeriod, int candlecticksCount,
+													   int emaShort, int emaLong, int emaSignal, boolean
+															   removeLastOpenCandlestick) {
+		return MathUtil.getTradingData(symbol, null, getCandlesticksValues(symbol, candlestickPeriod,
+				candlecticksCount, removeLastOpenCandlestick), emaShort, emaLong, emaSignal,
 				0, 0, 0);
 	}
 
-	protected TradingData getEmaTradingDataHistorical(String symbol, String candlestickPeriod, int candlecticksCount, int emaShort, int emaLong, boolean removeLastOpenCandlestick) {
-		TradingData tradingData = MathUtil.getEmaShortLongTradingData(symbol, null, getCandlesticksValues(symbol, candlestickPeriod, candlecticksCount, removeLastOpenCandlestick), emaShort, emaLong,
+	protected TradingData getEmaTradingDataHistorical(String symbol, String candlestickPeriod, int candlecticksCount,
+													  int emaShort, int emaLong, boolean removeLastOpenCandlestick) {
+		TradingData tradingData = MathUtil.getEmaShortLongTradingData(symbol, null, getCandlesticksValues(symbol,
+				candlestickPeriod, candlecticksCount, removeLastOpenCandlestick), emaShort, emaLong,
 				0, 0);
 		log.debug(tradingData.toString());
 		return tradingData;
@@ -92,8 +103,11 @@ public abstract class AbstractStrategy {
 
 		MacdIndicator macdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(order.getId());
 
-		TradingData tradingData = MathUtil.getEmaShortLongTradingData(order.getSymbol(), null, getCandlesticksValues(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(),
-				2, removeLastOpenCandlestick), propertyPlaceholder.getEmaStrategyShortEma(), propertyPlaceholder.getEmaStrategyLongEma(),
+		TradingData tradingData = MathUtil.getEmaShortLongTradingData(order.getSymbol(), null, getCandlesticksValues
+						(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(),
+								2, removeLastOpenCandlestick), propertyPlaceholder.getEmaStrategyShortEma(),
+				propertyPlaceholder
+						.getEmaStrategyLongEma(),
 				macdIndicator.getEmaShortYesterday(), macdIndicator.getEmaLongYesterday());
 
 		log.debug(tradingData.toString());
@@ -113,9 +127,13 @@ public abstract class AbstractStrategy {
 
 		log.debug(macdIndicator.toString());
 
-		TradingData tradingData = MathUtil.getTradingData(order.getSymbol(), order.getId(), getCandlesticksValues(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2, removeLastOpenCandlestick),
-				propertyPlaceholder.getEmaShortConstant(), propertyPlaceholder.getEmaLongConstant(), propertyPlaceholder.getEmaSignalConstant(),
-				macdIndicator.getEmaShortYesterday(), macdIndicator.getEmaLongYesterday(), macdIndicator.getEmaSignalYesterday());
+		TradingData tradingData = MathUtil.getTradingData(order.getSymbol(), order.getId(), getCandlesticksValues
+						(order.getSymbol(), propertyPlaceholder.getBinanceCandlesticksPeriod(), 2,
+								removeLastOpenCandlestick),
+				propertyPlaceholder.getEmaShortConstant(), propertyPlaceholder.getEmaLongConstant(),
+				propertyPlaceholder.getEmaSignalConstant(),
+				macdIndicator.getEmaShortYesterday(), macdIndicator.getEmaLongYesterday(), macdIndicator
+						.getEmaSignalYesterday());
 
 		log.debug(tradingData.toString());
 
@@ -138,8 +156,10 @@ public abstract class AbstractStrategy {
 
 		log.debug("IS uptrend for ticker: " + symbol);
 
-		TradingData tradingData = getEmaTradingDataHistorical(symbol, propertyPlaceholder.getEmaUptrendEmaStrategyCandlestickPeriod(),
-				propertyPlaceholder.getEmaUptrendEmaStrategyCandlestickCount(), propertyPlaceholder.getEmaUptrendEmaStrategyShortEma(),
+		TradingData tradingData = getEmaTradingDataHistorical(symbol, propertyPlaceholder
+						.getEmaUptrendEmaStrategyCandlestickPeriod(),
+				propertyPlaceholder.getEmaUptrendEmaStrategyCandlestickCount(), propertyPlaceholder
+						.getEmaUptrendEmaStrategyShortEma(),
 				propertyPlaceholder.getEmaUptrendEmaStrategyLongEma(), removeLastOpenCandlestick);
 
 		log.debug(tradingData);
@@ -147,21 +167,30 @@ public abstract class AbstractStrategy {
 		return tradingData.getLastEmaShortYesterday() > tradingData.getLastEmaLongYesterday() ? true : false;
 	}
 
-	protected boolean handleTrailingStopOrder(Order order, double actualBTCUSDT, double actualPercentageProfitBTC, double lastPriceBTC, TradingData tradingData) {
+	protected boolean handleTrailingStopOrder(Order order, double actualBTCUSDT, double actualPercentageProfitBTC,
+											  double lastPriceBTC, TradingData tradingData) {
 
-		log.debug("TRAILING STOP for symbol: " + order.getSymbol() + " actualPercentageProfitBTC: " + String.format("%.3f", actualPercentageProfitBTC)
+		log.debug("TRAILING STOP for symbol: " + order.getSymbol() + " actualPercentageProfitBTC: " + String.format
+				("%.3f", actualPercentageProfitBTC)
 				+ " % actual TAKEPROFIT " + String.format("%.3f", order.getTrailingStopTakeProfitPercentage())
 				+ " % actual STOPLOSS " + String.format("%.3f", order.getTrailingStopStopLossPercentage()) + " %");
 
-		if (actualPercentageProfitBTC > order.getTrailingStopTakeProfitPercentage() && !isEmaCrossedDown(tradingData, order, actualPercentageProfitBTC)) {
-			order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
-			order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopStopLossMinusPercentageConstant());
+		if (actualPercentageProfitBTC > order.getTrailingStopTakeProfitPercentage() && !isEmaCrossedDown(tradingData,
+				order, actualPercentageProfitBTC)) {
+			order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder
+					.getTrailingStopTakeProfitPlusPercentageConstant());
+			order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder
+					.getTrailingStopStopLossMinusPercentageConstant());
 			return false;
-		} else if (actualPercentageProfitBTC < order.getTrailingStopStopLossPercentage() && !isEmaCrossedDown(tradingData, order, actualPercentageProfitBTC) && !isBuyConditionPassed(tradingData)) {
-			setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.INSTA_SELL_TRAILING_STOP_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
+		} else if (actualPercentageProfitBTC < order.getTrailingStopStopLossPercentage() && !isEmaCrossedDown
+				(tradingData, order, actualPercentageProfitBTC) && !isBuyConditionPassed(tradingData)) {
+			setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason
+					.INSTA_SELL_TRAILING_STOP_STOPLOSS, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
 			return true;
-		} else if (isEmaCrossedDown(tradingData, order, actualPercentageProfitBTC) && !isBuyConditionPassed(tradingData)) {
-			setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason.TRAILING_STOP_CROSS_DOWN_EMA, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
+		} else if (isEmaCrossedDown(tradingData, order, actualPercentageProfitBTC) && !isBuyConditionPassed
+				(tradingData)) {
+			setOrderForSell(order, actualBTCUSDT, actualPercentageProfitBTC, OrderSellReason
+					.TRAILING_STOP_CROSS_DOWN_EMA, lastPriceBTC, !propertyPlaceholder.isStopLossProtection());
 			return true;
 		}
 		return false;
@@ -170,7 +199,8 @@ public abstract class AbstractStrategy {
 	protected boolean isEmaCrossedDown(TradingData tradingData, Order order, double actualPercentageProfitBTC) {
 
 		if (propertyPlaceholder.isEmaSellRemoveLastOpenCandlestick()) {
-			log.debug("orderId" + order.getId() + "emaCrossProtectedOrdersIds " + emaCrossProtectedOrdersIds.toString());
+			log.debug("orderId" + order.getId() + "emaCrossProtectedOrdersIds " + emaCrossProtectedOrdersIds.toString
+					());
 			for (long id : emaCrossProtectedOrdersIds) {
 				if (order.getId() == id) {
 					return false;
@@ -179,19 +209,23 @@ public abstract class AbstractStrategy {
 		}
 
 		log.warn(" long " + String.format("%.9f", tradingData.getLastEmaLongYesterday()) + " short "
-				+ String.format("%.9f", tradingData.getLastEmaShortYesterday()) + " intol" + propertyPlaceholder.getEmaStrategySellLongIntolerantionPercentage());
+				+ String.format("%.9f", tradingData.getLastEmaShortYesterday()) + " intol" + propertyPlaceholder
+				.getEmaStrategySellLongIntolerantionPercentage());
 
-		boolean emaCrossedDown = (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData.getLastEmaShortYesterday()) + propertyPlaceholder.getEmaStrategySellLongIntolerantionPercentage()) < 0;
+		boolean emaCrossedDown = (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData
+				.getLastEmaShortYesterday()) + propertyPlaceholder.getEmaStrategySellLongIntolerantionPercentage())
+				< 0;
 
 		if (propertyPlaceholder.isSetTrailingStopAfterEmaCrossedDown() && emaCrossedDown) {
 			if (!order.isTrailingStop()) {
 				order.setTrailingStop(true);
-				order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopTakeProfitPlusPercentageConstant());
-				order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder.getTrailingStopStopLossMinusPercentageConstant());
+				order.setTrailingStopTakeProfitPercentage(actualPercentageProfitBTC + propertyPlaceholder
+						.getTrailingStopTakeProfitPlusPercentageConstant());
+				order.setTrailingStopStopLossPercentage(actualPercentageProfitBTC + propertyPlaceholder
+						.getTrailingStopStopLossMinusPercentageConstant());
 			}
 			emaCrossedDown = false;
 		}
-
 
 		return emaCrossedDown;
 	}
@@ -212,8 +246,10 @@ public abstract class AbstractStrategy {
 			}
 		}
 
-		Order newOrder = new Order(ticker.getSymbol(), DateTimeUtils.getCurrentServerDate().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
-				propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC, buyReason.getCST());
+		Order newOrder = new Order(ticker.getSymbol(), System.currentTimeMillis(), propertyPlaceholder
+				.getPricePerOrderUSD(), lastPriceInUSDT,
+				propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC, buyReason
+				.getCST());
 		newOrder.setAmount(quantity);
 		newOrder.setActive(true);
 		newOrder.setOpen(true);
@@ -246,7 +282,8 @@ public abstract class AbstractStrategy {
 	protected boolean isBuyConditionPassed(TradingData tradingData) {
 
 		if ((tradingData.getLastEmaShortYesterday() > tradingData.getLastEmaLongYesterday())
-				&& (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData.getLastEmaShortYesterday()) - propertyPlaceholder.getEmaStrategyBuyLongIntolerantionPercentage() > 0)
+				&& (MathUtil.getPercentageDifference(tradingData.getLastEmaLongYesterday(), tradingData
+				.getLastEmaShortYesterday()) - propertyPlaceholder.getEmaStrategyBuyLongIntolerantionPercentage() > 0)
 				&& isUptrend(tradingData.getSymbol(), propertyPlaceholder.isCheckUptrendRemoveLastOpenCandlestick())
 				&& isEmaCrossedUp(tradingData)) {
 			return true;
@@ -264,7 +301,8 @@ public abstract class AbstractStrategy {
 		return tradingData.getPreLastEmaShortYesterday() < tradingData.getPrelastEmaLongYesterday();
 	}
 
-	protected void makeOrderByStopLossProtection(Order openOrder, TradingData tradingData, double lastPriceBTC, double actualBTCUSDT) {
+	protected void makeOrderByStopLossProtection(Order openOrder, TradingData tradingData, double lastPriceBTC, double
+			actualBTCUSDT) {
 		log.debug("RE-BUY - Make order macd, symbol: " + tradingData.toString() + " parent id: " + openOrder.getId());
 
 		double lastPriceInUSDT = lastPriceBTC * actualBTCUSDT;
@@ -278,8 +316,10 @@ public abstract class AbstractStrategy {
 			}
 		}
 
-		Order newOrder = new Order(openOrder.getSymbol(), DateTimeUtils.getCurrentServerDate().getTime(), propertyPlaceholder.getPricePerOrderUSD(), lastPriceInUSDT,
-				propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC, OrderBuyReason.STOPLOSS_PROTECTION_REBUY.getCST());
+		Order newOrder = new Order(openOrder.getSymbol(), System.currentTimeMillis(), propertyPlaceholder
+				.getPricePerOrderUSD(), lastPriceInUSDT,
+				propertyPlaceholder.getTradeBuyFee(), propertyPlaceholder.getTradeSellFee(), lastPriceBTC,
+				OrderBuyReason.STOPLOSS_PROTECTION_REBUY.getCST());
 		newOrder.setAmount(quantity);
 		newOrder.setActive(true);
 		newOrder.setOpen(true);
@@ -290,7 +330,8 @@ public abstract class AbstractStrategy {
 
 		MacdIndicator oldMacdIndicator = macdIndicatorService.getMacdIndicatorByOrderId(openOrder.getId());
 
-		MacdIndicator macdIndicatorForNewOrder = MacdIndicator.createNewInstance(oldMacdIndicator, newOrderWithId.getId(), newOrderWithId.getBuyTime(), tradingData);
+		MacdIndicator macdIndicatorForNewOrder = MacdIndicator.createNewInstance(oldMacdIndicator, newOrderWithId
+				.getId(), newOrderWithId.getBuyTime(), tradingData);
 
 		log.debug(newOrder.toString());
 		log.debug(macdIndicatorForNewOrder.toString());
@@ -302,8 +343,10 @@ public abstract class AbstractStrategy {
 		macdIndicatorService.create(macdIndicatorForNewOrder);
 	}
 
-	private ArrayList<Float> getCandlesticksValues(String symbol, String candlestickPeriod, int candlecticksCount, boolean removeLastOpenCandlestick) {
-		List<Candlestick> candlesticks = binanceApiServiceMKA.getCandlestickBars(symbol, candlestickPeriod, candlecticksCount);
+	private ArrayList<Float> getCandlesticksValues(String symbol, String candlestickPeriod, int candlecticksCount,
+												   boolean removeLastOpenCandlestick) {
+		List<Candlestick> candlesticks = binanceApiServiceMKA.getCandlestickBars(symbol, candlestickPeriod,
+				candlecticksCount);
 
 		if (removeLastOpenCandlestick) {
 			candlesticks.remove(candlesticks.size() - 1);
@@ -326,18 +369,25 @@ public abstract class AbstractStrategy {
 
 		try {
 
-			quantity = MathUtil.cutDecimalsWithoutRound(propertyPlaceholder.getPricePerOrderBTC() / lastPriceBTC, CommonUtil.getNumberOfDecimalPlacesToOrder(symbol, CoreEngine.EXCHANGE_INFO_CONTEXT.getSymbols()));
+			quantity = MathUtil.cutDecimalsWithoutRound(propertyPlaceholder.getPricePerOrderBTC() / lastPriceBTC,
+					CommonUtil.getNumberOfDecimalPlacesToOrder(symbol, CoreEngine.EXCHANGE_INFO_CONTEXT.getSymbols()));
 			newOrderBuy = NewOrder.marketBuy(symbol, Double.toString(quantity));
-			newOrderBuyResponse = binanceApiServiceMKA.newOrder(newOrderBuy);
+			newOrderBuy = newOrderBuy.timestamp(DateTimeUtils.getTimeStamp());
 
-			log.info("==================================== SUCESSFULL BOUGHT COIN PROD ENVIROMENT ==========================================");
-			log.info("===========" + newOrderBuyResponse + "=========");
+			log.debug(newOrderBuy);
+			log.debug("timestamp: " + newOrderBuy.getTimestamp() + " date : " + new Date(newOrderBuy.getTimestamp()));
+			log.debug("rcvdWindow: " + newOrderBuy.getRecvWindow());
+			//log.debug("serverTime:" + new Date(binanceApiServiceMKA.getServerTime()));
+
+			newOrderBuyResponse = binanceApiServiceMKA.newOrder(newOrderBuy);
+			log.info("========== SUCESSFULL BOUGHT COIN PROD ENVIROMENT ==========");
 		} catch (BinanceApiException e) {
-			log.error("===================================== FATAL ERROR WHEN TRY TO BUY COIN ==========================================");
-			log.error("===================================== OrderBuy > " + newOrderBuy);
-			log.error("===================================== OrderBuyResponse > " + newOrderBuyResponse);
-			log.error("===================================== BinanceApiException > " + e.getMessage());
-			log.error("===================================== FATAL ERROR WHEN TRY TO BUY COIN ==========================================");
+			log.error("========== FATAL ERROR WHEN TRY TO BUY COIN ==========");
+			log.error("========== OrderBuy > " + newOrderBuy != null ? newOrderBuy : "");
+			log.error("========== OrderBuyResponse > " + newOrderBuyResponse != null ?
+					newOrderBuyResponse : "");
+			log.error("========== BinanceApiException > " + e.getMessage());
+			log.error("========== FATAL ERROR WHEN TRY TO BUY COIN ==========");
 			throw new OrderApiException("Order BUY symbol " + symbol + " FAILED " + e.getMessage());
 		}
 		return quantity;
@@ -349,29 +399,40 @@ public abstract class AbstractStrategy {
 		NewOrderResponse orderSellResponse = null;
 
 		try {
-			Account acount = binanceApiServiceMKA.getAccount(CommonConstants.DEFAULT_RECEIVING_WINDOW, DateTimeUtils.getCurrentServerTimeStamp());
+			//log.debug("localTime" + new Date(DateTimeUtils.getTimeStamp()));
+			//log.debug("serverTime:" + new Date(binanceApiServiceMKA.getServerTime()));
+			Account acount = binanceApiServiceMKA.getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+					DateTimeUtils.getTimeStamp());
 
 			String quantity = Double.toString(order.getAmount());
 
 			//if 0 quantity sell all
 			if (StringUtils.isBlank(quantity) || quantity.equals("0") || quantity.equals("0.0")) {
-				AssetBalance assetBalance = acount.getAssetBalance(order.getSymbol().substring(0, order.getSymbol().length() - 3));
+				AssetBalance assetBalance = acount.getAssetBalance(order.getSymbol().substring(0, order.getSymbol()
+						.length() - 3));
 				quantity = Double.toString(MathUtil.cutDecimalsWithoutRound(Double.parseDouble(assetBalance.getFree()),
-						CommonUtil.getNumberOfDecimalPlacesToOrder(order.getSymbol(), CoreEngine.EXCHANGE_INFO_CONTEXT.getSymbols())));
+						CommonUtil.getNumberOfDecimalPlacesToOrder(order.getSymbol(), CoreEngine.EXCHANGE_INFO_CONTEXT
+								.getSymbols())));
 			}
 
 			orderSell = NewOrder.marketSell(order.getSymbol(), quantity);
+			orderSell.timestamp(DateTimeUtils.getTimeStamp());
+
+			log.debug(orderSell);
+			log.debug("timestamp: " + orderSell.getTimestamp() + " date : " + new Date(orderSell.getTimestamp()));
+			log.debug("rcvdWindow: " + orderSell.getRecvWindow());
+			//log.debug("serverTime:" + new Date(binanceApiServiceMKA.getServerTime()));
+
 			orderSellResponse = binanceApiServiceMKA.newOrder(orderSell);
 
-			log.info("==================================== SUCESSFULL SOLD COIN PROD ENVIROMENT ==========================================");
-			log.info("===========" + orderSellResponse + "=========");
-
+			log.info("========== SUCESSFULL SOLD COIN PROD ENVIROMENT ==========");
+			log.info("==========" + orderSellResponse + "==========");
 		} catch (BinanceApiException e) {
-			log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
-			log.error("===================================== OrderSell > " + orderSell);
-			log.error("===================================== OrderSellResponse > " + orderSellResponse);
-			log.error("===================================== BinanceApiException > " + e.getMessage());
-			log.error("==================================== FATAL ERROR WHEN TRY TO SELL COIN ==========================================");
+			log.error("========== FATAL ERROR WHEN TRY TO SELL COIN ==========");
+			log.error("========== OrderSell > " + orderSell);
+			log.error("========== OrderSellResponse > " + orderSellResponse);
+			log.error("========== BinanceApiException > " + e.getMessage());
+			log.error("========== FATAL ERROR WHEN TRY TO SELL COIN ==========");
 			throw new OrderApiException("Order SELL symbol " + order.getSymbol() + " FAILED " + e.getMessage());
 		}
 	}

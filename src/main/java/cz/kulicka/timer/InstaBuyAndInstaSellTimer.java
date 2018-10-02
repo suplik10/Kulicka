@@ -59,14 +59,14 @@ public class InstaBuyAndInstaSellTimer extends TimerTask {
 		} catch (BinanceApiException e) {
 			log.error("BINANCE API EXCEPTION !!!  " + e.toString());
 			try {
-				mailService.sendMail("BINANCE API EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+				mailService.sendMail("BINANCE API EXCEPTION: ".concat(e.toString()), new Date());
 			} catch (Exception eMail) {
 				log.error("EXCEPTION SENDING MAIL SOOO FUNNY !!!!  " + eMail.toString());
 			}
 		} catch (Exception e) {
 			try {
-				log.error("PROGRAM THREAD EXCEPTION !!!  " + e.toString());
-				mailService.sendMail("PROGRAM THREAD EXCEPTION: ".concat(e.toString()), new Date(DateTimeUtils.getCurrentServerTimeStamp()));
+				log.error("PROGRAM THREAD EXCEPTION !!!  " + e.getStackTrace().toString());
+				mailService.sendMail("PROGRAM THREAD EXCEPTION: ".concat(e.toString()), new Date());
 			} catch (Exception eMail) {
 				log.error("EXCEPTION SENDING MAIL SOOO FUNNY !!!!  " + eMail.toString());
 			}

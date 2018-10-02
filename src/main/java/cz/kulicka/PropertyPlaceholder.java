@@ -158,6 +158,9 @@ public class PropertyPlaceholder {
     @Value("${app.strategy.ema.trailing.stop.after.cross.down}")
     private boolean setTrailingStopAfterEmaCrossedDown;
 
+	@Value("${app.exchange.synch.date.time.programically}")
+	private boolean synchDateTimeProgramically;
+
     public int getTimeDifferenceBetweenRequestsInMinutes() {
         return timeDifferenceBetweenRequestsInMinutes;
     }
@@ -361,5 +364,9 @@ public class PropertyPlaceholder {
     public boolean isIgnoreWhitelist() {
         return ignoreWhitelist;
     }
+
+	public boolean isSynchDateTimeProgramically() {
+		return synchDateTimeProgramically;
+	}
 }
 

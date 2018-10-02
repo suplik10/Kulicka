@@ -193,9 +193,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 				return false;
 			}
 		}
-
 		orderService.update(order);
-
 		return sellCoin;
 	}
 
@@ -218,9 +216,7 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 				return false;
 			}
 		}
-
 		orderService.update(order);
-
 		return sellCoin;
 	}
 
@@ -233,8 +229,12 @@ public class EMAStrategyImpl extends AbstractStrategy implements OrderStrategy {
 		log.info("================================================================================================================");
 
 		for (Order order : activeOrders) {
+			order.setActive(false);
+			order.setOpen(false);
+			order.setSellReason(OrderSellReason.PANIC_SELL.getCST());
 			try {
 				makeServerSellOrder(order);
+				orderService.update(order);
 			} catch (OrderApiException e) {
 				log.error(e);
 			}

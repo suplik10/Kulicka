@@ -7,18 +7,19 @@ import cz.kulicka.entity.Ticker;
 import cz.kulicka.enums.StrategyEnum;
 import cz.kulicka.service.BinanceApiServiceMKA;
 import cz.kulicka.service.MacdIndicatorService;
-import cz.kulicka.service.MailService;
 import cz.kulicka.service.OrderService;
 import cz.kulicka.strategy.OrderStrategyContext;
 import cz.kulicka.strategy.impl.EMAStrategyImpl;
 import cz.kulicka.util.DateTimeUtils;
 import cz.kulicka.util.IOUtil;
+import cz.kulicka.util.WindowsSetSystemTime;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class CoreEngine {
 
 	static Logger log = Logger.getLogger(CoreEngine.class);
 
-	public static Long DATE_DIFFERENCE_BETWEN_SERVER_AND_CLIENT_MILISECONDS;
 	public static ExchangeInfo EXCHANGE_INFO_CONTEXT;
 
 	@Autowired
@@ -40,20 +40,25 @@ public class CoreEngine {
 	OrderStrategyContext orderStrategyContext;
 	@Autowired
 	MacdIndicatorService macdIndicatorService;
-
 	@Autowired
-	MailService mailService;
+	WindowsSetSystemTime windowsSetSystemTime;
 
 	boolean mutex = false;
 
 	public void synchronizeServerTime() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		log.info("------ Date synch ------");
-		log.info("Date before synch: " + dateFormat.format(new Date()));
+		log.info("Local date time: " + dateFormat.format(new Date()));
 		Date dateFromServer = new Date(EXCHANGE_INFO_CONTEXT.getServerTime());
 		log.info("Server date: " + dateFormat.format(dateFromServer));
-		DATE_DIFFERENCE_BETWEN_SERVER_AND_CLIENT_MILISECONDS = new Date().getTime() - (dateFromServer.getTime());
-		log.info("Date after synch: " + dateFormat.format(DateTimeUtils.getCurrentServerDate()));
+		if (propertyPlaceholder.isSynchDateTimeProgramically()) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(dateFromServer);
+			cal.add(Calendar.HOUR, -2);
+			windowsSetSystemTime.SetLocalTime(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar
+					.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
+			log.info("Local date time after synch: " + dateFormat.format(new Date()));
+		}
 	}
 
 	public void loadExchangeContext() {
@@ -71,11 +76,13 @@ public class CoreEngine {
 				break;
 			case EMA:
 				log.info("----- EMA STRATEGY SET -----");
-				orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiServiceMKA, macdIndicatorService, orderService, propertyPlaceholder));
+				orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiServiceMKA, macdIndicatorService,
+						orderService, propertyPlaceholder));
 				break;
 			default:
 				log.info("----- DEFAULT EMA STRATEGY SET -----");
-				orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiServiceMKA, macdIndicatorService, orderService, propertyPlaceholder));
+				orderStrategyContext.setOrderStrategy(new EMAStrategyImpl(binanceApiServiceMKA, macdIndicatorService,
+						orderService, propertyPlaceholder));
 		}
 	}
 
@@ -87,7 +94,8 @@ public class CoreEngine {
 		currencies = binanceApiServiceMKA.checkActualCurrencies(newCurrencies);
 		log.debug("Number of currencies: " + currencies.size());
 
-		double actualBTCUSDT = Double.parseDouble(binanceApiServiceMKA.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
+		double actualBTCUSDT = Double.parseDouble(binanceApiServiceMKA.getLastPrice(CurrenciesConstants.BTCUSDT)
+				.getPrice());
 
 		for (Ticker currencyTicker : currencies) {
 			//Buy???
@@ -101,13 +109,13 @@ public class CoreEngine {
 			}
 		}
 
-
 		log.info("SCAN COMPLETE!");
 	}
 
 	public void handleActiveOrders(boolean instaSell) {
 		List<Order> activeOrders = orderService.getAllActive();
-		double actualBTCUSDT = Double.parseDouble(binanceApiServiceMKA.getLastPrice(CurrenciesConstants.BTCUSDT).getPrice());
+		double actualBTCUSDT = Double.parseDouble(binanceApiServiceMKA.getLastPrice(CurrenciesConstants.BTCUSDT)
+				.getPrice());
 		boolean endOrder;
 		boolean checkProfits = false;
 
@@ -169,9 +177,11 @@ public class CoreEngine {
 			profit += order.getProfitFeeIncluded();
 		}
 
-		log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ ===================================");
+		log.info("=================================== FINAL PROFIT: " + String.format("%.9f", (profit)) + " $$$ " +
+				"===================================");
 
-		IOUtil.finishedOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false, propertyPlaceholder.getBlackListCoins());
+		IOUtil.finishedOrderToCsv(new ArrayList<>(finishedOrders), propertyPlaceholder.getCsvReportFilePath(), false,
+				propertyPlaceholder.getBlackListCoins());
 	}
 
 	public void dailyReport() {
@@ -188,7 +198,8 @@ public class CoreEngine {
 
 		//TODO file path hotfix
 		IOUtil.ordersToCSV(new ArrayList<>(finishedOrders),
-				DateTimeUtils.getPathWithDate(propertyPlaceholder.getCsvReportDailyFilePath(), DateTimeUtils.yesterday()).concat(".csv"), false);
+				DateTimeUtils.getPathWithDate(propertyPlaceholder.getCsvReportDailyFilePath(), DateTimeUtils.yesterday
+						()).concat(".csv"), false);
 	}
 
 	public void reportActiveOrders() {
@@ -196,9 +207,9 @@ public class CoreEngine {
 
 		log.info("Report active orders count > " + openOrders.size());
 
-		IOUtil.activeOrdersToCSV(new ArrayList<>(openOrders), propertyPlaceholder.getCsvReportOpenOrdersFilePath(), false);
+		IOUtil.activeOrdersToCSV(new ArrayList<>(openOrders), propertyPlaceholder.getCsvReportOpenOrdersFilePath(),
+				false);
 	}
-
 
 	public void panicSell() {
 		if (propertyPlaceholder.isCoinMachineOn()) {
@@ -213,5 +224,4 @@ public class CoreEngine {
 	public void setMutex(boolean mutex) {
 		this.mutex = mutex;
 	}
-
 }

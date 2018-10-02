@@ -39,21 +39,22 @@ public class ExchangeCommandCenter {
 
 	public void runIt() {
 		coreEngine.loadExchangeContext();
-		coreEngine.synchronizeServerTime();
 		coreEngine.setOrderStrategy(propertyPlaceholder.getActualStrategy());
 
 		//Insta BUY&SELL Timer
-		Date newDateForInstaSellInstaBuyTimer = new Date(roundCalendarToMinutes(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()).getTimeInMillis()
-				- CoreEngine.DATE_DIFFERENCE_BETWEN_SERVER_AND_CLIENT_MILISECONDS + 10000);
+		Date newDateForInstaSellInstaBuyTimer = new Date(roundCalendarToMinutes(propertyPlaceholder
+				.getTimeDifferenceBetweenRequestsInMinutes()).getTimeInMillis() + 10000);
 
 		log.info("NewDateForInstaSellInstaBuyTimer : " + newDateForInstaSellInstaBuyTimer);
 
 		Timer instaSellInstaBuyTimer = new Timer();
 		instaSellInstaBuyTimer.schedule(new InstaBuyAndInstaSellTimer(coreEngine, propertyPlaceholder, mailService)
-				, newDateForInstaSellInstaBuyTimer, TimeUnit.MINUTES.toMillis(propertyPlaceholder.getTimeDifferenceBetweenRequestsInMinutes()));
+				, newDateForInstaSellInstaBuyTimer, TimeUnit.MINUTES.toMillis(propertyPlaceholder
+						.getTimeDifferenceBetweenRequestsInMinutes()));
 
 		//Sell Timer
-		Calendar calendar = roundCalendarToMinutes(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod()));
+		Calendar calendar = roundCalendarToMinutes(convertRequestPeriodToMin(propertyPlaceholder
+				.getBinanceCandlesticksPeriod()));
 		calendar.add(Calendar.MINUTE, 1);
 		Date newDateForSellTimer = new Date(calendar.getTimeInMillis());
 
@@ -61,7 +62,7 @@ public class ExchangeCommandCenter {
 
 		Timer sellTimer = new Timer();
 		sellTimer.schedule(new SellTimer(coreEngine, mailService), newDateForSellTimer,
-				TimeUnit.MINUTES.toMillis(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod())));
-
+				TimeUnit.MINUTES.toMillis(convertRequestPeriodToMin(propertyPlaceholder.getBinanceCandlesticksPeriod()
+				)));
 	}
 }
